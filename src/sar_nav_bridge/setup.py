@@ -25,7 +25,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'nav2_to_mavros = sar_nav_bridge.nav2_to_mavros:main',
+            'nav2_path_to_setpoint = sar_nav_bridge.nav2_path_to_setpoint:main',
         ],
     },
 )

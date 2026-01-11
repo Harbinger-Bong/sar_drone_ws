@@ -42,7 +42,7 @@ def generate_launch_description():
                 ('rgbd_image', '/rgbd_sync/rgbd_image'),
                 ('scan', '/scan'),
                 ('imu', '/imu/data'),
-                ('odom', '/odom')
+                ('odom', '/rtabmap/odom')
             ],
             arguments=['--delete_db_on_start'],
             output='screen'

@@ -5,6 +5,7 @@ from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
 import os
 
+
 def generate_launch_description():
     # Get package directories
     sar_bringup_pkg = get_package_share_directory('sar_bringup')
@@ -13,25 +14,24 @@ def generate_launch_description():
     sar_nav_bridge_pkg = get_package_share_directory('sar_nav_bridge')
     sar_drone_pkg = get_package_share_directory('sar_drone_description')
     nav2_bringup_dir = get_package_share_directory('nav2_bringup')
-    
+
     # Configuration files
-    # Updated configs should support Humble
     nav2_params = os.path.join(sar_drone_pkg, 'config', 'nav2_params.yaml')
-    
+
     # Launch arguments
     use_sim_time = LaunchConfiguration('use_sim_time')
     fcu_url = LaunchConfiguration('fcu_url')
-    
+
     declare_use_sim_time = DeclareLaunchArgument(
         'use_sim_time',
         default_value='false',
         description='Use simulation time if true'
     )
-    
+
     declare_fcu_url = DeclareLaunchArgument(
         'fcu_url',
         default_value='/dev/ttyACM0:921600',
-        description='FCU connection URL (e.g., /dev/ttyACM0:921600)'
+        description='FCU connection URL'
     )
 
     # 1. Real Hardware Sensors
@@ -44,7 +44,7 @@ def generate_launch_description():
         }.items()
     )
 
-    # 2. RTAB-Map SLAM (delayed to ensure sensors are running)
+    # 2. RTAB-Map SLAM
     rtabmap_launch = TimerAction(
         period=3.0,
         actions=[
@@ -59,7 +59,7 @@ def generate_launch_description():
         ]
     )
 
-    # 3. EKF Localization
+    # 3. EKF Localization (TF + fused state authority)
     ekf_launch = TimerAction(
         period=5.0,
         actions=[
@@ -74,7 +74,7 @@ def generate_launch_description():
         ]
     )
 
-    # 4. Nav2 Navigation Stack
+    # 4. Nav2 Navigation Stack (PLANNING ONLY)
     nav2_navigation = TimerAction(
         period=7.0,
         actions=[
@@ -91,13 +91,17 @@ def generate_launch_description():
         ]
     )
 
-    # 5. Nav2 to MAVROS Bridge
-    nav2_bridge = TimerAction(
+    # 5. Nav2 Path → PX4 Setpoint Bridge
+    nav2_path_bridge = TimerAction(
         period=9.0,
         actions=[
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
-                    os.path.join(sar_nav_bridge_pkg, 'launch', 'nav2_bridge.launch.py')
+                    os.path.join(
+                        sar_nav_bridge_pkg,
+                        'launch',
+                        'nav2_path_bridge.launch.py'
+                    )
                 )
             )
         ]
@@ -110,5 +114,6 @@ def generate_launch_description():
         rtabmap_launch,
         ekf_launch,
         nav2_navigation,
-        nav2_bridge
+        nav2_path_bridge
     ])
+
