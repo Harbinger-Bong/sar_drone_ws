@@ -25,7 +25,7 @@ if [ ! -d "install" ]; then
 fi
 
 # Source the environment
-source /opt/ros/foxy/setup.bash
+source /opt/ros/humble/setup.bash
 source install/setup.bash
 
 # Function to launch in new terminal

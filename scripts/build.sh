@@ -19,7 +19,7 @@ echo -e "${BLUE}🔨 Building SAR Drone Workspace...${NC}"
 
 # Source ROS 2
 if [ -f "/opt/ros/foxy/setup.bash" ]; then
-    source /opt/ros/foxy/setup.bash
+    source /opt/ros/humble/setup.bash
 else
     echo -e "${RED}❌ ROS 2 Foxy not found. Please run setup.sh first.${NC}"
     exit 1
