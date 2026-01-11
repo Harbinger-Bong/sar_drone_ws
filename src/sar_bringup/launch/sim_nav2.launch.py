@@ -106,7 +106,7 @@ def generate_launch_description():
                     os.path.join(
                         nav2_bringup_dir,
                         'rviz',
-                        'nav2_default_view.rviz'
+                        'sar_nav2_view.rviz'
                     )
                 ],
                 parameters=[{'use_sim_time': use_sim_time}],

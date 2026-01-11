@@ -47,7 +47,7 @@ class Nav2PathToSetpoint(Node):
         # Build setpoint
         sp = PoseStamped()
         sp.header.stamp = self.get_clock().now().to_msg()
-        sp.header.frame_id = 'map'
+        sp.header.frame_id = 'map' #change to odom for REAL Drone
 
         sp.pose.position.x = p1.x
         sp.pose.position.y = p1.y

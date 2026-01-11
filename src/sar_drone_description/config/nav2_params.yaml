@@ -170,7 +170,7 @@ global_costmap:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         observation_sources: scan
         scan:
-          topic: /sar_drone/scan
+          topic: /scan
           data_type: LaserScan
           marking: true
           clearing: true
