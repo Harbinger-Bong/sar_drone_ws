@@ -3,19 +3,14 @@ from launch.actions import (
     IncludeLaunchDescription,
     TimerAction,
     DeclareLaunchArgument,
-    RegisterEventHandler,
     LogInfo,
-    EmitEvent
+    ExecuteProcess
 )
-from launch.event_handlers import OnProcessStart, OnProcessExit
-from launch.events import Shutdown
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch_ros.actions import Node, LifecycleNode
-from launch_ros.events.lifecycle import ChangeState
+from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
 import os
-import lifecycle_msgs.msg
 
 
 def generate_launch_description():
@@ -36,6 +31,18 @@ def generate_launch_description():
         description='Use simulation time'
     )
 
+    # Startup logging
+    startup_log = TimerAction(
+        period=1.0,
+        actions=[
+            LogInfo(msg="="*60),
+            LogInfo(msg="SAR DRONE SIMULATION STARTING"),
+            LogInfo(msg="="*60),
+            LogInfo(msg="Launching Ignition Gazebo..."),
+            LogInfo(msg="Waiting for sensors to initialize...")
+        ]
+    )
+
     # 1. Ignition Simulation (world + robot + sensors)
     ignition_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -44,36 +51,32 @@ def generate_launch_description():
         launch_arguments={'use_sim_time': use_sim_time}.items()
     )
 
-    # Log when simulation starts
-    on_sim_start = RegisterEventHandler(
-        OnProcessStart(
-            target_action=ignition_sim,
-            on_start=[
-                LogInfo(msg="Ignition Gazebo simulation started"),
-                LogInfo(msg="Waiting for sensors to initialize...")
-            ]
-        )
-    )
-
     # 2. System Health Monitor
     health_monitor = TimerAction(
-        period=3.0,
+        period=5.0,
         actions=[
+            LogInfo(msg="Starting system health monitor..."),
             Node(
                 package='sar_missions',
-                executable='topic_rate_monitor.py',
+                executable='topic_rate_monitor',
                 name='health_monitor',
                 output='screen',
-                parameters=[{'use_sim_time': use_sim_time}]
+                parameters=[{'use_sim_time': use_sim_time}],
+                # Respawn if crashes
+                respawn=True,
+                respawn_delay=2.0
             )
         ]
     )
 
     # 3. RTAB-Map SLAM (authoritative mapping)
     rtabmap = TimerAction(
-        period=8.0,  # Give sensors time to publish
+        period=10.0,  # Give sensors time to publish
         actions=[
+            LogInfo(msg="="*60),
             LogInfo(msg="Starting RTAB-Map SLAM..."),
+            LogInfo(msg="This may take 10-15 seconds to initialize"),
+            LogInfo(msg="="*60),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
                     os.path.join(
@@ -89,11 +92,32 @@ def generate_launch_description():
         ]
     )
 
+    # RTAB-Map watchdog - monitors if RTAB-Map is publishing
+    rtabmap_watchdog = TimerAction(
+        period=15.0,
+        actions=[
+            ExecuteProcess(
+                cmd=[
+                    'bash', '-c',
+                    'timeout 5 ros2 topic echo /rtabmap/odom --once > /dev/null 2>&1 && '
+                    'echo "[WATCHDOG] ✓ RTAB-Map is publishing odometry" || '
+                    'echo "[WATCHDOG] ✗ WARNING: RTAB-Map not publishing yet"'
+                ],
+                name='rtabmap_watchdog',
+                output='screen',
+                shell=True
+            )
+        ]
+    )
+
     # 4. EKF Localization (single source of TF)
     ekf = TimerAction(
-        period=12.0,  # Wait for RTAB-Map odometry
+        period=18.0,  # Wait for RTAB-Map odometry
         actions=[
+            LogInfo(msg="="*60),
             LogInfo(msg="Starting EKF localization filter..."),
+            LogInfo(msg="Fusing RTAB-Map odom + IMU data"),
+            LogInfo(msg="="*60),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
                     os.path.join(
@@ -109,11 +133,32 @@ def generate_launch_description():
         ]
     )
 
+    # EKF watchdog
+    ekf_watchdog = TimerAction(
+        period=22.0,
+        actions=[
+            ExecuteProcess(
+                cmd=[
+                    'bash', '-c',
+                    'timeout 5 ros2 topic echo /odometry/filtered --once > /dev/null 2>&1 && '
+                    'echo "[WATCHDOG] ✓ EKF is publishing filtered odometry" || '
+                    'echo "[WATCHDOG] ✗ WARNING: EKF not publishing yet"'
+                ],
+                name='ekf_watchdog',
+                output='screen',
+                shell=True
+            )
+        ]
+    )
+
     # 5. Nav2 Navigation Stack
     nav2_navigation = TimerAction(
-        period=16.0,  # Wait for map and TF
+        period=25.0,  # Wait for map and TF
         actions=[
+            LogInfo(msg="="*60),
             LogInfo(msg="Starting Nav2 navigation stack..."),
+            LogInfo(msg="Loading planners and controllers"),
+            LogInfo(msg="="*60),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
                     os.path.join(
@@ -139,9 +184,11 @@ def generate_launch_description():
     )
     
     rviz = TimerAction(
-        period=20.0,
+        period=28.0,
         actions=[
+            LogInfo(msg="="*60),
             LogInfo(msg="Launching RViz visualization..."),
+            LogInfo(msg="="*60),
             Node(
                 package='rviz2',
                 executable='rviz2',
@@ -155,45 +202,74 @@ def generate_launch_description():
 
     # 7. TF Monitor (checks TF tree health)
     tf_monitor = TimerAction(
-        period=25.0,
+        period=32.0,
         actions=[
-            LogInfo(msg="System ready. Monitoring TF tree..."),
-            Node(
-                package='tf2_ros',
-                executable='tf2_echo',
+            LogInfo(msg="Monitoring TF tree (map → odom → base_link)..."),
+            ExecuteProcess(
+                cmd=['ros2', 'run', 'tf2_ros', 'tf2_echo', 'map', 'base_link'],
                 name='tf_monitor',
-                arguments=['map', 'base_link'],
-                output='screen',
-                parameters=[{'use_sim_time': use_sim_time}]
+                output='screen'
             )
         ]
     )
 
-    # Shutdown handler for critical failures
-    shutdown_on_rtabmap_exit = RegisterEventHandler(
-        OnProcessExit(
-            target_action=rtabmap,
-            on_exit=[
-                LogInfo(msg="RTAB-Map crashed! Shutting down system..."),
-                EmitEvent(event=Shutdown(reason='RTAB-Map failure'))
-            ]
-        )
+    # Final status check
+    system_ready = TimerAction(
+        period=35.0,
+        actions=[
+            LogInfo(msg="="*60),
+            LogInfo(msg="SAR DRONE SIMULATION READY"),
+            LogInfo(msg="="*60),
+            LogInfo(msg=""),
+            LogInfo(msg="🎯 USAGE:"),
+            LogInfo(msg="  1. Use RViz '2D Nav Goal' to send navigation commands"),
+            LogInfo(msg="  2. Monitor /diagnostics for system health"),
+            LogInfo(msg="  3. Check /map topic for SLAM output"),
+            LogInfo(msg="  4. View odometry at /odometry/filtered"),
+            LogInfo(msg=""),
+            LogInfo(msg="🔍 DEBUGGING:"),
+            LogInfo(msg="  - Topics: ros2 topic list"),
+            LogInfo(msg="  - Nodes: ros2 node list"),
+            LogInfo(msg="  - TF: ros2 run tf2_tools view_frames"),
+            LogInfo(msg=""),
+            LogInfo(msg="="*60),
+            # Run comprehensive health check
+            ExecuteProcess(
+                cmd=[
+                    'bash', '-c',
+                    'echo "\n[HEALTH CHECK]" && '
+                    'echo "Camera: $(ros2 topic hz /sar_drone/camera/image_raw --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
+                    'echo "LiDAR: $(ros2 topic hz /sar_drone/scan --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
+                    'echo "IMU: $(ros2 topic hz /sar_drone/imu/data --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
+                    'echo "RTAB-Map: $(ros2 topic list | grep -q "/rtabmap/odom" && echo "✓" || echo "✗")" && '
+                    'echo "EKF: $(ros2 topic list | grep -q "/odometry/filtered" && echo "✓" || echo "✗")" && '
+                    'echo "Nav2: $(ros2 node list | grep -q "controller_server" && echo "✓" || echo "✗")"'
+                ],
+                output='screen',
+                shell=True
+            )
+        ]
     )
 
     return LaunchDescription([
         # Arguments
         declare_use_sim_time,
         
+        # Startup
+        startup_log,
+        
         # Core simulation
         ignition_sim,
-        on_sim_start,
         
         # Monitoring
         health_monitor,
         
         # SLAM and localization
         rtabmap,
+        rtabmap_watchdog,
+        
         ekf,
+        ekf_watchdog,
         
         # Navigation
         nav2_navigation,
@@ -202,19 +278,7 @@ def generate_launch_description():
         rviz,
         tf_monitor,
         
-        # Event handlers
-        shutdown_on_rtabmap_exit,
-        
-        # Startup complete message
-        TimerAction(
-            period=30.0,
-            actions=[
-                LogInfo(msg="="*60),
-                LogInfo(msg="SAR DRONE SIMULATION READY"),
-                LogInfo(msg="="*60),
-                LogInfo(msg="Use RViz 2D Nav Goal to send navigation commands"),
-                LogInfo(msg="Monitor /diagnostics for system health"),
-                LogInfo(msg="="*60),
-            ]
-        )
+        # Final status
+        system_ready
     ])
+

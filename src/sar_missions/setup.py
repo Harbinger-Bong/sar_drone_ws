@@ -26,6 +26,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+        'topic_rate_monitor = sar_missions.health_monitor:main',
         ],
     },
 )

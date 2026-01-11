@@ -69,7 +69,7 @@
 
   <!-- RGB-D Camera -->
   <gazebo reference="camera_link">
-    <sensor name="rgbd" type="depth_camera">
+    <sensor name="rgbd" type="rgbd_camera">
       <frame>camera_link</frame>
       <topic>/camera</topic>
       <update_rate>30</update_rate>
@@ -80,12 +80,12 @@
           <height>480</height>
           <format>R8G8B8</format>
         </image>
-        <depth_camera>
+        <rgbd_camera>
           <clip>
             <near>0.1</near>
             <far>10.0</far>
           </clip>
-        </depth_camera>
+        </rgbd_camera>
       </camera>
     </sensor>
   </gazebo>

@@ -29,23 +29,25 @@
 
 
 # =========================
-# RGB Camera (Intel RealSense D435)
+# RGB Camera (Intel RealSense D435i)
+# FIXED: Gazebo publishes to /camera (not /camera/image_raw)
 # =========================
 - ros_topic_name: /camera/image_raw
-  gz_topic_name: /camera/image_raw
+  gz_topic_name: /camera/image
   ros_type_name: sensor_msgs/msg/Image
   gz_type_name: gz.msgs.Image
   direction: GZ_TO_ROS
 
 - ros_topic_name: /camera/camera_info
-  gz_topic_name: /camera/camera_info
+  gz_topic_name: /camera_info
   ros_type_name: sensor_msgs/msg/CameraInfo
   gz_type_name: gz.msgs.CameraInfo
   direction: GZ_TO_ROS
 
 
 # =========================
-# Depth Camera (Intel RealSense D435)
+# Depth Camera (Intel RealSense D435i)
+# FIXED: Gazebo depth topic naming
 # =========================
 - ros_topic_name: /camera/depth_image
   gz_topic_name: /camera/depth_image
@@ -54,8 +56,9 @@
   direction: GZ_TO_ROS
 
 # Point cloud from depth camera (for 3D obstacle detection)
+# FIXED: Gazebo publishes to /camera/points
 - ros_topic_name: /camera/depth/points
-  gz_topic_name: /camera/depth/points
+  gz_topic_name: /camera/points
   ros_type_name: sensor_msgs/msg/PointCloud2
   gz_type_name: gz.msgs.PointCloudPacked
   direction: GZ_TO_ROS
@@ -100,13 +103,3 @@
   gz_type_name: gz.msgs.Pose
   direction: GZ_TO_ROS
 
-
-# =========================
-# OPTIONAL: Command velocity (if using direct Gazebo control)
-# Comment out if using full PX4 SITL
-# =========================
-# - ros_topic_name: /cmd_vel
-#   gz_topic_name: /cmd_vel
-#   ros_type_name: geometry_msgs/msg/Twist
-#   gz_type_name: gz.msgs.Twist
-#   direction: ROS_TO_GZ

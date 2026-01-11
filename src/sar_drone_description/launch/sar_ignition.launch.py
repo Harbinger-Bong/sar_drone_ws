@@ -95,6 +95,7 @@ def generate_launch_description():
 
     # -----------------------------
     # ROS ↔ Gazebo Bridge
+    # Main bridge handles all topics via bridge.yaml
     # -----------------------------
     bridge = Node(
         package='ros_gz_bridge',
@@ -107,21 +108,16 @@ def generate_launch_description():
     )
 
     # -----------------------------
-    # Image bridge
+    # Image bridge (REMOVED - handled by main bridge)
+    # The parameter_bridge now handles RGB image via bridge.yaml
+    # This avoids duplicate publishers and topic conflicts
     # -----------------------------
-    image_bridge = Node(
-        package='ros_gz_image',
-        executable='image_bridge',
-        arguments=['/camera/image_raw'],
-        parameters=[{'use_sim_time': True}],
-        output='screen'
-    )
 
     return LaunchDescription([
         world_arg,
         gz_sim,
         robot_state_publisher,
         spawn_entity,
-        bridge,
-        image_bridge
+        bridge
+        # image_bridge removed - now in bridge.yaml
     ])
