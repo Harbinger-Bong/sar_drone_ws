@@ -7,7 +7,6 @@ ekf_filter_node:
 
     publish_tf: true
     publish_acceleration: true
-    odom_topic: /odometry/filtered
 
     transform_time_offset: 0.0
     transform_timeout: 0.2
@@ -45,7 +44,8 @@ ekf_filter_node:
     odom0_queue_size: 20
 
     # =========================
-    # Noise tuning (conservative)
+    # Process noise (DIAGONAL, STABLE)
+    # Order: x y z roll pitch yaw vx vy vz vroll vpitch vyaw ax ay az
     # =========================
     process_noise_covariance: [
       0.05, 0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -67,3 +67,4 @@ ekf_filter_node:
       0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0.02, 0,
       0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0.02
     ]
+

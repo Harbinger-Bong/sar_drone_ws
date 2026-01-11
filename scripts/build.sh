@@ -18,10 +18,10 @@ cd "$WORKSPACE_DIR"
 echo -e "${BLUE}🔨 Building SAR Drone Workspace...${NC}"
 
 # Source ROS 2
-if [ -f "/opt/ros/foxy/setup.bash" ]; then
+if [ -f "/opt/ros/humble/setup.bash" ]; then
     source /opt/ros/humble/setup.bash
 else
-    echo -e "${RED}❌ ROS 2 Foxy not found. Please run setup.sh first.${NC}"
+    echo -e "${RED}❌ ROS 2 Humble not found. Please run setup.sh first.${NC}"
     exit 1
 fi
 
