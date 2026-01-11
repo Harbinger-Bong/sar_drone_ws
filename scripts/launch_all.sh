@@ -1,42 +1,58 @@
 #!/bin/bash
 
-# SAR Drone Complete Launch Script
-# Launches Gazebo, SLAM, Nav2, and RViz in sequence
+# SAR Drone Unified Launch Script
+# Wrapper for simulation or real-hardware bringup
+# Architecture: RTAB-Map + EKF + Nav2 (planning only)
 
-# Colors for output
+set -e
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-echo -e "${BLUE}🚁 SAR Drone Complete System Launch${NC}"
-echo -e "${YELLOW}=======================================${NC}"
+echo -e "${BLUE}SAR Drone System Launcher (Humble + Ignition)${NC}"
+echo -e "${YELLOW}===========================================${NC}"
 
-# Check if workspace is built
+# Check workspace
 if [ ! -d "install" ]; then
-    echo -e "${RED}❌ Workspace not built! Run colcon build first${NC}"
+    echo -e "${RED}Workspace not built. Run colcon build first.${NC}"
     exit 1
 fi
 
-# Source workspace
-echo -e "${BLUE}📦 Sourcing workspace...${NC}"
-source /opt/ros/foxy/setup.bash
+# Source environments
+echo -e "${BLUE}Sourcing environments...${NC}"
+source /opt/ros/humble/setup.bash
 source install/setup.bash
 
-# Launch complete system
-echo -e "${GREEN}🚀 Launching complete SAR drone system...${NC}"
-echo -e "${YELLOW}This will start in sequence:${NC}"
-echo -e "${YELLOW}  1. Gazebo simulation (immediate)${NC}"
-echo -e "${YELLOW}  2. SLAM mapping (after 5s)${NC}" 
-echo -e "${YELLOW}  3. Nav2 navigation (after 8s)${NC}"
-echo -e "${YELLOW}  4. RViz visualization (after 12s)${NC}"
-echo -e "${YELLOW}=======================================${NC}"
+# Mode selection
+MODE=$1
 
-ros2 launch sar_drone_description sar_complete.launch.py
+if [ "$MODE" == "sim" ]; then
+    echo -e "${GREEN}Launching SIMULATION stack${NC}"
+    echo -e "${YELLOW}- Ignition Fortress${NC}"
+    echo -e "${YELLOW}- RTAB-Map SLAM${NC}"
+    echo -e "${YELLOW}- EKF localization${NC}"
+    echo -e "${YELLOW}- Nav2 planning${NC}"
+    echo -e "${YELLOW}- RViz${NC}"
 
-echo -e "${GREEN}✅ SAR Drone system ready!${NC}"
-echo -e "${BLUE}In RViz:${NC}"
-echo -e "${YELLOW}  - Use '2D Pose Estimate' to set initial position${NC}"
-echo -e "${YELLOW}  - Use 'Nav2 Goal' to command autonomous navigation${NC}"
-echo -e "${YELLOW}  - Watch real-time SLAM mapping build the environment${NC}"
+    ros2 launch sar_bringup sim_nav2.launch.py
+
+elif [ "$MODE" == "real" ]; then
+    echo -e "${GREEN}Launching REAL DRONE stack${NC}"
+    echo -e "${YELLOW}- Real sensors + PX4${NC}"
+    echo -e "${YELLOW}- RTAB-Map SLAM${NC}"
+    echo -e "${YELLOW}- EKF localization${NC}"
+    echo -e "${YELLOW}- Nav2 planning${NC}"
+    echo -e "${YELLOW}- Nav2 → PX4 bridge${NC}"
+
+    ros2 launch sar_bringup drone_nav2_full.launch.py
+
+else
+    echo -e "${RED}Usage:${NC}"
+    echo -e "${YELLOW}  ./launch_all.sh sim   # simulation${NC}"
+    echo -e "${YELLOW}  ./launch_all.sh real  # real drone${NC}"
+    exit 1
+fi
+
