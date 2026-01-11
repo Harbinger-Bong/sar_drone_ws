@@ -1,13 +1,22 @@
 rtabmap:
   ros__parameters:
+    # =========================
+    # Frame IDs
+    # =========================
     frame_id: base_link
     map_frame_id: map
     odom_frame_id: odom
 
+    # =========================
+    # Synchronization
+    # =========================
     wait_for_transform_duration: 0.2
     approx_sync: true
-    sync_queue_size: 20
+    sync_queue_size: 30  # Increased for better sync
 
+    # =========================
+    # Topic Subscriptions
+    # =========================
     subscribe_rgbd: false
     subscribe_rgb: true
     subscribe_depth: true
@@ -20,21 +29,112 @@ rtabmap:
     scan_topic: /scan
     imu_topic: /imu/data
 
-    map_negative_poses_ignored: true
-    grid_size: 50
-
-    # SLAM strategies — STRINGS
-    Reg/Strategy: "2"
-    Optimizer/Strategy: "1"
-
-    Vis/MaxDepth: '5.0'
-
-    RGBD/ProximityPathMaxNeighbors: "10"
-    RGBD/NeighborLinkRefining: "true"
-
-    Rtabmap/TimeThr: "0"
-    Mem/RehearsalSimilarity: "0.30"
-
+    # =========================
+    # Publishing
+    # =========================
     publish_tf: true
     use_sim_time: true
 
+    # =========================
+    # Map Parameters
+    # =========================
+    map_negative_poses_ignored: true
+    grid_size: 100  # Increased for larger areas
+    grid_cell_size: 0.05  # Finer resolution
+
+    # =========================
+    # RTAB-Map Core Parameters
+    # =========================
+    
+    # Memory Management
+    Mem/RehearsalSimilarity: "0.25"  # Lower = more aggressive loop closure
+    Mem/NotLinkedNodesKept: "true"
+    Mem/STMSize: "30"  # Short-term memory size
+    Mem/IncrementalMemory: "true"
+    
+    # Time threshold (0 = no limit)
+    Rtabmap/TimeThr: "0"
+    Rtabmap/MemoryThr: "300"  # Memory threshold (max nodes)
+    Rtabmap/DetectionRate: "1.0"  # Process every frame
+    
+    # Loop Closure
+    Rtabmap/LoopThr: "0.11"  # Loop closure threshold
+    Rtabmap/LoopRatio: "0.9"
+    
+    # =========================
+    # Visual Odometry Parameters
+    # =========================
+    Odom/Strategy: "0"  # Frame-to-Map (0), Frame-to-Frame (1)
+    Odom/GuessMotion: "true"
+    Odom/ResetCountdown: "15"  # Reset after N failed frames
+    
+    # =========================
+    # Registration Parameters
+    # =========================
+    Reg/Strategy: "2"  # 0=Vis, 1=ICP, 2=Vis+ICP
+    Reg/Force3DoF: "false"  # Allow full 6DOF for drones
+    
+    # Visual Registration
+    Vis/MinInliers: "15"  # Minimum inliers for valid match
+    Vis/MaxDepth: "8.0"  # Increased from 5.0 for better range
+    Vis/FeatureType: "6"  # 0=SURF, 6=GFTT, 8=ORB
+    Vis/EstimationType: "1"  # 0=3D-3D, 1=3D-2D (PnP)
+    
+    # ICP Registration (for LiDAR)
+    Icp/VoxelSize: "0.05"
+    Icp/MaxCorrespondenceDistance: "0.1"
+    Icp/MaxTranslation: "0.2"
+    Icp/CorrespondenceRatio: "0.3"
+    
+    # =========================
+    # Optimization Parameters
+    # =========================
+    Optimizer/Strategy: "1"  # 0=TORO, 1=g2o, 2=GTSAM
+    Optimizer/Iterations: "20"
+    Optimizer/Epsilon: "0.0001"
+    Optimizer/Robust: "true"
+    
+    # =========================
+    # Grid Map Parameters
+    # =========================
+    Grid/Sensor: "1"  # 0=laser, 1=depth camera
+    Grid/RangeMax: "8.0"  # Increased from default
+    Grid/RangeMin: "0.2"
+    Grid/CellSize: "0.05"
+    Grid/DepthDecimation: "2"  # Reduce depth image for performance
+    Grid/3D: "false"  # 2D occupancy grid for Nav2
+    Grid/MaxObstacleHeight: "2.0"  # Obstacles up to 2m
+    Grid/MinGroundHeight: "-0.5"  # Ground detection
+    Grid/MaxGroundHeight: "0.1"
+    Grid/NormalsSegmentation: "false"  # Disable for performance
+    Grid/ClusterRadius: "0.1"
+    Grid/FlatObstacleDetected: "true"
+    
+    # =========================
+    # RGBD Parameters
+    # =========================
+    RGBD/ProximityBySpace: "true"
+    RGBD/ProximityMaxGraphDepth: "50"
+    RGBD/ProximityPathMaxNeighbors: "10"
+    RGBD/AngularUpdate: "0.05"  # radians (3 degrees)
+    RGBD/LinearUpdate: "0.05"  # meters
+    RGBD/OptimizeFromGraphEnd: "false"
+    RGBD/NeighborLinkRefining: "true"
+    RGBD/LocalRadius: "10.0"  # Local loop closure radius
+    
+    # =========================
+    # Performance Tuning
+    # =========================
+    Kp/MaxFeatures: "400"  # Keypoint features
+    Kp/DetectorStrategy: "6"  # GFTT for performance
+    Kp/WordsPerImage: "200"
+    
+    # Bag-of-words
+    Bayes/VirtualPlacePriorThr: "0.9"
+    
+    # =========================
+    # Stability & Reliability
+    # =========================
+    RGBD/OptimizeMaxError: "1.0"  # Reject high-error optimizations
+    RGBD/MarkerDetection: "false"  # Disable if not using markers
+    RGBD/CreateOccupancyGrid: "true"  # Required for Nav2

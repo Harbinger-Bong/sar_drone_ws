@@ -1,6 +1,6 @@
-# -----------------------
-# Simulation clock
-# -----------------------
+# =========================
+# Simulation Clock
+# =========================
 - ros_topic_name: /clock
   gz_topic_name: /clock
   ros_type_name: rosgraph_msgs/msg/Clock
@@ -8,9 +8,9 @@
   direction: GZ_TO_ROS
 
 
-# -----------------------
-# 2D LiDAR (RPLidar)
-# -----------------------
+# =========================
+# 2D LiDAR (RPLidar A1M8)
+# =========================
 - ros_topic_name: /scan
   gz_topic_name: /scan
   ros_type_name: sensor_msgs/msg/LaserScan
@@ -18,9 +18,9 @@
   direction: GZ_TO_ROS
 
 
-# -----------------------
-# Odometry (Gazebo ground truth → EKF)
-# -----------------------
+# =========================
+# Odometry (Gazebo ground truth → EKF input)
+# =========================
 - ros_topic_name: /odom
   gz_topic_name: /odom
   ros_type_name: nav_msgs/msg/Odometry
@@ -28,9 +28,9 @@
   direction: GZ_TO_ROS
 
 
-# -----------------------
-# RGB Camera (Intel depth camera RGB)
-# -----------------------
+# =========================
+# RGB Camera (Intel RealSense D435)
+# =========================
 - ros_topic_name: /camera/image_raw
   gz_topic_name: /camera/image_raw
   ros_type_name: sensor_msgs/msg/Image
@@ -44,21 +44,69 @@
   direction: GZ_TO_ROS
 
 
-# -----------------------
-# Depth Camera (Intel depth)
-# -----------------------
+# =========================
+# Depth Camera (Intel RealSense D435)
+# =========================
 - ros_topic_name: /camera/depth_image
   gz_topic_name: /camera/depth_image
   ros_type_name: sensor_msgs/msg/Image
   gz_type_name: gz.msgs.Image
   direction: GZ_TO_ROS
 
+# Point cloud from depth camera (for 3D obstacle detection)
+- ros_topic_name: /camera/depth/points
+  gz_topic_name: /camera/depth/points
+  ros_type_name: sensor_msgs/msg/PointCloud2
+  gz_type_name: gz.msgs.PointCloudPacked
+  direction: GZ_TO_ROS
 
-# -----------------------
-# IMU
-# -----------------------
+
+# =========================
+# IMU (Pixhawk 6X simulated)
+# =========================
 - ros_topic_name: /imu/data
   gz_topic_name: /imu/data
   ros_type_name: sensor_msgs/msg/Imu
   gz_type_name: gz.msgs.IMU
   direction: GZ_TO_ROS
+
+
+# =========================
+# TF Transforms (Optional - usually handled by robot_state_publisher)
+# =========================
+- ros_topic_name: /tf
+  gz_topic_name: /tf
+  ros_type_name: tf2_msgs/msg/TFMessage
+  gz_type_name: gz.msgs.Pose_V
+  direction: GZ_TO_ROS
+
+
+# =========================
+# Joint States (for visualization)
+# =========================
+- ros_topic_name: /joint_states
+  gz_topic_name: /joint_states
+  ros_type_name: sensor_msgs/msg/JointState
+  gz_type_name: gz.msgs.Model
+  direction: GZ_TO_ROS
+
+
+# =========================
+# Model Pose (Ground truth for validation)
+# =========================
+- ros_topic_name: /model/sar_drone/pose
+  gz_topic_name: /model/sar_drone/pose
+  ros_type_name: geometry_msgs/msg/Pose
+  gz_type_name: gz.msgs.Pose
+  direction: GZ_TO_ROS
+
+
+# =========================
+# OPTIONAL: Command velocity (if using direct Gazebo control)
+# Comment out if using full PX4 SITL
+# =========================
+# - ros_topic_name: /cmd_vel
+#   gz_topic_name: /cmd_vel
+#   ros_type_name: geometry_msgs/msg/Twist
+#   gz_type_name: gz.msgs.Twist
+#   direction: ROS_TO_GZ

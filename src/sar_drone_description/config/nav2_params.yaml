@@ -1,11 +1,4 @@
 # =========================
-# ❌ REMOVE AMCL COMPLETELY
-# =========================
-# AMCL is invalid when using SLAM + EKF
-# Delete the entire amcl block
-
-
-# =========================
 # BT NAVIGATOR
 # =========================
 bt_navigator:
@@ -16,53 +9,132 @@ bt_navigator:
     odom_topic: "/odometry/filtered"
     bt_loop_duration: 10
     default_server_timeout: 20
-    default_bt_xml_filename: "navigate_w_replanning_time.xml"
-    enable_groot_monitoring: false
+    default_bt_xml_filename: "navigate_w_replanning_and_recovery.xml"
+    enable_groot_monitoring: true
+    groot_zmq_publisher_port: 1666
+    groot_zmq_server_port: 1667
+    plugin_lib_names:
+      - nav2_compute_path_to_pose_action_bt_node
+      - nav2_follow_path_action_bt_node
+      - nav2_back_up_action_bt_node
+      - nav2_spin_action_bt_node
+      - nav2_wait_action_bt_node
+      - nav2_clear_costmap_service_bt_node
+      - nav2_is_stuck_condition_bt_node
+      - nav2_goal_reached_condition_bt_node
+      - nav2_goal_updated_condition_bt_node
+      - nav2_initial_pose_received_condition_bt_node
+      - nav2_reinitialize_global_localization_service_bt_node
+      - nav2_rate_controller_bt_node
+      - nav2_distance_controller_bt_node
+      - nav2_speed_controller_bt_node
+      - nav2_truncate_path_action_bt_node
+      - nav2_goal_updater_node_bt_node
+      - nav2_recovery_node_bt_node
+      - nav2_pipeline_sequence_bt_node
+      - nav2_round_robin_node_bt_node
+      - nav2_transform_available_condition_bt_node
+      - nav2_time_expired_condition_bt_node
+      - nav2_distance_traveled_condition_bt_node
 
 
 # =========================
 # CONTROLLER SERVER
-# (still required, but output is NOT cmd_vel-consumed)
+# Tuned for drone dynamics
 # =========================
 controller_server:
   ros__parameters:
     use_sim_time: true
-    controller_frequency: 10.0
-    min_x_velocity_threshold: 0.001
-    min_theta_velocity_threshold: 0.001
+    controller_frequency: 20.0  # Increased for better tracking
+    min_x_velocity_threshold: 0.01
+    min_y_velocity_threshold: 0.01
+    min_theta_velocity_threshold: 0.01
     failure_tolerance: 0.5
+    odom_topic: "/odometry/filtered"
 
     progress_checker_plugin: "progress_checker"
     goal_checker_plugins: ["general_goal_checker"]
     controller_plugins: ["FollowPath"]
 
+    # Progress Checker
     progress_checker:
       plugin: "nav2_controller::SimpleProgressChecker"
-      required_movement_radius: 0.3
-      movement_time_allowance: 15.0
+      required_movement_radius: 0.2  # Tighter for drones
+      movement_time_allowance: 20.0
 
+    # Goal Checker
     general_goal_checker:
       stateful: true
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.4
-      yaw_goal_tolerance: 0.4
-
+      xy_goal_tolerance: 0.3  # Tighter tolerance
+      yaw_goal_tolerance: 0.3
+      
+    # DWB Controller - Tuned for drone
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       debug_trajectory_details: false
-
-      min_vel_x: 0.0
-      max_vel_x: 0.4
-      max_vel_theta: 0.8
-
-      acc_lim_x: 1.5
-      acc_lim_theta: 2.0
-
-      vx_samples: 10
-      vtheta_samples: 15
-      sim_time: 1.5
-
-      critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "PathAlign", "PathDist", "GoalDist"]
+      
+      # Velocity limits (conservative for indoor)
+      min_vel_x: -0.3
+      max_vel_x: 0.5
+      min_vel_y: -0.3
+      max_vel_y: 0.3
+      max_vel_theta: 1.0
+      min_speed_xy: 0.0
+      max_speed_xy: 0.5
+      min_speed_theta: 0.0
+      
+      # Acceleration limits (smooth for drones)
+      acc_lim_x: 1.0
+      acc_lim_y: 1.0
+      acc_lim_theta: 1.5
+      decel_lim_x: -1.5
+      decel_lim_y: -1.5
+      decel_lim_theta: -2.0
+      
+      # Trajectory generation
+      vx_samples: 15
+      vy_samples: 10
+      vtheta_samples: 20
+      sim_time: 2.0
+      discretize_by_time: false
+      sim_granularity: 0.05
+      angular_sim_granularity: 0.025
+      
+      # Path/Goal tolerances
+      xy_goal_tolerance: 0.3
+      trans_stopped_velocity: 0.1
+      slowing_factor: 5.0
+      lookahead_time: 2.0
+      
+      # Critics (scoring functions)
+      critics: [
+        "RotateToGoal",
+        "Oscillation", 
+        "BaseObstacle",
+        "GoalAlign",
+        "PathAlign",
+        "PathDist",
+        "GoalDist"
+      ]
+      
+      # Critic weights
+      BaseObstacle.scale: 0.02
+      PathAlign.scale: 32.0
+      PathAlign.forward_point_distance: 0.3
+      GoalAlign.scale: 24.0
+      GoalAlign.forward_point_distance: 0.3
+      PathDist.scale: 32.0
+      GoalDist.scale: 24.0
+      RotateToGoal.scale: 32.0
+      RotateToGoal.slowing_factor: 5.0
+      RotateToGoal.lookahead_time: 1.0
+      
+      # Obstacle avoidance
+      prune_plan: true
+      prune_distance: 1.5
+      short_circuit_trajectory_evaluation: true
+      stateful: true
 
 
 # =========================
@@ -72,27 +144,43 @@ planner_server:
   ros__parameters:
     use_sim_time: true
     planner_plugins: ["GridBased"]
-
+    
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
-      tolerance: 0.8
+      tolerance: 0.5
       use_astar: true
       allow_unknown: true
+      use_final_approach_orientation: false
 
 
 # =========================
 # BEHAVIOR SERVER
-# (SAFE RECOVERY ONLY)
 # =========================
 behavior_server:
   ros__parameters:
     use_sim_time: true
-    cycle_frequency: 5.0
-    behavior_plugins: ["spin", "wait"]
-
+    cycle_frequency: 10.0
+    local_costmap_topic: local_costmap/costmap_raw
+    global_costmap_topic: global_costmap/costmap_raw
+    local_footprint_topic: local_costmap/published_footprint
+    global_footprint_topic: global_costmap/published_footprint
+    
+    behavior_plugins: ["spin", "backup", "wait"]
+    
     spin:
       plugin: "nav2_behaviors/Spin"
-
+      simulate_ahead_time: 2.0
+      max_rotational_vel: 0.8
+      min_rotational_vel: 0.2
+      rotational_acc_lim: 1.5
+      
+    backup:
+      plugin: "nav2_behaviors/BackUp"
+      simulate_ahead_time: 2.0
+      backup_dist: 0.5
+      backup_speed: 0.15
+      time_allowance: 10.0
+      
     wait:
       plugin: "nav2_behaviors/Wait"
 
@@ -107,12 +195,37 @@ behavior_server:
 waypoint_follower:
   ros__parameters:
     use_sim_time: true
-    loop_rate: 10
-    stop_on_failure: false
+    loop_rate: 20
+    stop_on_failure: true
+    waypoint_task_executor_plugin: "wait_at_waypoint"
+    
+    wait_at_waypoint:
+      plugin: "nav2_waypoint_follower::WaitAtWaypoint"
+      enabled: true
+      waypoint_pause_duration: 200
 
 
 # =========================
-# LOCAL COSTMAP (2D ONLY)
+# VELOCITY SMOOTHER
+# =========================
+velocity_smoother:
+  ros__parameters:
+    use_sim_time: true
+    smoothing_frequency: 20.0
+    scale_velocities: false
+    feedback: "OPEN_LOOP"
+    max_velocity: [0.5, 0.3, 1.0]
+    min_velocity: [-0.3, -0.3, -1.0]
+    max_accel: [1.0, 1.0, 1.5]
+    max_decel: [-1.5, -1.5, -2.0]
+    odom_topic: "/odometry/filtered"
+    odom_duration: 0.1
+    deadband_velocity: [0.0, 0.0, 0.0]
+    velocity_timeout: 1.0
+
+
+# =========================
+# LOCAL COSTMAP
 # =========================
 local_costmap:
   local_costmap:
@@ -120,34 +233,76 @@ local_costmap:
       use_sim_time: true
       global_frame: odom
       robot_base_frame: base_link
-
+      
+      update_frequency: 10.0
+      publish_frequency: 5.0
+      
       rolling_window: true
-      width: 4
-      height: 4
+      width: 5
+      height: 5
       resolution: 0.05
-      robot_radius: 0.25
-
-      plugins: ["obstacle_layer", "inflation_layer"]
-
-      obstacle_layer:
-        plugin: "nav2_costmap_2d::ObstacleLayer"
-        observation_sources: scan
+      
+      # Circular robot footprint for drone (radius in meters)
+      robot_radius: 0.3
+      footprint_padding: 0.05
+      
+      plugins: ["voxel_layer", "inflation_layer"]
+      filters: ["keepout_filter"]
+      
+      voxel_layer:
+        plugin: "nav2_costmap_2d::VoxelLayer"
+        enabled: true
+        publish_voxel_map: true
+        origin_z: 0.0
+        z_resolution: 0.2
+        z_voxels: 16
+        max_obstacle_height: 2.5
+        mark_threshold: 2
+        observation_sources: scan depth
+        
         scan:
           topic: /scan
+          sensor_frame: lidar_link
           data_type: LaserScan
           marking: true
           clearing: true
+          obstacle_max_range: 4.0
+          obstacle_min_range: 0.1
+          raytrace_max_range: 5.0
+          raytrace_min_range: 0.0
+          max_obstacle_height: 2.5
+          min_obstacle_height: 0.0
+          
+        depth:
+          topic: /camera/depth_image
+          sensor_frame: camera_link
+          data_type: PointCloud2
+          marking: true
+          clearing: true
           obstacle_max_range: 3.0
+          obstacle_min_range: 0.3
           raytrace_max_range: 4.0
-
+          min_obstacle_height: 0.0
+          max_obstacle_height: 2.5
+      
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        inflation_radius: 0.6
-        cost_scaling_factor: 3.0
+        enabled: true
+        inflation_radius: 0.7
+        cost_scaling_factor: 5.0
+        inflate_unknown: false
+        inflate_around_unknown: true
+      
+      keepout_filter:
+        plugin: "nav2_costmap_2d::KeepoutFilter"
+        enabled: false
+        filter_info_topic: "/costmap_filter_info"
+      
+      always_send_full_costmap: true
 
 
 # =========================
-# GLOBAL COSTMAP (2D ONLY)
+# GLOBAL COSTMAP
 # =========================
 global_costmap:
   global_costmap:
@@ -155,54 +310,93 @@ global_costmap:
       use_sim_time: true
       global_frame: map
       robot_base_frame: base_link
-
+      
+      update_frequency: 2.0
+      publish_frequency: 1.0
+      
       resolution: 0.05
-      robot_radius: 0.25
       track_unknown_space: true
-
+      
+      robot_radius: 0.3
+      footprint_padding: 0.05
+      
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
-
+      filters: ["keepout_filter"]
+      
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
+        enabled: true
         map_subscribe_transient_local: true
-
+        map_topic: "/map"
+      
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: true
         observation_sources: scan
+        
         scan:
           topic: /scan
+          sensor_frame: lidar_link
           data_type: LaserScan
           marking: true
           clearing: true
-          obstacle_max_range: 3.5
-          raytrace_max_range: 4.0
-
+          obstacle_max_range: 5.0
+          obstacle_min_range: 0.1
+          raytrace_max_range: 6.0
+          raytrace_min_range: 0.0
+          max_obstacle_height: 2.5
+          min_obstacle_height: 0.0
+      
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        inflation_radius: 0.6
-        cost_scaling_factor: 3.0
+        enabled: true
+        inflation_radius: 0.7
+        cost_scaling_factor: 5.0
+        inflate_unknown: false
+        inflate_around_unknown: true
+      
+      keepout_filter:
+        plugin: "nav2_costmap_2d::KeepoutFilter"
+        enabled: false
+        filter_info_topic: "/costmap_filter_info"
+      
+      always_send_full_costmap: true
 
 
 # =========================
-# MAP SERVER (OPTIONAL – FOR SAVED MAPS ONLY)
+# MAP SERVER
 # =========================
 map_server:
   ros__parameters:
     use_sim_time: true
     yaml_filename: ""
+    topic_name: "map"
+    frame_id: "map"
 
 
 # =========================
 # LIFECYCLE MANAGERS
 # =========================
-lifecycle_manager:
+controller_server:
   ros__parameters:
     use_sim_time: true
-    autostart: true
-    node_names:
-      - controller_server
-      - planner_server
-      - behavior_server
-      - bt_navigator
-      - waypoint_follower
 
+planner_server:
+  ros__parameters:
+    use_sim_time: true
+
+behavior_server:
+  ros__parameters:
+    use_sim_time: true
+
+bt_navigator:
+  ros__parameters:
+    use_sim_time: true
+
+waypoint_follower:
+  ros__parameters:
+    use_sim_time: true
+
+velocity_smoother:
+  ros__parameters:
+    use_sim_time: true
