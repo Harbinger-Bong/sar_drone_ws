@@ -68,12 +68,12 @@ controller_server:
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 0.3
       yaw_goal_tolerance: 0.3
-      
+
     # DWB Controller - Tuned for drone
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       debug_trajectory_details: false
-      
+
       # Velocity limits (conservative for indoor)
       min_vel_x: -0.3
       max_vel_x: 0.5
@@ -83,7 +83,7 @@ controller_server:
       min_speed_xy: 0.0
       max_speed_xy: 0.5
       min_speed_theta: 0.0
-      
+
       # Acceleration limits (smooth for drones)
       acc_lim_x: 1.0
       acc_lim_y: 1.0
@@ -91,7 +91,7 @@ controller_server:
       decel_lim_x: -1.5
       decel_lim_y: -1.5
       decel_lim_theta: -2.0
-      
+
       # Trajectory generation
       vx_samples: 15
       vy_samples: 10
@@ -100,16 +100,16 @@ controller_server:
       discretize_by_time: false
       sim_granularity: 0.05
       angular_sim_granularity: 0.025
-      
+
       # Path/Goal tolerances
       xy_goal_tolerance: 0.3
       trans_stopped_velocity: 0.1
       slowing_factor: 5.0
       lookahead_time: 2.0
-      
+
       # Critics (scoring functions) - FIXED: Proper array format
       critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
-      
+
       # Critic weights
       BaseObstacle.scale: 0.02
       PathAlign.scale: 32.0
@@ -121,7 +121,7 @@ controller_server:
       RotateToGoal.scale: 32.0
       RotateToGoal.slowing_factor: 5.0
       RotateToGoal.lookahead_time: 1.0
-      
+
       # Obstacle avoidance
       prune_plan: true
       prune_distance: 1.5
@@ -136,7 +136,7 @@ planner_server:
   ros__parameters:
     use_sim_time: true
     planner_plugins: ["GridBased"]
-    
+
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
       tolerance: 0.5
@@ -156,23 +156,23 @@ behavior_server:
     global_costmap_topic: global_costmap/costmap_raw
     local_footprint_topic: local_costmap/published_footprint
     global_footprint_topic: global_costmap/published_footprint
-    
+
     behavior_plugins: ["spin", "backup", "wait"]
-    
+
     spin:
       plugin: "nav2_behaviors/Spin"
       simulate_ahead_time: 2.0
       max_rotational_vel: 0.8
       min_rotational_vel: 0.2
       rotational_acc_lim: 1.5
-      
+
     backup:
       plugin: "nav2_behaviors/BackUp"
       simulate_ahead_time: 2.0
       backup_dist: 0.5
       backup_speed: 0.15
       time_allowance: 10.0
-      
+
     wait:
       plugin: "nav2_behaviors/Wait"
 
@@ -190,7 +190,7 @@ waypoint_follower:
     loop_rate: 20
     stop_on_failure: true
     waypoint_task_executor_plugin: "wait_at_waypoint"
-    
+
     wait_at_waypoint:
       plugin: "nav2_waypoint_follower::WaitAtWaypoint"
       enabled: true
@@ -226,22 +226,22 @@ local_costmap:
       use_sim_time: true
       global_frame: odom
       robot_base_frame: base_link
-      
+
       update_frequency: 10.0
       publish_frequency: 5.0
-      
+
       rolling_window: true
       width: 5
       height: 5
       resolution: 0.05
-      
+
       # Circular robot footprint for drone (radius in meters)
       robot_radius: 0.3
       footprint_padding: 0.05
-      
+
       plugins: ["voxel_layer", "inflation_layer"]
       filters: ["keepout_filter"]
-      
+
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: true
@@ -252,7 +252,7 @@ local_costmap:
         max_obstacle_height: 2.5
         mark_threshold: 2
         observation_sources: scan depth
-        
+
         scan:
           topic: /scan
           sensor_frame: lidar_link
@@ -265,9 +265,9 @@ local_costmap:
           raytrace_min_range: 0.0
           max_obstacle_height: 2.5
           min_obstacle_height: 0.0
-          
+
         depth:
-          topic: /camera/depth/points  # FIXED: Use PointCloud2 topic, not depth_image
+          topic: /camera/depth_points  # FIXED: Use PointCloud2 topic, not depth_image
           sensor_frame: camera_link
           data_type: PointCloud2  # FIXED: Changed to PointCloud2
           marking: true
@@ -277,7 +277,7 @@ local_costmap:
           raytrace_max_range: 4.0
           min_obstacle_height: 0.0
           max_obstacle_height: 2.5
-      
+
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: true
@@ -285,12 +285,12 @@ local_costmap:
         cost_scaling_factor: 5.0
         inflate_unknown: false
         inflate_around_unknown: true
-      
+
       keepout_filter:
         plugin: "nav2_costmap_2d::KeepoutFilter"
         enabled: false
         filter_info_topic: "/costmap_filter_info"
-      
+
       always_send_full_costmap: true
 
 
@@ -303,30 +303,30 @@ global_costmap:
       use_sim_time: true
       global_frame: map
       robot_base_frame: base_link
-      
+
       update_frequency: 2.0
       publish_frequency: 1.0
-      
+
       resolution: 0.05
       track_unknown_space: true
-      
+
       robot_radius: 0.3
       footprint_padding: 0.05
-      
+
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       filters: ["keepout_filter"]
-      
+
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         enabled: true
         map_subscribe_transient_local: true
         map_topic: "/map"
-      
+
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: true
         observation_sources: scan
-        
+
         scan:
           topic: /scan
           sensor_frame: lidar_link
@@ -339,7 +339,7 @@ global_costmap:
           raytrace_min_range: 0.0
           max_obstacle_height: 2.5
           min_obstacle_height: 0.0
-      
+
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: true
@@ -347,12 +347,12 @@ global_costmap:
         cost_scaling_factor: 5.0
         inflate_unknown: false
         inflate_around_unknown: true
-      
+
       keepout_filter:
         plugin: "nav2_costmap_2d::KeepoutFilter"
         enabled: false
         filter_info_topic: "/costmap_filter_info"
-      
+
       always_send_full_costmap: true
 
 
@@ -375,7 +375,7 @@ smoother_server:
   ros__parameters:
     use_sim_time: true
     smoother_plugins: ["simple_smoother"]
-    
+
     simple_smoother:
       plugin: "nav2_smoother::SimpleSmoother"
       tolerance: 1.0e-10
@@ -413,3 +413,21 @@ velocity_smoother:
 smoother_server:
   ros__parameters:
     use_sim_time: true
+
+
+# =========================
+# LIFECYCLE MANAGER
+# CRITICAL: Manages all Nav2 nodes
+# =========================
+lifecycle_manager_navigation:
+  ros__parameters:
+    use_sim_time: true
+    autostart: true
+    node_names:
+      - controller_server
+      - smoother_server
+      - planner_server
+      - behavior_server
+      - bt_navigator
+      - waypoint_follower
+      - velocity_smoother

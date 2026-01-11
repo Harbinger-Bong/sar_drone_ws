@@ -17,7 +17,7 @@ rtabmap:
     # =========================
     # Topic Subscriptions
     # =========================
-    subscribe_rgbd: false
+    subscribe_rgbd: true
     subscribe_rgb: true
     subscribe_depth: true
     subscribe_scan: true

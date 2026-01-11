@@ -5,7 +5,7 @@
     <!-- Physics System -->
     <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics">
       <engine>
-        <filename>gz-physics-dartsim-plugin</filename>
+        <filename>ignition-physics-dartsim-plugin</filename>
       </engine>
     </plugin>
     

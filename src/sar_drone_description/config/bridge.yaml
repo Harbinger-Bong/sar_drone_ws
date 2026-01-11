@@ -29,34 +29,20 @@
 
 
 # =========================
-# RGB Camera (Intel RealSense D435i)
-# FIXED: Gazebo publishes to /camera (not /camera/image_raw)
+# Camera Info (Intel RealSense D435i)
+# Note: Image topics handled by ros_gz_image nodes in launch file
 # =========================
-- ros_topic_name: /camera/image_raw
-  gz_topic_name: /camera/image
-  ros_type_name: sensor_msgs/msg/Image
-  gz_type_name: gz.msgs.Image
-  direction: GZ_TO_ROS
-
 - ros_topic_name: /camera/camera_info
-  gz_topic_name: /camera_info
+  gz_topic_name: /camera/camera_info
   ros_type_name: sensor_msgs/msg/CameraInfo
   gz_type_name: gz.msgs.CameraInfo
   direction: GZ_TO_ROS
 
 
 # =========================
-# Depth Camera (Intel RealSense D435i)
-# FIXED: Gazebo depth topic naming
+# Depth Point Cloud (Intel RealSense D435i)
+# For 3D obstacle detection in Nav2 costmaps
 # =========================
-- ros_topic_name: /camera/depth_image
-  gz_topic_name: /camera/depth_image
-  ros_type_name: sensor_msgs/msg/Image
-  gz_type_name: gz.msgs.Image
-  direction: GZ_TO_ROS
-
-# Point cloud from depth camera (for 3D obstacle detection)
-# FIXED: Gazebo publishes to /camera/points
 - ros_topic_name: /camera/depth/points
   gz_topic_name: /camera/points
   ros_type_name: sensor_msgs/msg/PointCloud2
