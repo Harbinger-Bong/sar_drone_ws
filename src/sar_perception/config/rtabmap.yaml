@@ -1,54 +1,40 @@
 rtabmap:
   ros__parameters:
-    # === Frame Configuration ===
     frame_id: base_link
     map_frame_id: map
     odom_frame_id: odom
 
-    # === Sync parameters ===
     wait_for_transform_duration: 0.2
-    approx_sync: true             # Sync LiDAR (~10Hz) with camera (~30Hz)
-    queue_size: 20
-    
-    # === Sensor Subscription (Intel Depth + RPLidar) ===
-    subscribe_rgbd: false         # Subscribing to individual topics
+    approx_sync: true
+    sync_queue_size: 20
+
+    subscribe_rgbd: false
     subscribe_rgb: true
-    subscribe_depth: true         # Intel Depth Camera enabled
-    subscribe_scan: true          # RPLidar 2D fusion enabled
-    subscribe_imu: true           # IMU aiding enabled
-    
-    # === Topics (must match launch remappings) ===
+    subscribe_depth: true
+    subscribe_scan: true
+    subscribe_imu: true
+
     rgb_topic: /camera/image_raw
     depth_topic: /camera/depth_image
     camera_info_topic: /camera/camera_info
     scan_topic: /scan
     imu_topic: /imu/data
-    
-    # === Mapping & Grid ===
-    map_negative_poses_ignored: true
-    grid_size: 50                 # Local grid map size
-    
-    # === Visual SLAM Settings ===
-    # Reg/Strategy: 0=Visual, 1=ICP, 2=Visual+ICP
-    # Visual+ICP is robust indoors with a good 2D LiDAR
-    Reg/Strategy: 2       
-    
-    # Max usable depth for loop closure (D435 degrades beyond ~4–5 m)
-    Vis/MaxDepth: 5.0     
-    
-    # === LiDAR-assisted refinement ===
-    RGBD/ProximityPathMaxNeighbors: 10
-    RGBD/NeighborLinkRefining: true
-    
-    # === Memory Management ===
-    Rtabmap/TimeThr: 0            # 0 = infinite memory
-    Mem/RehearsalSimilarity: 0.30
 
-    # === Optimization ===
-    # Robust pose graph optimization
-    Optimizer/Strategy: 1         # 0=TORO, 1=g2o, 2=GTSAM
-    
-    # === Output ===
-    publish_tf: false             # IMPORTANT: EKF publishes map → odom
-    use_sim_time: true            # Overridden by launch file if needed
+    map_negative_poses_ignored: true
+    grid_size: 50
+
+    # SLAM strategies — STRINGS
+    Reg/Strategy: "2"
+    Optimizer/Strategy: "1"
+
+    Vis/MaxDepth: '5.0'
+
+    RGBD/ProximityPathMaxNeighbors: "10"
+    RGBD/NeighborLinkRefining: "true"
+
+    Rtabmap/TimeThr: "0"
+    Mem/RehearsalSimilarity: "0.30"
+
+    publish_tf: true
+    use_sim_time: true
 
