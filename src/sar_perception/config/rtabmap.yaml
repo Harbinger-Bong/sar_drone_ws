@@ -1,0 +1,55 @@
+rtabmap:
+  ros__parameters:
+    # === Frame Configuration ===
+    frame_id: base_link
+    map_frame_id: map
+    odom_frame_id: odom
+    # Sync parameters
+    wait_for_transform_duration: 0.2
+    approx_sync: true             # Essential for syncing Lidar (10Hz) with Camera (30Hz)
+    queue_size: 20
+    
+    # === Sensor Subscription (Intel Depth + RPLidar) ===
+    subscribe_rgbd: false         # We subscribe to individual topics
+    subscribe_rgb: true
+    subscribe_depth: true         # ENABLED: For Intel Depth Camera
+    subscribe_scan: true          # ENABLED: For RPLidar 2D fusion
+    subscribe_imu: true           # ENABLED: For Gyro/Accel aid
+    
+    # === Topics (Names matched to launch remappings) ===
+    rgb_topic: /camera/image_raw
+    depth_topic: /camera/depth_image
+    camera_info_topic: /camera/camera_info
+    scan_topic: /scan
+    imu_topic: /imu/data
+    
+    # === Mapping & Grid ===
+    # Use 2D raycasting from the map for the costmap
+    map_negative_poses_ignored: true
+    grid_size: 50                 # Size of the local grid map
+    
+    # === Visual SLAM Settings ===
+    # Strategy 0=Visual, 1=ICP, 2=Visual+ICP
+    # Since we have a good 2D Lidar, Visual+ICP is very robust for indoor/cluttered areas
+    Reg/Strategy: 2       
+    
+    # Max depth to use for loop closure (Intel D435 is noisy beyond ~4m)
+    Vis/MaxDepth: 5.0     
+    
+    # === Lidar SLAM Settings ===
+    # Use 2D scan for refining position
+    RGBD/ProximityPathMaxNeighbors: 10
+    RGBD/NeighborLinkRefining: true
+    
+    # === Memory Management ===
+    # Robot will start forgetting old areas to save RAM if simulating long missions
+    Rtabmap/TimeThr: 0            # 0 = infinite memory
+    Mem/RehearsalSimilarity: 0.30
+
+    # === Optimization ===
+    # Robust graph optimization using g2o
+    Optimizer/Strategy: 1         # 0=TORO, 1=g2o, 2=GTSAM
+    
+    # === Output ===
+    publish_tf: false             # Publish map -> odom transform
+    use_sim_time: true           # Will be overridden by launch file

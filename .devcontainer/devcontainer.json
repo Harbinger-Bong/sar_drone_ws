@@ -1,0 +1,62 @@
+{
+    "name": "ROS 2 Foxy Development Environment",
+    "image": "ros:foxy-desktop-full",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "installOhMyZsh": true,
+            "upgradePackages": true,
+            "username": "ros",
+            "uid": "automatic",
+            "gid": "automatic"
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest",
+            "ppa": true
+        }
+    },
+    "runArgs": [
+        "--network=host",
+        "--privileged"
+    ],
+    "mounts": [
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
+        "source=${localEnv:HOME}/.Xauthority,target=/home/ros/.Xauthority,type=bind,consistency=cached"
+    ],
+    "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "ROS_DISTRO": "foxy",
+        "ROS_VERSION": "2",
+        "AMENT_PREFIX_PATH": "/opt/ros/foxy",
+        "COLCON_PREFIX_PATH": "/opt/ros/foxy",
+        "LD_LIBRARY_PATH": "/opt/ros/foxy/lib",
+        "PATH": "/opt/ros/foxy/bin:${containerEnv:PATH}",
+        "PYTHONPATH": "/opt/ros/foxy/lib/python3.8/site-packages",
+        "ROS_PYTHON_VERSION": "3",
+        "ROS_LOCALHOST_ONLY": "0",
+        "RMW_IMPLEMENTATION": "rmw_cyclonedx_cpp"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-iot.vscode-ros",
+                "ms-python.python",
+                "ms-vscode.cpptools",
+                "redhat.vscode-yaml",
+                "ms-vscode.cmake-tools",
+                "dotjoshjohnson.xml",
+                "github.copilot"
+            ],
+            "settings": {
+                "ros.distro": "foxy",
+                "python.defaultInterpreter": "/usr/bin/python3",
+                "C_Cpp.default.intelliSenseMode": "linux-gcc-x64"
+            }
+        }
+    },
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y python3-pip python3-colcon-common-extensions python3-rosdep && sudo rosdep init && rosdep update",
+    "postStartCommand": "source /opt/ros/foxy/setup.bash",
+    "remoteUser": "ros",
+    "workspaceFolder": "/workspace",
+    "shutdownAction": "stopContainer"
+}
