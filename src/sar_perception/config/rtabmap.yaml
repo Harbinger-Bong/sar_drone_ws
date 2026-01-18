@@ -3,8 +3,8 @@ rtabmap:
     # =========================
     # Frame IDs
     # =========================
-    frame_id: base_link
-    map_frame_id: map
+    frame_id: camera_link
+    map_: map
     odom_frame_id: odom
 
     # =========================

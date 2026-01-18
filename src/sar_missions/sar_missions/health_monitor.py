@@ -182,17 +182,31 @@ class SystemHealthMonitor(Node):
 
 
 def main(args=None):
-    rclpy.init(args=args)
-    node = SystemHealthMonitor()
-    
+    """Main entry point with proper exception handling"""
+    node = None
     try:
+        rclpy.init(args=args)
+        node = SystemHealthMonitor()
         rclpy.spin(node)
     except KeyboardInterrupt:
-        pass
+        pass  # Clean exit on Ctrl+C
+    except Exception as e:
+        if node:
+            node.get_logger().error(f"Health monitor error: {e}")
     finally:
-        node.destroy_node()
-        rclpy.shutdown()
+        # Cleanup
+        if node:
+            try:
+                node.destroy_node()
+            except:
+                pass
+        try:
+            if rclpy.ok():
+                rclpy.shutdown()
+        except:
+            pass
 
 
 if __name__ == '__main__':
     main()
+

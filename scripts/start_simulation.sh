@@ -76,11 +76,12 @@ else
 fi
 
 # Check Nav2
-if ! ros2 pkg list | grep -q nav2_bringup; then
-    echo -e "${RED}  ✗ Nav2 not installed${NC}"
-    DEPS_OK=false
+# Check Nav2
+if [ -d "/opt/ros/humble/share/nav2_bringup" ]; then
+    echo "  ✓ Nav2 installed"
 else
-    echo -e "${GREEN}  ✓ Nav2 installed${NC}"
+    echo "  ✗ Nav2 not installed"
+    exit 1
 fi
 
 # Check robot_localization

@@ -20,6 +20,12 @@ def generate_launch_description():
     # -----------------------------
     # Launch arguments
     # -----------------------------
+    declare_use_sim_time = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='true',
+        description='Use simulation time'
+    )
+    
     world_arg = DeclareLaunchArgument(
         'world_file',
         default_value=PathJoinSubstitution([
@@ -29,6 +35,8 @@ def generate_launch_description():
         ])
     )
 
+    # Get launch configurations
+    use_sim_time = LaunchConfiguration('use_sim_time')
     world_file = LaunchConfiguration('world_file')
 
     urdf_file = os.path.join(
@@ -70,7 +78,7 @@ def generate_launch_description():
         executable='robot_state_publisher',
         name='robot_state_publisher',
         parameters=[{
-            'use_sim_time': True,
+            'use_sim_time': use_sim_time,
             'robot_description': Command([
                 'xacro ',
                 urdf_file
@@ -102,7 +110,7 @@ def generate_launch_description():
         executable='parameter_bridge',
         parameters=[{
             'config_file': bridge_config,
-            'use_sim_time': True
+            'use_sim_time': use_sim_time
         }],
         output='screen'
     )
@@ -116,10 +124,10 @@ def generate_launch_description():
         package='ros_gz_image',
         executable='image_bridge',
         arguments=['/camera/image'],
-        parameters=[{'use_sim_time': True}],
         remappings=[
             ('/camera/image', '/camera/image_raw')
         ],
+        parameters=[{'use_sim_time': use_sim_time}],
         output='screen'
     )
 
@@ -131,17 +139,18 @@ def generate_launch_description():
         package='ros_gz_image',
         executable='image_bridge',
         arguments=['/camera/depth_image'],
-        parameters=[{'use_sim_time': True}],
+        parameters=[{'use_sim_time': use_sim_time}],
         output='screen'
     )
 
     return LaunchDescription([
+        declare_use_sim_time,  # ← FIX 1: Declare it
         world_arg,
         gz_sim,
         robot_state_publisher,
         spawn_entity,
-        bridge,
-        image_bridge_rgb,      # ← ADDED BACK
-        image_bridge_depth     # ← ADDED BACK
+        bridge,                # ← FIX 2: Use correct name
+        image_bridge_rgb,
+        image_bridge_depth
     ])
 
