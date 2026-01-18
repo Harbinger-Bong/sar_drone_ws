@@ -99,4 +99,20 @@
     </sensor>
   </gazebo>
 
+
+  <!-- ================= SIMPLE VELOCITY CONTROLLER ================= -->
+  <gazebo>
+    <plugin filename="gz-sim-velocity-control-system" 
+            name="gz::sim::systems::VelocityControl">
+      <initial_linear>0 0 0</initial_linear>
+      <initial_angular>0 0 0</initial_angular>
+    </plugin>
+    
+    <plugin filename="gz-sim-apply-link-wrench-system"
+            name="gz::sim::systems::ApplyLinkWrench">
+      <link_name>base_link</link_name>
+    </plugin>
+  </gazebo>
+
+
 </robot>

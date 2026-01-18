@@ -26,6 +26,7 @@ setup(
     entry_points={
         'console_scripts': [
             'nav2_path_to_setpoint = sar_nav_bridge.nav2_path_to_setpoint:main',
+            'drone_velocity_controller = sar_nav_bridge.drone_velocity_controller:main',
         ],
     },
 )
