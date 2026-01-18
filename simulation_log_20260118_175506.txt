@@ -1,7 +1,0 @@
-[0;34m╔════════════════════════════════════════════════╗[0m
-[0;34m║     SAR DRONE SIMULATION LAUNCHER (v2.0)       ║[0m
-[0;34m╚════════════════════════════════════════════════╝[0m
-
-[0;36m[1/6] Validating Environment...[0m
-[0;32m  ✓ ROS 2 Humble installed[0m
-[0;32m  ✓ Workspace built[0m
