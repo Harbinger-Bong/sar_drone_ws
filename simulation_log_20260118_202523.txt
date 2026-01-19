@@ -1,0 +1,1367 @@
+[0;34m╔════════════════════════════════════════════════╗[0m
+[0;34m║     SAR DRONE SIMULATION LAUNCHER (v2.0)       ║[0m
+[0;34m╚════════════════════════════════════════════════╝[0m
+
+[0;36m[1/6] Validating Environment...[0m
+[0;32m  ✓ ROS 2 Humble installed[0m
+[0;32m  ✓ Workspace built[0m
+[0;32m  ✓ Environment sourced[0m
+
+[0;36m[2/6] Checking Dependencies...[0m
+[0;32m  ✓ Gazebo simulator available[0m
+[0;32m  ✓ RTAB-Map installed[0m
+  ✓ Nav2 installed
+Traceback (most recent call last):
+  File "/opt/ros/humble/bin/ros2", line 33, in <module>
+    sys.exit(load_entry_point('ros2cli==0.18.15', 'console_scripts', 'ros2')())
+  File "/opt/ros/humble/lib/python3.10/site-packages/ros2cli/cli.py", line 91, in main
+    rc = extension.main(parser=parser, args=args)
+  File "/opt/ros/humble/lib/python3.10/site-packages/ros2pkg/command/pkg.py", line 37, in main
+    return extension.main(args=args)
+  File "/opt/ros/humble/lib/python3.10/site-packages/ros2pkg/verb/list.py", line 24, in main
+    print(pkg_name)
+BrokenPipeError: [Errno 32] Broken pipe
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+[0;32m  ✓ robot_localization installed[0m
+
+[0;36m[3/6] Validating Configuration Files...[0m
+[0;32m  ✓ Nav2 configuration found[0m
+[0;32m  ✓ EKF configuration found[0m
+[0;32m  ✓ RTAB-Map configuration found[0m
+[0;32m  ✓ World file found[0m
+
+[0;36m[4/6] Cleaning Previous Runtime...[0m
+[1;33m  ! Removing old RTAB-Map database[0m
+[0;32m  ✓ Runtime cleaned[0m
+
+[0;36m[5/6] Pre-launch System Checks...[0m
+[0;32m  ✓ Sufficient memory: 2054MB[0m
+[0;32m  ✓ Sufficient disk space: 16131MB[0m
+[0;32m  ✓ Display configured: :1[0m
+
+[0;36m[6/6] Launching Simulation...[0m
+
+[0;34m╔════════════════════════════════════════════════╗[0m
+[0;34m║         STARTING SAR DRONE SIMULATION         ║[0m
+[0;34m╚════════════════════════════════════════════════╝[0m
+
+[1;33mComponents launching:[0m
+  • Gazebo Fortress (World + Robot)
+  • Sensor Stack (Camera, LiDAR, IMU)
+  • RTAB-Map SLAM
+  • EKF Localization
+  • Nav2 Navigation Stack
+  • RViz Visualization
+
+[0;32mThis will take ~30 seconds...[0m
+
+[INFO] [launch]: All log files can be found below /home/emil/.ros/log/2026-01-18-20-25-24-956145-harbinger-6586
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ign gazebo-1]: process started with pid [6588]
+[INFO] [robot_state_publisher-2]: process started with pid [6590]
+[INFO] [create-3]: process started with pid [6593]
+[INFO] [parameter_bridge-4]: process started with pid [6595]
+[INFO] [image_bridge-5]: process started with pid [6597]
+[INFO] [image_bridge-6]: process started with pid [6599]
+[create-3] [INFO] [1768748125.495289265] [ros_gz_sim]: Requesting list of world names.
+[robot_state_publisher-2] [WARN] [1768748125.525781006] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[robot_state_publisher-2] [INFO] [1768748125.526034738] [robot_state_publisher]: got segment base_link
+[robot_state_publisher-2] [INFO] [1768748125.526190109] [robot_state_publisher]: got segment camera_link
+[robot_state_publisher-2] [INFO] [1768748125.526200346] [robot_state_publisher]: got segment imu_link
+[robot_state_publisher-2] [INFO] [1768748125.526208431] [robot_state_publisher]: got segment lidar_link
+[create-3] [INFO] [1768748126.182358713] [ros_gz_sim]: Waiting messages on topic [robot_description].
+[create-3] [INFO] [1768748126.184158644] [ros_gz_sim]: Requested creation of entity.
+[create-3] [INFO] [1768748126.184185591] [ros_gz_sim]: OK creation of entity.
+[INFO] [create-3]: process has finished cleanly [pid 6593]
+[INFO] [launch.user]: ============================================================
+[INFO] [launch.user]: SAR DRONE SIMULATION STARTING
+[INFO] [launch.user]: ============================================================
+[INFO] [launch.user]: Launching Ignition Gazebo...
+[INFO] [launch.user]: Waiting for sensors to initialize...
+[parameter_bridge-4] [INFO] [1768748126.526559238] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.528317636] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/scan (gz.msgs.LaserScan) -> /scan (sensor_msgs/msg/LaserScan)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.529572676] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/odom (gz.msgs.Odometry) -> /odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.530933464] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/camera/camera_info (gz.msgs.CameraInfo) -> /camera/camera_info (sensor_msgs/msg/CameraInfo)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.531501113] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/camera/points (gz.msgs.PointCloudPacked) -> /camera/depth/points (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.531923904] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/imu/data (gz.msgs.IMU) -> /imu/data (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.532217554] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/tf (gz.msgs.Pose_V) -> /tf (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.534062802] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (gz.msgs.Model) -> /joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.534348969] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/sar_drone/pose (gz.msgs.Pose) -> /model/sar_drone/pose (geometry_msgs/msg/Pose)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.534932446] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/cmd_vel (geometry_msgs/msg/Twist) -> /cmd_vel (gz.msgs.Twist)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1768748126.535649085] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/model/sar_drone/cmd_vel (geometry_msgs/msg/Twist) -> /model/sar_drone/cmd_vel (gz.msgs.Twist)] (Lazy 0)
+[ign gazebo-1] [1;31m[Err] [ApplyLinkWrench.cc:143] [0m[1;31mApplyLinkWrench system should be attached to a world.[0m[1;31m[0m
+[ign gazebo-1] libEGL warning: egl: failed to create dri2 screen
+[ign gazebo-1] libEGL warning: egl: failed to create dri2 screen
+[ign gazebo-1] libEGL warning: egl: failed to create dri2 screen
+[ign gazebo-1] libEGL warning: egl: failed to create dri2 screen
+[INFO] [launch.user]: Starting system health monitor...
+[INFO] [topic_rate_monitor-7]: process started with pid [6922]
+[topic_rate_monitor-7] [INFO] [1768748131.272184404] [health_monitor]: System Health Monitor started
+[topic_rate_monitor-7] [WARN] [1768748131.288035027] [health_monitor]: System health: 3 errors, 0 warnings
+[INFO] [launch.user]: ============================================================
+[INFO] [launch.user]: Starting RTAB-Map SLAM...
+[INFO] [launch.user]: This may take 10-15 seconds to initialize
+[INFO] [launch.user]: ============================================================
+[INFO] [static_transform_publisher-8]: process started with pid [6946]
+[INFO] [rgbd_sync-9]: process started with pid [6948]
+[INFO] [rgbd_odometry-10]: process started with pid [6950]
+[INFO] [rtabmap-11]: process started with pid [6952]
+[INFO] [static_transform_publisher-12]: process started with pid [6954]
+[INFO] [static_transform_publisher-13]: process started with pid [6956]
+[static_transform_publisher-8] [WARN] [1768748135.516529070] []: Old-style arguments are deprecated; see --help for new-style arguments
+[static_transform_publisher-12] [WARN] [1768748135.519522422] []: Old-style arguments are deprecated; see --help for new-style arguments
+[static_transform_publisher-13] [WARN] [1768748135.519683245] []: Old-style arguments are deprecated; see --help for new-style arguments
+[static_transform_publisher-8] [INFO] [1768748135.527185811] [camera_frame_fix]: Spinning until stopped - publishing transform
+[static_transform_publisher-8] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-8] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-8] from 'camera_link' to 'sar_drone/base_link/rgbd'
+[static_transform_publisher-13] [INFO] [1768748135.528191749] [lidar_frame_fix]: Spinning until stopped - publishing transform
+[static_transform_publisher-13] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-13] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-13] from 'lidar_link' to 'sar_drone/base_link/rplidar'
+[static_transform_publisher-12] [INFO] [1768748135.532666438] [camera_frame_fix]: Spinning until stopped - publishing transform
+[static_transform_publisher-12] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-12] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-12] from 'camera_link' to 'sar_drone/base_link/rgbd'
+[rgbd_sync-9] [WARN] [1768748136.303877743] [rgbd_sync]: Parameter "queue_size" has been renamed to "sync_queue_size" and will be removed in future versions! The value (30) is copied to "sync_queue_size".
+[rgbd_sync-9] [INFO] [1768748136.304927106] [rgbd_sync]: rgbd_sync: approx_sync = true
+[rgbd_sync-9] [INFO] [1768748136.304969090] [rgbd_sync]: rgbd_sync: approx_sync_max_interval = 0.100000
+[rgbd_sync-9] [INFO] [1768748136.305234607] [rgbd_sync]: rgbd_sync: topic_queue_size  = 10
+[rgbd_sync-9] [INFO] [1768748136.305242434] [rgbd_sync]: rgbd_sync: sync_queue_size  = 30
+[rgbd_sync-9] [INFO] [1768748136.305249702] [rgbd_sync]: rgbd_sync: qos             = 0
+[rgbd_sync-9] [INFO] [1768748136.305256135] [rgbd_sync]: rgbd_sync: qos_camera_info = 0
+[rgbd_sync-9] [INFO] [1768748136.305262514] [rgbd_sync]: rgbd_sync: depth_scale = 1.000000
+[rgbd_sync-9] [INFO] [1768748136.305269592] [rgbd_sync]: rgbd_sync: decimation = 1
+[rgbd_sync-9] [INFO] [1768748136.305914467] [rgbd_sync]: rgbd_sync: compressed_rate = 0.000000
+[rtabmap-11] [WARN] [1768748136.312967601] [rtabmap]: Parameter "queue_size" has been renamed to "sync_queue_size" and will be removed in future versions! The value (30) is copied to "sync_queue_size".
+[rgbd_odometry-10] [INFO] [1768748136.318841800] [rgbd_odometry]: Odometry: frame_id               = base_link
+[rgbd_odometry-10] [INFO] [1768748136.319134644] [rgbd_odometry]: Odometry: odom_frame_id          = odom
+[rgbd_odometry-10] [INFO] [1768748136.319249863] [rgbd_odometry]: Odometry: publish_tf             = true
+[rgbd_odometry-10] [INFO] [1768748136.319262184] [rgbd_odometry]: Odometry: wait_for_transform     = 0.500000
+[rgbd_odometry-10] [INFO] [1768748136.319287767] [rgbd_odometry]: Odometry: log_to_rosout_level    = 4
+[rgbd_odometry-10] [INFO] [1768748136.319332397] [rgbd_odometry]: Odometry: initial_pose           = xyz=0.000000,0.000000,0.000000 rpy=0.000000,-0.000000,0.000000
+[rgbd_odometry-10] [INFO] [1768748136.319342656] [rgbd_odometry]: Odometry: ground_truth_frame_id  = 
+[rgbd_odometry-10] [INFO] [1768748136.319350716] [rgbd_odometry]: Odometry: ground_truth_base_frame_id = base_link
+[rgbd_odometry-10] [INFO] [1768748136.319358315] [rgbd_odometry]: Odometry: config_path            = 
+[rgbd_odometry-10] [INFO] [1768748136.319366982] [rgbd_odometry]: Odometry: publish_null_when_lost = true
+[rgbd_odometry-10] [INFO] [1768748136.319374717] [rgbd_odometry]: Odometry: publish_compressed_sensor_data = false
+[rgbd_odometry-10] [INFO] [1768748136.319382684] [rgbd_odometry]: Odometry: guess_frame_id         = 
+[rgbd_odometry-10] [INFO] [1768748136.319390316] [rgbd_odometry]: Odometry: guess_min_translation  = 0.000000
+[rgbd_odometry-10] [INFO] [1768748136.319399332] [rgbd_odometry]: Odometry: guess_min_rotation     = 0.000000
+[rgbd_odometry-10] [INFO] [1768748136.319408101] [rgbd_odometry]: Odometry: guess_min_time         = 0.000000
+[rgbd_odometry-10] [INFO] [1768748136.319416952] [rgbd_odometry]: Odometry: expected_update_rate   = 0.000000 Hz
+[rgbd_odometry-10] [INFO] [1768748136.319426030] [rgbd_odometry]: Odometry: max_update_rate        = 0.000000 Hz
+[rgbd_odometry-10] [INFO] [1768748136.319435009] [rgbd_odometry]: Odometry: min_update_rate        = 0.000000 Hz
+[rgbd_odometry-10] [INFO] [1768748136.319443846] [rgbd_odometry]: Odometry: wait_imu_to_init       = false
+[rgbd_odometry-10] [INFO] [1768748136.319454780] [rgbd_odometry]: Odometry: always_check_imu_tf    = true
+[rgbd_odometry-10] [INFO] [1768748136.319462875] [rgbd_odometry]: Odometry: sensor_data_compression_format = .jpg
+[rgbd_odometry-10] [INFO] [1768748136.319470977] [rgbd_odometry]: Odometry: sensor_data_parallel_compression = true
+[rgbd_odometry-10] [INFO] [1768748136.319493350] [rgbd_odometry]: Odometry: stereoParams_=0 visParams_=1 icpParams_=0
+[rgbd_odometry-10] [INFO] [1768748136.326337342] [rgbd_odometry]: Setting odometry parameter "Odom/ResetCountdown"="15"
+[rtabmap-11] [INFO] [1768748136.328135136] [rtabmap]: rtabmap(maps): latch                      = true
+[rtabmap-11] [INFO] [1768748136.328388244] [rtabmap]: rtabmap(maps): map_filter_radius          = 0.000000
+[rtabmap-11] [INFO] [1768748136.328411697] [rtabmap]: rtabmap(maps): map_filter_angle           = 30.000000
+[rtabmap-11] [INFO] [1768748136.328924626] [rtabmap]: rtabmap(maps): map_cleanup                = true
+[rtabmap-11] [INFO] [1768748136.328945211] [rtabmap]: rtabmap(maps): map_always_update          = false
+[rtabmap-11] [INFO] [1768748136.328953352] [rtabmap]: rtabmap(maps): map_empty_ray_tracing      = true
+[rtabmap-11] [INFO] [1768748136.328959679] [rtabmap]: rtabmap(maps): cloud_output_voxelized     = true
+[rtabmap-11] [INFO] [1768748136.328969834] [rtabmap]: rtabmap(maps): cloud_subtract_filtering   = false
+[rtabmap-11] [INFO] [1768748136.329244875] [rtabmap]: rtabmap(maps): cloud_subtract_filtering_min_neighbors = 2
+[rtabmap-11] [INFO] [1768748136.329908682] [rtabmap]: rtabmap(maps): octomap_tree_depth         = 16
+[rgbd_sync-9] [INFO] [1768748136.331589944] [rgbd_sync]: 
+[rgbd_sync-9] rgbd_sync subscribed to (approx sync, max interval=0.100000s):
+[rgbd_sync-9]    /camera/image_raw,
+[rgbd_sync-9]    /camera/depth_image,
+[rgbd_sync-9]    /camera/camera_info
+[rgbd_odometry-10] [INFO] [1768748136.336189954] [rgbd_odometry]: Setting odometry parameter "Vis/FeatureType"="6"
+[rgbd_odometry-10] [INFO] [1768748136.336470532] [rgbd_odometry]: Setting odometry parameter "Vis/MaxDepth"="8.0"
+[rgbd_odometry-10] [INFO] [1768748136.336642018] [rgbd_odometry]: Setting odometry parameter "Vis/MinInliers"="15"
+[rgbd_odometry-10] [WARN] [1768748136.351441143] [rgbd_odometry]: Parameter "queue_size" has been renamed to "sync_queue_size" and will be removed in future versions! The value (30) is copied to "sync_queue_size".
+[rgbd_odometry-10] [INFO] [1768748136.352718251] [rgbd_odometry]: RGBDOdometry: approx_sync    = true
+[rgbd_odometry-10] [INFO] [1768748136.352781764] [rgbd_odometry]: RGBDOdometry: approx_sync_max_interval = 0.000000
+[rgbd_odometry-10] [INFO] [1768748136.352798266] [rgbd_odometry]: RGBDOdometry: topic_queue_size = 10
+[rgbd_odometry-10] [INFO] [1768748136.352806705] [rgbd_odometry]: RGBDOdometry: sync_queue_size  = 30
+[rgbd_odometry-10] [INFO] [1768748136.352815161] [rgbd_odometry]: RGBDOdometry: qos             = 0
+[rgbd_odometry-10] [INFO] [1768748136.352826325] [rgbd_odometry]: RGBDOdometry: qos_camera_info = 0
+[rgbd_odometry-10] [INFO] [1768748136.352833715] [rgbd_odometry]: RGBDOdometry: subscribe_rgbd = true
+[rgbd_odometry-10] [INFO] [1768748136.352845313] [rgbd_odometry]: RGBDOdometry: rgbd_cameras   = 1
+[rgbd_odometry-10] [INFO] [1768748136.352853146] [rgbd_odometry]: RGBDOdometry: keep_color     = false
+[rgbd_odometry-10] [INFO] [1768748136.353448789] [rgbd_odometry]: RGBDOdometry: rgb_transport   = raw
+[rgbd_odometry-10] [INFO] [1768748136.353462483] [rgbd_odometry]: RGBDOdometry: depth_transport = raw
+[rgbd_odometry-10] [INFO] [1768748136.354873359] [rgbd_odometry]: 
+[rgbd_odometry-10] rgbd_odometry subscribed to:
+[rgbd_odometry-10]    /rgbd_sync/rgbd_image
+[rtabmap-11] [INFO] [1768748136.367583924] [rtabmap]: rtabmap: frame_id      = base_link
+[rtabmap-11] [INFO] [1768748136.367718975] [rtabmap]: rtabmap: odom_frame_id = odom
+[rtabmap-11] [INFO] [1768748136.367731560] [rtabmap]: rtabmap: map_frame_id  = map
+[rtabmap-11] [INFO] [1768748136.367740365] [rtabmap]: rtabmap: log_to_rosout_level  = 4
+[rtabmap-11] [INFO] [1768748136.367748009] [rtabmap]: rtabmap: initial_pose  = 
+[rtabmap-11] [INFO] [1768748136.367760025] [rtabmap]: rtabmap: use_action_for_goal  = false
+[rtabmap-11] [INFO] [1768748136.367768388] [rtabmap]: rtabmap: tf_delay      = 0.050000
+[rtabmap-11] [INFO] [1768748136.367796740] [rtabmap]: rtabmap: tf_tolerance  = 0.100000
+[rtabmap-11] [INFO] [1768748136.367805970] [rtabmap]: rtabmap: odom_sensor_sync   = false
+[rtabmap-11] [INFO] [1768748136.367812978] [rtabmap]: rtabmap: pub_loc_pose_only_when_localizing = false
+[rtabmap-11] [INFO] [1768748136.367821269] [rtabmap]: rtabmap: wait_for_transform = 0.500000
+[rtabmap-11] [INFO] [1768748136.367830259] [rtabmap]: rtabmap: gen_scan  = false
+[rtabmap-11] [INFO] [1768748136.367839348] [rtabmap]: rtabmap: gen_depth  = false
+[rtabmap-11] [INFO] [1768748136.394908813] [rtabmap]: Setting RTAB-Map parameter "Bayes/VirtualPlacePriorThr"="0.9" (rosparam)
+[rtabmap-11] [INFO] [1768748136.396231242] [rtabmap]: Setting RTAB-Map parameter "Grid/3D"="false" (rosparam)
+[rtabmap-11] [INFO] [1768748136.396394025] [rtabmap]: Setting RTAB-Map parameter "Grid/CellSize"="0.05" (rosparam)
+[rtabmap-11] [INFO] [1768748136.396485986] [rtabmap]: Setting RTAB-Map parameter "Grid/ClusterRadius"="0.1" (rosparam)
+[rtabmap-11] [INFO] [1768748136.396547557] [rtabmap]: Setting RTAB-Map parameter "Grid/DepthDecimation"="2" (rosparam)
+[rtabmap-11] [INFO] [1768748136.396614129] [rtabmap]: Setting RTAB-Map parameter "Grid/FlatObstacleDetected"="true" (rosparam)
+[rtabmap-11] [INFO] [1768748136.397032241] [rtabmap]: Setting RTAB-Map parameter "Grid/MaxGroundHeight"="0.1" (rosparam)
+[rtabmap-11] [INFO] [1768748136.397087019] [rtabmap]: Setting RTAB-Map parameter "Grid/MaxObstacleHeight"="2.0" (rosparam)
+[rtabmap-11] [INFO] [1768748136.397161188] [rtabmap]: Setting RTAB-Map parameter "Grid/MinGroundHeight"="-0.5" (rosparam)
+[rtabmap-11] [INFO] [1768748136.397295173] [rtabmap]: Setting RTAB-Map parameter "Grid/NormalsSegmentation"="false" (rosparam)
+[rtabmap-11] [INFO] [1768748136.397410336] [rtabmap]: Setting RTAB-Map parameter "Grid/RangeMax"="8.0" (rosparam)
+[rtabmap-11] [INFO] [1768748136.397451429] [rtabmap]: Setting RTAB-Map parameter "Grid/RangeMin"="0.2" (rosparam)
+[rtabmap-11] [INFO] [1768748136.397570449] [rtabmap]: Setting RTAB-Map parameter "Grid/Sensor"="1" (rosparam)
+[rtabmap-11] [INFO] [1768748136.398199390] [rtabmap]: Setting RTAB-Map parameter "Icp/CorrespondenceRatio"="0.3" (rosparam)
+[rtabmap-11] [INFO] [1768748136.398403649] [rtabmap]: Setting RTAB-Map parameter "Icp/MaxCorrespondenceDistance"="0.1" (rosparam)
+[rtabmap-11] [INFO] [1768748136.398462717] [rtabmap]: Setting RTAB-Map parameter "Icp/MaxTranslation"="0.2" (rosparam)
+[rtabmap-11] [INFO] [1768748136.398881013] [rtabmap]: Setting RTAB-Map parameter "Icp/VoxelSize"="0.05" (rosparam)
+[rtabmap-11] [INFO] [1768748136.399529427] [rtabmap]: Setting RTAB-Map parameter "Kp/DetectorStrategy"="6" (rosparam)
+[rtabmap-11] [INFO] [1768748136.399852745] [rtabmap]: Setting RTAB-Map parameter "Kp/MaxFeatures"="400" (rosparam)
+[rtabmap-11] [INFO] [1768748136.400990233] [rtabmap]: Setting RTAB-Map parameter "Mem/IncrementalMemory"="true" (rosparam)
+[rtabmap-11] [INFO] [1768748136.401276788] [rtabmap]: Setting RTAB-Map parameter "Mem/NotLinkedNodesKept"="true" (rosparam)
+[rtabmap-11] [INFO] [1768748136.401485065] [rtabmap]: Setting RTAB-Map parameter "Mem/RehearsalSimilarity"="0.25" (rosparam)
+[rtabmap-11] [INFO] [1768748136.401604229] [rtabmap]: Setting RTAB-Map parameter "Mem/STMSize"="30" (rosparam)
+[rtabmap-11] [INFO] [1768748136.402836248] [rtabmap]: Setting RTAB-Map parameter "Optimizer/Epsilon"="0.0001" (rosparam)
+[rtabmap-11] [INFO] [1768748136.403082576] [rtabmap]: Setting RTAB-Map parameter "Optimizer/Iterations"="20" (rosparam)
+[rtabmap-11] [INFO] [1768748136.403294792] [rtabmap]: Setting RTAB-Map parameter "Optimizer/Robust"="true" (rosparam)
+[rtabmap-11] [INFO] [1768748136.403385219] [rtabmap]: Setting RTAB-Map parameter "Optimizer/Strategy"="1" (rosparam)
+[rtabmap-11] [INFO] [1768748136.404789950] [rtabmap]: Setting RTAB-Map parameter "RGBD/AngularUpdate"="0.05" (rosparam)
+[rtabmap-11] [INFO] [1768748136.405250632] [rtabmap]: Setting RTAB-Map parameter "RGBD/CreateOccupancyGrid"="true" (rosparam)
+[rtabmap-11] [INFO] [1768748136.406271959] [rtabmap]: Setting RTAB-Map parameter "RGBD/LinearUpdate"="0.05" (rosparam)
+[rtabmap-11] [INFO] [1768748136.406907123] [rtabmap]: Setting RTAB-Map parameter "RGBD/LocalRadius"="10.0" (rosparam)
+[rtabmap-11] [INFO] [1768748136.408050898] [rtabmap]: Setting RTAB-Map parameter "RGBD/MarkerDetection"="false" (rosparam)
+[rtabmap-11] [INFO] [1768748136.408340898] [rtabmap]: Setting RTAB-Map parameter "RGBD/NeighborLinkRefining"="true" (rosparam)
+[rtabmap-11] [INFO] [1768748136.408501256] [rtabmap]: Setting RTAB-Map parameter "RGBD/OptimizeFromGraphEnd"="false" (rosparam)
+[rtabmap-11] [INFO] [1768748136.408593778] [rtabmap]: Setting RTAB-Map parameter "RGBD/OptimizeMaxError"="1.0" (rosparam)
+[rtabmap-11] [INFO] [1768748136.408954455] [rtabmap]: Setting RTAB-Map parameter "RGBD/ProximityBySpace"="true" (rosparam)
+[rtabmap-11] [INFO] [1768748136.409197115] [rtabmap]: Setting RTAB-Map parameter "RGBD/ProximityMaxGraphDepth"="50" (rosparam)
+[rtabmap-11] [INFO] [1768748136.409590119] [rtabmap]: Setting RTAB-Map parameter "RGBD/ProximityPathMaxNeighbors"="10" (rosparam)
+[rtabmap-11] [INFO] [1768748136.409997962] [rtabmap]: Setting RTAB-Map parameter "Reg/Force3DoF"="false" (rosparam)
+[rtabmap-11] [INFO] [1768748136.410184334] [rtabmap]: Setting RTAB-Map parameter "Reg/Strategy"="2" (rosparam)
+[rtabmap-11] [INFO] [1768748136.410424139] [rtabmap]: Setting RTAB-Map parameter "Rtabmap/DetectionRate"="1.0" (rosparam)
+[rtabmap-11] [INFO] [1768748136.410919155] [rtabmap]: Setting RTAB-Map parameter "Rtabmap/LoopRatio"="0.9" (rosparam)
+[rtabmap-11] [INFO] [1768748136.410996945] [rtabmap]: Setting RTAB-Map parameter "Rtabmap/LoopThr"="0.11" (rosparam)
+[rtabmap-11] [INFO] [1768748136.411185168] [rtabmap]: Setting RTAB-Map parameter "Rtabmap/MemoryThr"="300" (rosparam)
+[rtabmap-11] [INFO] [1768748136.412199194] [rtabmap]: Setting RTAB-Map parameter "Rtabmap/TimeThr"="0" (rosparam)
+[rtabmap-11] [INFO] [1768748136.418045962] [rtabmap]: Setting RTAB-Map parameter "Vis/EstimationType"="1" (rosparam)
+[rtabmap-11] [INFO] [1768748136.419370125] [rtabmap]: Setting RTAB-Map parameter "Vis/FeatureType"="6" (rosparam)
+[rtabmap-11] [INFO] [1768748136.420730247] [rtabmap]: Setting RTAB-Map parameter "Vis/MaxDepth"="8.0" (rosparam)
+[rtabmap-11] [INFO] [1768748136.420997002] [rtabmap]: Setting RTAB-Map parameter "Vis/MinInliers"="15" (rosparam)
+[rtabmap-11] [INFO] [1768748136.423023073] [rtabmap]: RTAB-Map detection rate = 1.000000 Hz
+[rtabmap-11] [INFO] [1768748136.423341653] [rtabmap]: rtabmap: Using database from "/home/emil/.ros/rtabmap.db" (0 MB).
+[rgbd_odometry-10] [INFO] [1768748136.453028896] [rgbd_odometry]: Odom: quality=0, std dev=99.995000m|99.995000rad, update time=0.021518s delay=0.078000s
+[rtabmap-11] [INFO] [1768748136.513720281] [rtabmap]: rtabmap: Database version = "0.22.1".
+[rtabmap-11] [INFO] [1768748136.513984095] [rtabmap]: rtabmap: SLAM mode (Mem/IncrementalMemory=true)
+[rtabmap-11] [INFO] [1768748136.540533902] [rtabmap]: Setup callbacks
+[rtabmap-11] [WARN] [1768748136.541846211] [rtabmap]: rtabmap: Parameters subscribe_depth and subscribe_rgbd cannot be true at the same time. Parameter subscribe_depth is set to false.
+[rtabmap-11] [INFO] [1768748136.542158346] [rtabmap]: rtabmap: subscribe_depth = false
+[rtabmap-11] [INFO] [1768748136.542180323] [rtabmap]: rtabmap: subscribe_rgb = false
+[rtabmap-11] [INFO] [1768748136.542192449] [rtabmap]: rtabmap: subscribe_stereo = false
+[rtabmap-11] [INFO] [1768748136.542201892] [rtabmap]: rtabmap: subscribe_rgbd = true (rgbd_cameras=1)
+[rtabmap-11] [INFO] [1768748136.542334138] [rtabmap]: rtabmap: subscribe_sensor_data = false
+[rtabmap-11] [INFO] [1768748136.542350208] [rtabmap]: rtabmap: subscribe_odom_info = false
+[rtabmap-11] [INFO] [1768748136.542358953] [rtabmap]: rtabmap: subscribe_user_data = false
+[rtabmap-11] [INFO] [1768748136.542369459] [rtabmap]: rtabmap: subscribe_scan = true
+[rtabmap-11] [INFO] [1768748136.542380790] [rtabmap]: rtabmap: subscribe_scan_cloud = false
+[rtabmap-11] [INFO] [1768748136.542393386] [rtabmap]: rtabmap: subscribe_scan_descriptor = false
+[rtabmap-11] [INFO] [1768748136.542406468] [rtabmap]: rtabmap: topic_queue_size = 10
+[rtabmap-11] [INFO] [1768748136.542430601] [rtabmap]: rtabmap: sync_queue_size  = 30
+[rtabmap-11] [INFO] [1768748136.542446018] [rtabmap]: rtabmap: qos_image       = 0
+[rtabmap-11] [INFO] [1768748136.542456107] [rtabmap]: rtabmap: qos_camera_info = 0
+[rtabmap-11] [INFO] [1768748136.542470652] [rtabmap]: rtabmap: qos_scan        = 0
+[rtabmap-11] [INFO] [1768748136.542485057] [rtabmap]: rtabmap: qos_odom        = 0
+[rtabmap-11] [INFO] [1768748136.542497830] [rtabmap]: rtabmap: qos_user_data   = 0
+[rtabmap-11] [INFO] [1768748136.542515311] [rtabmap]: rtabmap: approx_sync     = true
+[rtabmap-11] [INFO] [1768748136.543320524] [rtabmap]: Setup rgbd callback
+[rgbd_odometry-10] [INFO] [1768748136.549568560] [rgbd_odometry]: Odom: quality=67, std dev=0.001411m|0.000173rad, update time=0.056456s delay=0.091000s
+[rtabmap-11] [INFO] [1768748136.552127788] [rtabmap]: 
+[rtabmap-11] rtabmap subscribed to (approx sync):
+[rtabmap-11]    /rgbd_sync/rgbd_image \
+[rtabmap-11]    /scan
+[rgbd_odometry-10] [INFO] [1768748136.587844187] [rgbd_odometry]: Odom: quality=84, std dev=0.002568m|0.000173rad, update time=0.025661s delay=0.053000s
+[rgbd_odometry-10] [INFO] [1768748136.640452952] [rgbd_odometry]: Odom: quality=98, std dev=0.000807m|0.000173rad, update time=0.031676s delay=0.061000s
+[rgbd_odometry-10] [INFO] [1768748136.682089702] [rgbd_odometry]: Odom: quality=103, std dev=0.002155m|0.000173rad, update time=0.033602s delay=0.063000s
+[rtabmap-11] [WARN] [1768748136.703951527] [rtabmap]: We are receiving imu data (buffer=11), but cannot interpolate imu transform at time 6.300000 (latest imu received with stamp 6.420000). IMU won't be added to graph.
+[rgbd_odometry-10] [INFO] [1768748136.728376572] [rgbd_odometry]: Odom: quality=96, std dev=0.002278m|0.000173rad, update time=0.038664s delay=0.058000s
+[rgbd_odometry-10] [INFO] [1768748136.790400414] [rgbd_odometry]: Odom: quality=98, std dev=0.002659m|0.000173rad, update time=0.050938s delay=0.095000s
+[rtabmap-11] [INFO] [1768748136.791541319] [rtabmap]: rtabmap (1): Rate=1.00s, Limit=0.000s, Conversion=0.0074s, RTAB-Map=0.0868s, Maps update=0.0003s pub=0.0002s delay=0.1970s (local map=1, WM=1)
+[topic_rate_monitor-7] [WARN] [1768748136.817739795] [health_monitor]: System health: 2 errors, 0 warnings
+[rgbd_odometry-10] [INFO] [1768748136.857455634] [rgbd_odometry]: Odom: quality=81, std dev=0.004966m|0.013027rad, update time=0.049002s delay=0.065000s
+[rgbd_odometry-10] [INFO] [1768748136.954607387] [rgbd_odometry]: Odom: quality=79, std dev=0.003993m|0.000173rad, update time=0.061847s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748137.048202188] [rgbd_odometry]: Odom: quality=84, std dev=0.005684m|0.016214rad, update time=0.059243s delay=0.095000s
+[rgbd_odometry-10] [INFO] [1768748137.129741077] [rgbd_odometry]: Odom: quality=83, std dev=0.006658m|0.008712rad, update time=0.065181s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748137.201822139] [rgbd_odometry]: Odom: quality=85, std dev=0.007356m|0.000173rad, update time=0.061274s delay=0.076000s
+[rgbd_odometry-10] [INFO] [1768748137.307880788] [rgbd_odometry]: Odom: quality=95, std dev=0.006951m|0.008712rad, update time=0.065158s delay=0.069000s
+[rgbd_odometry-10] [INFO] [1768748137.374297306] [rgbd_odometry]: Odom: quality=107, std dev=0.003986m|0.008712rad, update time=0.061375s delay=0.057000s
+[rgbd_odometry-10] [INFO] [1768748137.491311220] [rgbd_odometry]: Odom: quality=100, std dev=0.005304m|0.008712rad, update time=0.065780s delay=0.084000s
+[rgbd_odometry-10] [INFO] [1768748137.572642547] [rgbd_odometry]: Odom: quality=107, std dev=0.007330m|0.013634rad, update time=0.069529s delay=0.071000s
+[rgbd_odometry-10] [INFO] [1768748137.641110834] [rgbd_odometry]: Odom: quality=101, std dev=0.006516m|0.010360rad, update time=0.063867s delay=0.054000s
+[rgbd_odometry-10] [INFO] [1768748137.746634626] [rgbd_odometry]: Odom: quality=116, std dev=0.005709m|0.000173rad, update time=0.067636s delay=0.088000s
+[rgbd_odometry-10] [INFO] [1768748137.844811781] [rgbd_odometry]: Odom: quality=116, std dev=0.005937m|0.010360rad, update time=0.071924s delay=0.073000s
+[rgbd_odometry-10] [INFO] [1768748137.974032549] [rgbd_odometry]: Odom: quality=96, std dev=0.008613m|0.010360rad, update time=0.065027s delay=0.074000s
+[rgbd_odometry-10] [INFO] [1768748138.101217799] [rgbd_odometry]: Odom: quality=108, std dev=0.008597m|0.010360rad, update time=0.074321s delay=0.075000s
+[rgbd_odometry-10] [INFO] [1768748138.158127230] [rgbd_odometry]: Odom: quality=109, std dev=0.009738m|0.010360rad, update time=0.053318s delay=0.077000s
+[rgbd_odometry-10] [INFO] [1768748138.255261882] [rgbd_odometry]: Odom: quality=107, std dev=0.011099m|0.010360rad, update time=0.061685s delay=0.079000s
+[rgbd_odometry-10] [INFO] [1768748138.369560512] [rgbd_odometry]: Odom: quality=113, std dev=0.008710m|0.010360rad, update time=0.084442s delay=0.077000s
+[rgbd_odometry-10] [INFO] [1768748138.443192607] [rgbd_odometry]: Odom: quality=107, std dev=0.005920m|0.010360rad, update time=0.072839s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748138.529588947] [rgbd_odometry]: Odom: quality=116, std dev=0.006748m|0.010360rad, update time=0.071989s delay=0.088000s
+[rgbd_odometry-10] [INFO] [1768748138.599328920] [rgbd_odometry]: Odom: quality=108, std dev=0.008605m|0.010360rad, update time=0.056040s delay=0.079000s
+[rtabmap-11] [INFO] [1768748138.691183890] [rtabmap]: rtabmap (2): Rate=1.00s, Limit=0.000s, Conversion=0.6688s, RTAB-Map=0.0421s, Maps update=0.0002s pub=0.0001s delay=0.6750s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748138.704136331] [rgbd_odometry]: Odom: quality=106, std dev=0.009645m|0.013634rad, update time=0.075353s delay=0.098000s
+[rgbd_odometry-10] [INFO] [1768748138.809878340] [rgbd_odometry]: Odom: quality=112, std dev=0.010567m|0.012320rad, update time=0.081329s delay=0.092000s
+[rgbd_odometry-10] [INFO] [1768748138.884575808] [rgbd_odometry]: Odom: quality=122, std dev=0.007149m|0.010360rad, update time=0.069925s delay=0.081000s
+[rgbd_odometry-10] [INFO] [1768748138.968217321] [rgbd_odometry]: Odom: quality=119, std dev=0.006291m|0.011465rad, update time=0.079823s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748139.060159091] [rgbd_odometry]: Odom: quality=126, std dev=0.005984m|0.010360rad, update time=0.074687s delay=0.093000s
+[rgbd_odometry-10] [INFO] [1768748139.131583336] [rgbd_odometry]: Odom: quality=15, std dev=0.013749m|0.022178rad, update time=0.055707s delay=0.083000s
+[rgbd_odometry-10] [INFO] [1768748139.302511701] [rgbd_odometry]: Odom: quality=72, std dev=0.019744m|0.020388rad, update time=0.157810s delay=0.152000s
+[rgbd_odometry-10] [INFO] [1768748139.448075367] [rgbd_odometry]: Odom: quality=75, std dev=0.020797m|0.016214rad, update time=0.140106s delay=0.152000s
+[rgbd_odometry-10] [INFO] [1768748139.537429377] [rgbd_odometry]: Odom: quality=107, std dev=0.024998m|0.016542rad, update time=0.065231s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748139.636315859] [rgbd_odometry]: Odom: quality=106, std dev=0.011220m|0.018867rad, update time=0.077418s delay=0.087000s
+[rgbd_odometry-10] [INFO] [1768748139.737798753] [rgbd_odometry]: Odom: quality=108, std dev=0.016550m|0.014651rad, update time=0.071236s delay=0.088000s
+[rgbd_odometry-10] [INFO] [1768748139.821795444] [rgbd_odometry]: Odom: quality=113, std dev=0.014081m|0.013634rad, update time=0.071956s delay=0.093000s
+[rgbd_odometry-10] [INFO] [1768748139.905046422] [rgbd_odometry]: Odom: quality=118, std dev=0.011260m|0.012320rad, update time=0.075555s delay=0.087000s
+[rgbd_odometry-10] [INFO] [1768748140.040862695] [rgbd_odometry]: Odom: quality=125, std dev=0.006723m|0.012320rad, update time=0.090864s delay=0.123000s
+[rtabmap-11] [INFO] [1768748140.125796539] [rtabmap]: rtabmap (3): Rate=1.00s, Limit=0.000s, Conversion=0.6157s, RTAB-Map=0.0525s, Maps update=0.0002s pub=0.0000s delay=0.8400s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748140.126240055] [rgbd_odometry]: Odom: quality=115, std dev=0.010605m|0.012320rad, update time=0.071300s delay=0.097000s
+[rgbd_odometry-10] [INFO] [1768748140.225695506] [rgbd_odometry]: Odom: quality=116, std dev=0.011956m|0.013634rad, update time=0.080133s delay=0.122000s
+[rgbd_odometry-10] [INFO] [1768748140.319284146] [rgbd_odometry]: Odom: quality=124, std dev=0.009733m|0.012320rad, update time=0.073932s delay=0.093000s
+[rgbd_odometry-10] [INFO] [1768748140.408076789] [rgbd_odometry]: Odom: quality=137, std dev=0.007468m|0.016214rad, update time=0.086674s delay=0.098000s
+[INFO] [rtabmap_watchdog-14]: process started with pid [7158]
+[rtabmap_watchdog-14] [WATCHDOG] ✗ WARNING: RTAB-Map not publishing yet
+[INFO] [rtabmap_watchdog-14]: process has finished cleanly [pid 7158]
+[rgbd_odometry-10] [INFO] [1768748140.505712389] [rgbd_odometry]: Odom: quality=126, std dev=0.007983m|0.012320rad, update time=0.087682s delay=0.117000s
+[rgbd_odometry-10] [INFO] [1768748140.594835512] [rgbd_odometry]: Odom: quality=136, std dev=0.012263m|0.019282rad, update time=0.067716s delay=0.090000s
+[rgbd_odometry-10] [INFO] [1768748140.686874014] [rgbd_odometry]: Odom: quality=122, std dev=0.008425m|0.015865rad, update time=0.074982s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748140.820967518] [rgbd_odometry]: Odom: quality=132, std dev=0.008004m|0.011465rad, update time=0.088971s delay=0.125000s
+[rgbd_odometry-10] [INFO] [1768748140.916048955] [rgbd_odometry]: Odom: quality=124, std dev=0.010867m|0.013027rad, update time=0.077616s delay=0.093000s
+[rgbd_odometry-10] [INFO] [1768748141.050137049] [rgbd_odometry]: Odom: quality=135, std dev=0.010140m|0.017944rad, update time=0.090224s delay=0.124000s
+[rtabmap-11] [INFO] [1768748141.154857116] [rtabmap]: rtabmap (4): Rate=1.00s, Limit=0.000s, Conversion=0.5759s, RTAB-Map=0.0666s, Maps update=0.0002s pub=0.0001s delay=0.7000s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748141.158017771] [rgbd_odometry]: Odom: quality=137, std dev=0.007945m|0.011465rad, update time=0.093713s delay=0.100000s
+[rgbd_odometry-10] [INFO] [1768748141.244999948] [rgbd_odometry]: Odom: quality=128, std dev=0.009282m|0.012320rad, update time=0.080157s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748141.357730479] [rgbd_odometry]: Odom: quality=136, std dev=0.009590m|0.011465rad, update time=0.075143s delay=0.082000s
+[rgbd_odometry-10] [INFO] [1768748141.451199605] [rgbd_odometry]: Odom: quality=144, std dev=0.008705m|0.013027rad, update time=0.074646s delay=0.069000s
+[rgbd_odometry-10] [INFO] [1768748141.586569287] [rgbd_odometry]: Odom: quality=139, std dev=0.015585m|0.016851rad, update time=0.075158s delay=0.070000s
+[rgbd_odometry-10] [INFO] [1768748141.721276192] [rgbd_odometry]: Odom: quality=137, std dev=0.010473m|0.013027rad, update time=0.084768s delay=0.071000s
+[topic_rate_monitor-7] [WARN] [1768748141.821372334] [health_monitor]: System health: 2 errors, 0 warnings
+[rgbd_odometry-10] [INFO] [1768748141.859377847] [rgbd_odometry]: Odom: quality=129, std dev=0.013126m|0.012320rad, update time=0.077123s delay=0.072000s
+[rgbd_odometry-10] [INFO] [1768748141.988640671] [rgbd_odometry]: Odom: quality=132, std dev=0.013806m|0.012320rad, update time=0.073892s delay=0.073000s
+[rgbd_odometry-10] [INFO] [1768748142.114280125] [rgbd_odometry]: Odom: quality=143, std dev=0.011652m|0.012320rad, update time=0.073888s delay=0.074000s
+[rgbd_odometry-10] [INFO] [1768748142.202077331] [rgbd_odometry]: Odom: quality=144, std dev=0.011070m|0.013634rad, update time=0.082903s delay=0.090000s
+[rgbd_odometry-10] [INFO] [1768748142.277088572] [rgbd_odometry]: Odom: quality=152, std dev=0.008210m|0.011465rad, update time=0.062601s delay=0.081000s
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.432) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.437) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.438) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.439) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.444) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.445) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.446) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.446) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.447) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.509) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.511) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.511) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.703) Transform.cpp:559::getTransform() No transform found for stamp 6.300000! Earliest is 6.320000[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:36.728) Memory.cpp:5917::createSignature() Mem/SaveDepth16Format is set to false to use 32bits format but this is not compatible with the compressed depth format chosen (Mem/DepthCompressionFormat=".rvl"), depth images will be compressed in ".png" format instead. Explicitly set Mem/SaveDepth16Format to true to keep using ".rvl" format and images will be converted to 16bits for convenience (warning: that would remove all depth values over 65 meters). Explicitly set Mem/DepthCompressionFormat=".png" to suppress this warning. This warning is only printed once.[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:38.648) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:40.072) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:41.087) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [INFO] [1768748142.394414822] [rgbd_odometry]: Odom: quality=144, std dev=0.012607m|0.013634rad, update time=0.096108s delay=0.108000s
+[rtabmap-11] [INFO] [1768748142.443808376] [rtabmap]: rtabmap (5): Rate=1.00s, Limit=0.000s, Conversion=0.6665s, RTAB-Map=0.0493s, Maps update=0.0001s pub=0.0000s delay=0.6750s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748142.512769261] [rgbd_odometry]: Odom: quality=142, std dev=0.014740m|0.013634rad, update time=0.081969s delay=0.077000s
+[rgbd_odometry-10] [INFO] [1768748142.647166627] [rgbd_odometry]: Odom: quality=146, std dev=0.013305m|0.012320rad, update time=0.083864s delay=0.078000s
+[rgbd_odometry-10] [INFO] [1768748142.775565506] [rgbd_odometry]: Odom: quality=147, std dev=0.014882m|0.016851rad, update time=0.081339s delay=0.079000s
+[rgbd_odometry-10] [INFO] [1768748142.897858498] [rgbd_odometry]: Odom: quality=132, std dev=0.021963m|0.015492rad, update time=0.082335s delay=0.080000s
+[rgbd_odometry-10] [INFO] [1768748142.984615465] [rgbd_odometry]: Odom: quality=163, std dev=0.009958m|0.012320rad, update time=0.083769s delay=0.089000s
+[rgbd_odometry-10] [INFO] [1768748143.064850560] [rgbd_odometry]: Odom: quality=158, std dev=0.012354m|0.013634rad, update time=0.078151s delay=0.085000s
+[rgbd_odometry-10] [INFO] [1768748143.155028959] [rgbd_odometry]: Odom: quality=157, std dev=0.015741m|0.015089rad, update time=0.080741s delay=0.082000s
+[rgbd_odometry-10] [INFO] [1768748143.279815038] [rgbd_odometry]: Odom: quality=138, std dev=0.024623m|0.017423rad, update time=0.081776s delay=0.083000s
+[rgbd_odometry-10] [INFO] [1768748143.405257622] [rgbd_odometry]: Odom: quality=149, std dev=0.018631m|0.014651rad, update time=0.084014s delay=0.100000s
+[INFO] [launch.user]: ============================================================
+[INFO] [launch.user]: Starting EKF localization filter...
+[INFO] [launch.user]: Fusing RTAB-Map odom + IMU data
+[INFO] [launch.user]: ============================================================
+[INFO] [ekf_node-15]: process started with pid [7173]
+[rgbd_odometry-10] [INFO] [1768748143.536156678] [rgbd_odometry]: Odom: quality=157, std dev=0.016981m|0.013634rad, update time=0.099749s delay=0.117000s
+[rgbd_odometry-10] [INFO] [1768748143.658121409] [rgbd_odometry]: Odom: quality=148, std dev=0.026600m|0.017144rad, update time=0.097501s delay=0.086000s
+[rtabmap-11] [INFO] [1768748143.755263085] [rtabmap]: rtabmap (6): Rate=1.00s, Limit=0.000s, Conversion=0.6374s, RTAB-Map=0.0508s, Maps update=0.0001s pub=0.0000s delay=0.7000s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748143.778586520] [rgbd_odometry]: Odom: quality=155, std dev=0.019667m|0.015089rad, update time=0.091988s delay=0.112000s
+[rgbd_odometry-10] [INFO] [1768748143.907505521] [rgbd_odometry]: Odom: quality=157, std dev=0.024461m|0.017423rad, update time=0.083224s delay=0.117000s
+[rgbd_odometry-10] [INFO] [1768748144.029655378] [rgbd_odometry]: Odom: quality=150, std dev=0.032409m|0.020556rad, update time=0.094806s delay=0.122000s
+[rgbd_odometry-10] [INFO] [1768748144.144239374] [rgbd_odometry]: Odom: quality=159, std dev=0.023461m|0.019480rad, update time=0.099867s delay=0.120000s
+[rgbd_odometry-10] [INFO] [1768748144.250687834] [rgbd_odometry]: Odom: quality=162, std dev=0.024809m|0.018867rad, update time=0.091083s delay=0.119000s
+[rgbd_odometry-10] [INFO] [1768748144.357520191] [rgbd_odometry]: Odom: quality=153, std dev=0.033646m|0.020216rad, update time=0.085961s delay=0.114000s
+[rgbd_odometry-10] [INFO] [1768748144.468237600] [rgbd_odometry]: Odom: quality=151, std dev=0.034826m|0.021339rad, update time=0.077921s delay=0.093000s
+[rgbd_odometry-10] [INFO] [1768748144.619274381] [rgbd_odometry]: Odom: quality=150, std dev=0.042363m|0.024246rad, update time=0.109602s delay=0.126000s
+[rgbd_odometry-10] [INFO] [1768748144.743860840] [rgbd_odometry]: Odom: quality=160, std dev=0.029065m|0.021630rad, update time=0.104097s delay=0.128000s
+[rgbd_odometry-10] [INFO] [1768748144.862880006] [rgbd_odometry]: Odom: quality=163, std dev=0.034158m|0.022688rad, update time=0.102303s delay=0.123000s
+[rtabmap-11] [INFO] [1768748144.955255555] [rtabmap]: rtabmap (7): Rate=1.00s, Limit=0.000s, Conversion=0.6389s, RTAB-Map=0.0547s, Maps update=0.0003s pub=0.0001s delay=0.7000s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748145.008707679] [rgbd_odometry]: Odom: quality=147, std dev=0.038848m|0.024736rad, update time=0.121786s delay=0.133000s
+[rgbd_odometry-10] [INFO] [1768748145.134078041] [rgbd_odometry]: Odom: quality=158, std dev=0.040667m|0.025890rad, update time=0.103100s delay=0.128000s
+[rgbd_odometry-10] [INFO] [1768748145.263569617] [rgbd_odometry]: Odom: quality=160, std dev=0.038075m|0.022930rad, update time=0.109108s delay=0.131000s
+[rgbd_odometry-10] [INFO] [1768748145.371331231] [rgbd_odometry]: Odom: quality=151, std dev=0.039343m|0.024543rad, update time=0.097560s delay=0.100000s
+[rgbd_odometry-10] [INFO] [1768748145.485398148] [rgbd_odometry]: Odom: quality=155, std dev=0.041938m|0.022437rad, update time=0.091362s delay=0.100000s
+[rgbd_odometry-10] [INFO] [1768748145.595535925] [rgbd_odometry]: Odom: quality=152, std dev=0.054711m|0.037841rad, update time=0.084946s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748145.678710071] [rgbd_odometry]: Odom: quality=151, std dev=0.052819m|0.029245rad, update time=0.068958s delay=0.077000s
+[rgbd_odometry-10] [INFO] [1768748145.801587684] [rgbd_odometry]: Odom: quality=149, std dev=0.054837m|0.027269rad, update time=0.085618s delay=0.070000s
+[rgbd_odometry-10] [INFO] [1768748145.937816002] [rgbd_odometry]: Odom: quality=164, std dev=0.040591m|0.022308rad, update time=0.081585s delay=0.071000s
+[rgbd_odometry-10] [INFO] [1768748146.072988208] [rgbd_odometry]: Odom: quality=160, std dev=0.056106m|0.032843rad, update time=0.081998s delay=0.102000s
+[rgbd_odometry-10] [INFO] [1768748146.216406994] [rgbd_odometry]: Odom: quality=163, std dev=0.046152m|0.027269rad, update time=0.100007s delay=0.109000s
+[rtabmap-11] [INFO] [1768748146.226057530] [rtabmap]: rtabmap (8): Rate=1.00s, Limit=0.000s, Conversion=0.6901s, RTAB-Map=0.0477s, Maps update=0.0002s pub=0.0001s delay=0.6440s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748146.337997834] [rgbd_odometry]: Odom: quality=156, std dev=0.055200m|0.029750rad, update time=0.076893s delay=0.074000s
+[rgbd_odometry-10] [INFO] [1768748146.474923164] [rgbd_odometry]: Odom: quality=156, std dev=0.058349m|0.030178rad, update time=0.073577s delay=0.105000s
+[rgbd_odometry-10] [INFO] [1768748146.604217688] [rgbd_odometry]: Odom: quality=153, std dev=0.058834m|0.029913rad, update time=0.090692s delay=0.109000s
+[rgbd_odometry-10] [INFO] [1768748146.720846752] [rgbd_odometry]: Odom: quality=153, std dev=0.065973m|0.031364rad, update time=0.078414s delay=0.077000s
+[rgbd_odometry-10] [INFO] [1768748146.845120768] [rgbd_odometry]: Odom: quality=153, std dev=0.060593m|0.027340rad, update time=0.076555s delay=0.078000s
+[rgbd_odometry-10] [INFO] [1768748146.931383919] [rgbd_odometry]: Odom: quality=149, std dev=0.073151m|0.031364rad, update time=0.083460s delay=0.090000s
+[topic_rate_monitor-7] [WARN] [1768748146.950476783] [health_monitor]: System health: 1 errors, 0 warnings
+[rgbd_odometry-10] [INFO] [1768748147.012317353] [rgbd_odometry]: Odom: quality=178, std dev=0.041573m|0.023937rad, update time=0.076704s delay=0.088000s
+[rgbd_odometry-10] [INFO] [1768748147.115185420] [rgbd_odometry]: Odom: quality=166, std dev=0.050355m|0.025199rad, update time=0.096984s delay=0.080000s
+[rgbd_odometry-10] [INFO] [1768748147.249615808] [rgbd_odometry]: Odom: quality=168, std dev=0.059746m|0.027410rad, update time=0.093008s delay=0.108000s
+[rgbd_odometry-10] [INFO] [1768748147.385111224] [rgbd_odometry]: Odom: quality=165, std dev=0.069103m|0.029012rad, update time=0.100339s delay=0.082000s
+[INFO] [ekf_watchdog-16]: process started with pid [7205]
+[ekf_watchdog-16] [WATCHDOG] ✗ WARNING: EKF not publishing yet
+[INFO] [ekf_watchdog-16]: process has finished cleanly [pid 7205]
+[rtabmap-11] [INFO] [1768748147.527364789] [rtabmap]: rtabmap (9): Rate=1.00s, Limit=0.000s, Conversion=0.6282s, RTAB-Map=0.0491s, Maps update=0.0001s pub=0.0000s delay=0.6310s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748147.539458301] [rgbd_odometry]: Odom: quality=160, std dev=0.070034m|0.033513rad, update time=0.105516s delay=0.124000s
+[rgbd_odometry-10] [INFO] [1768748147.649888024] [rgbd_odometry]: Odom: quality=162, std dev=0.070882m|0.028466rad, update time=0.089243s delay=0.109000s
+[rgbd_odometry-10] [INFO] [1768748147.783196072] [rgbd_odometry]: Odom: quality=160, std dev=0.073592m|0.031776rad, update time=0.093493s delay=0.120000s
+[rgbd_odometry-10] [INFO] [1768748147.902485013] [rgbd_odometry]: Odom: quality=164, std dev=0.073044m|0.032129rad, update time=0.090024s delay=0.118000s
+[rgbd_odometry-10] [INFO] [1768748148.019419475] [rgbd_odometry]: Odom: quality=161, std dev=0.080079m|0.033665rad, update time=0.097808s delay=0.116000s
+[rgbd_odometry-10] [INFO] [1768748148.141364478] [rgbd_odometry]: Odom: quality=160, std dev=0.081182m|0.032428rad, update time=0.094151s delay=0.088000s
+[rgbd_odometry-10] [INFO] [1768748148.281878408] [rgbd_odometry]: Odom: quality=153, std dev=0.085416m|0.033627rad, update time=0.096484s delay=0.128000s
+[rgbd_odometry-10] [INFO] [1768748148.403764497] [rgbd_odometry]: Odom: quality=163, std dev=0.088136m|0.035700rad, update time=0.101148s delay=0.121000s
+[rgbd_odometry-10] [INFO] [1768748148.509427198] [rgbd_odometry]: Odom: quality=166, std dev=0.087038m|0.036135rad, update time=0.089719s delay=0.118000s
+[rgbd_odometry-10] [INFO] [1768748148.617600254] [rgbd_odometry]: Odom: quality=163, std dev=0.091290m|0.033852rad, update time=0.088495s delay=0.092000s
+[rgbd_odometry-10] [INFO] [1768748148.746815840] [rgbd_odometry]: Odom: quality=158, std dev=0.093824m|0.036555rad, update time=0.094243s delay=0.127000s
+[rtabmap-11] [INFO] [1768748148.836636962] [rtabmap]: rtabmap (10): Rate=1.00s, Limit=0.000s, Conversion=0.6279s, RTAB-Map=0.0593s, Maps update=0.0002s pub=0.0001s delay=0.7000s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748148.851825029] [rgbd_odometry]: Odom: quality=157, std dev=0.100242m|0.038000rad, update time=0.091076s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748148.988674512] [rgbd_odometry]: Odom: quality=160, std dev=0.106963m|0.044552rad, update time=0.086964s delay=0.121000s
+[rgbd_odometry-10] [WARN] [1768748149.082282205] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 14 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748149.082360490] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.082493s delay=0.113000s
+[rgbd_odometry-10] [INFO] [1768748149.254463386] [rgbd_odometry]: Odom: quality=122, std dev=0.115540m|0.040079rad, update time=0.131983s delay=0.161000s
+[rgbd_odometry-10] [INFO] [1768748149.412206357] [rgbd_odometry]: Odom: quality=125, std dev=0.110246m|0.039578rad, update time=0.149859s delay=0.159000s
+[rgbd_odometry-10] [INFO] [1768748149.520227729] [rgbd_odometry]: Odom: quality=154, std dev=0.094975m|0.038336rad, update time=0.098572s delay=0.124000s
+[rgbd_odometry-10] [INFO] [1768748149.615496901] [rgbd_odometry]: Odom: quality=155, std dev=0.099879m|0.042111rad, update time=0.083804s delay=0.089000s
+[rgbd_odometry-10] [INFO] [1768748149.742953903] [rgbd_odometry]: Odom: quality=146, std dev=0.101050m|0.038614rad, update time=0.084016s delay=0.086000s
+[rgbd_odometry-10] [INFO] [1768748149.832790821] [rgbd_odometry]: Odom: quality=184, std dev=0.048946m|0.030788rad, update time=0.082487s delay=0.071000s
+[rgbd_odometry-10] [INFO] [1768748149.965870457] [rgbd_odometry]: Odom: quality=176, std dev=0.065229m|0.033398rad, update time=0.078467s delay=0.070000s
+[rgbd_odometry-10] [INFO] [1768748150.113781833] [rgbd_odometry]: Odom: quality=174, std dev=0.086173m|0.034036rad, update time=0.088249s delay=0.099000s
+[rtabmap-11] [INFO] [1768748150.117642572] [rtabmap]: rtabmap (11): Rate=1.00s, Limit=0.000s, Conversion=0.6545s, RTAB-Map=0.0405s, Maps update=0.0001s pub=0.0000s delay=0.7320s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748150.239318138] [rgbd_odometry]: Odom: quality=174, std dev=0.071172m|0.037298rad, update time=0.081810s delay=0.098000s
+[rgbd_odometry-10] [INFO] [1768748150.369533753] [rgbd_odometry]: Odom: quality=171, std dev=0.087989m|0.036466rad, update time=0.081317s delay=0.073000s
+[INFO] [launch.user]: ============================================================
+[INFO] [launch.user]: Starting Nav2 navigation stack...
+[INFO] [launch.user]: Loading planners and controllers
+[INFO] [launch.user]: ============================================================
+[rgbd_odometry-10] [INFO] [1768748150.487919524] [rgbd_odometry]: Odom: quality=169, std dev=0.095573m|0.032596rad, update time=0.075166s delay=0.074000s
+[rgbd_odometry-10] [INFO] [1768748150.617028935] [rgbd_odometry]: Odom: quality=160, std dev=0.094539m|0.035636rad, update time=0.083149s delay=0.075000s
+[INFO] [controller_server-17]: process started with pid [7227]
+[INFO] [smoother_server-18]: process started with pid [7229]
+[INFO] [planner_server-19]: process started with pid [7231]
+[INFO] [behavior_server-20]: process started with pid [7233]
+[INFO] [bt_navigator-21]: process started with pid [7235]
+[INFO] [waypoint_follower-22]: process started with pid [7237]
+[INFO] [velocity_smoother-23]: process started with pid [7239]
+[INFO] [lifecycle_manager-24]: process started with pid [7241]
+[velocity_smoother-23] [INFO] [1768748150.681914932] [velocity_smoother]: 
+[velocity_smoother-23] 	velocity_smoother lifecycle node launched. 
+[velocity_smoother-23] 	Waiting on external lifecycle transitions to activate
+[velocity_smoother-23] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[smoother_server-18] [INFO] [1768748150.684130668] [smoother_server]: 
+[smoother_server-18] 	smoother_server lifecycle node launched. 
+[smoother_server-18] 	Waiting on external lifecycle transitions to activate
+[smoother_server-18] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[lifecycle_manager-24] [INFO] [1768748150.695636568] [lifecycle_manager_navigation]: Creating
+[controller_server-17] [INFO] [1768748150.696195677] [controller_server]: 
+[controller_server-17] 	controller_server lifecycle node launched. 
+[controller_server-17] 	Waiting on external lifecycle transitions to activate
+[controller_server-17] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[smoother_server-18] [INFO] [1768748150.696570848] [smoother_server]: Creating smoother server
+[controller_server-17] [INFO] [1768748150.702833484] [controller_server]: Creating controller server
+[lifecycle_manager-24] [INFO] [1768748150.718499756] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[planner_server-19] [INFO] [1768748150.732733485] [planner_server]: 
+[planner_server-19] 	planner_server lifecycle node launched. 
+[planner_server-19] 	Waiting on external lifecycle transitions to activate
+[planner_server-19] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-19] [INFO] [1768748150.735762882] [planner_server]: Creating
+[controller_server-17] [INFO] [1768748150.744614263] [local_costmap.local_costmap]: 
+[controller_server-17] 	local_costmap lifecycle node launched. 
+[controller_server-17] 	Waiting on external lifecycle transitions to activate
+[controller_server-17] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-19] [INFO] [1768748150.745172223] [global_costmap.global_costmap]: 
+[planner_server-19] 	global_costmap lifecycle node launched. 
+[planner_server-19] 	Waiting on external lifecycle transitions to activate
+[planner_server-19] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[behavior_server-20] [INFO] [1768748150.745987485] [behavior_server]: 
+[behavior_server-20] 	behavior_server lifecycle node launched. 
+[behavior_server-20] 	Waiting on external lifecycle transitions to activate
+[behavior_server-20] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-17] [INFO] [1768748150.750649868] [local_costmap.local_costmap]: Creating Costmap
+[planner_server-19] [INFO] [1768748150.751258729] [global_costmap.global_costmap]: Creating Costmap
+[bt_navigator-21] [INFO] [1768748150.751913570] [bt_navigator]: 
+[bt_navigator-21] 	bt_navigator lifecycle node launched. 
+[bt_navigator-21] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-21] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-21] [INFO] [1768748150.752038638] [bt_navigator]: Creating
+[waypoint_follower-22] [INFO] [1768748150.756000693] [waypoint_follower]: 
+[waypoint_follower-22] 	waypoint_follower lifecycle node launched. 
+[waypoint_follower-22] 	Waiting on external lifecycle transitions to activate
+[waypoint_follower-22] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[waypoint_follower-22] [INFO] [1768748150.757924411] [waypoint_follower]: Creating
+[rgbd_odometry-10] [INFO] [1768748150.812546333] [rgbd_odometry]: Odom: quality=159, std dev=0.102225m|0.037242rad, update time=0.193593s delay=0.108000s
+[lifecycle_manager-24] [INFO] [1768748150.902363486] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-24] [INFO] [1768748150.903150562] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[controller_server-17] [INFO] [1768748150.903937739] [controller_server]: Configuring controller interface
+[controller_server-17] [INFO] [1768748150.905122293] [controller_server]: getting goal checker plugins..
+[controller_server-17] [INFO] [1768748150.905903255] [controller_server]: Controller frequency set to 20.0000Hz
+[controller_server-17] [INFO] [1768748150.906002390] [local_costmap.local_costmap]: Configuring
+[controller_server-17] [INFO] [1768748150.911942523] [local_costmap.local_costmap]: Using plugin "voxel_layer"
+[controller_server-17] [INFO] [1768748150.922640710] [local_costmap.local_costmap]: Subscribed to Topics: scan depth
+[controller_server-17] [INFO] [1768748150.942491798] [local_costmap.local_costmap]: Initialized plugin "voxel_layer"
+[controller_server-17] [INFO] [1768748150.942618669] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-17] [INFO] [1768748150.943465683] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[controller_server-17] [INFO] [1768748150.943506410] [local_costmap.local_costmap]: Using costmap filter "keepout_filter"
+[controller_server-17] [INFO] [1768748150.950441740] [local_costmap.local_costmap]: Initialized costmap filter "keepout_filter"
+[rgbd_odometry-10] [INFO] [1768748150.960675657] [rgbd_odometry]: Odom: quality=159, std dev=0.105071m|0.040257rad, update time=0.102555s delay=0.114000s
+[controller_server-17] [INFO] [1768748150.961551530] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[controller_server-17] [INFO] [1768748150.965044243] [controller_server]: Created goal checker : goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-17] [INFO] [1768748150.965829081] [controller_server]: Controller Server has goal_checker  goal checkers available.
+[controller_server-17] [INFO] [1768748150.977331370] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[controller_server-17] [INFO] [1768748150.979624116] [controller_server]: Setting transform_tolerance to 0.100000
+[controller_server-17] [ERROR] [1768748150.995924397] [controller_server]: Couldn't load critics! Caught exception: No critics defined for FollowPath
+[controller_server-17] [ERROR] [1768748151.005769981] [controller_server]: Caught exception in callback for transition 10
+[controller_server-17] [ERROR] [1768748151.005979775] [controller_server]: Original error: No critics defined for FollowPath
+[controller_server-17] [WARN] [1768748151.006047736] [controller_server]: Callback returned ERROR during the transition: configure
+[controller_server-17] [FATAL] [1768748151.006111540] [controller_server]: Lifecycle node controller_server does not have error state implemented
+[lifecycle_manager-24] [ERROR] [1768748151.006853480] [lifecycle_manager_navigation]: Failed to change state for node: controller_server
+[lifecycle_manager-24] [ERROR] [1768748151.006912691] [lifecycle_manager_navigation]: Failed to bring up all requested nodes. Aborting bringup.
+[rgbd_odometry-10] [INFO] [1768748151.094282183] [rgbd_odometry]: Odom: quality=158, std dev=0.102072m|0.039831rad, update time=0.082315s delay=0.103000s
+[rgbd_odometry-10] [INFO] [1768748151.209635828] [rgbd_odometry]: Odom: quality=155, std dev=0.104539m|0.037298rad, update time=0.076143s delay=0.079000s
+[rgbd_odometry-10] [INFO] [1768748151.385405955] [rgbd_odometry]: Odom: quality=150, std dev=0.116833m|0.042303rad, update time=0.117545s delay=0.124000s
+[rtabmap-11] [INFO] [1768748151.422350437] [rtabmap]: rtabmap (12): Rate=1.00s, Limit=0.000s, Conversion=0.7388s, RTAB-Map=0.0574s, Maps update=0.0002s pub=0.0001s delay=0.6480s (local map=1, WM=1)
+[rgbd_odometry-10] [WARN] [1768748151.525667211] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 14 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748151.526032544] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.102118s delay=0.116000s
+[rgbd_odometry-10] [INFO] [1768748151.727339579] [rgbd_odometry]: Odom: quality=122, std dev=0.098763m|0.035763rad, update time=0.181192s delay=0.162000s
+[rgbd_odometry-10] [INFO] [1768748151.969187634] [rgbd_odometry]: Odom: quality=117, std dev=0.058509m|0.031998rad, update time=0.217378s delay=0.183000s
+[rgbd_odometry-10] [INFO] [1768748152.114283211] [rgbd_odometry]: Odom: quality=157, std dev=0.041531m|0.027410rad, update time=0.091387s delay=0.119000s
+[topic_rate_monitor-7] [WARN] [1768748152.199282643] [health_monitor]: System health: 1 errors, 0 warnings
+[rgbd_odometry-10] [INFO] [1768748152.225863424] [rgbd_odometry]: Odom: quality=154, std dev=0.048290m|0.030073rad, update time=0.097762s delay=0.119000s
+[rgbd_odometry-10] [INFO] [1768748152.363585503] [rgbd_odometry]: Odom: quality=151, std dev=0.051683m|0.030739rad, update time=0.111020s delay=0.123000s
+[rgbd_odometry-10] [INFO] [1768748152.480314619] [rgbd_odometry]: Odom: quality=185, std dev=0.018071m|0.022930rad, update time=0.101807s delay=0.123000s
+[rgbd_odometry-10] [INFO] [1768748152.587157827] [rgbd_odometry]: Odom: quality=169, std dev=0.026399m|0.022178rad, update time=0.085512s delay=0.089000s
+[rgbd_odometry-10] [INFO] [1768748152.728823645] [rgbd_odometry]: Odom: quality=164, std dev=0.035131m|0.023831rad, update time=0.100569s delay=0.090000s
+[rtabmap-11] [INFO] [1768748152.800371549] [rtabmap]: rtabmap (13): Rate=1.00s, Limit=0.000s, Conversion=0.6116s, RTAB-Map=0.0569s, Maps update=0.0001s pub=0.0000s delay=0.6760s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748152.895490029] [rgbd_odometry]: Odom: quality=164, std dev=0.037689m|0.024736rad, update time=0.116942s delay=0.128000s
+[rgbd_odometry-10] [INFO] [1768748153.025531244] [rgbd_odometry]: Odom: quality=155, std dev=0.046627m|0.024446rad, update time=0.093483s delay=0.092000s
+[rgbd_odometry-10] [INFO] [1768748153.167040904] [rgbd_odometry]: Odom: quality=152, std dev=0.043800m|0.028833rad, update time=0.098516s delay=0.126000s
+[rgbd_odometry-10] [INFO] [1768748153.282909705] [rgbd_odometry]: Odom: quality=152, std dev=0.021910m|0.021036rad, update time=0.099538s delay=0.126000s
+[rgbd_odometry-10] [INFO] [1768748153.399583341] [rgbd_odometry]: Odom: quality=180, std dev=0.011578m|0.017689rad, update time=0.096002s delay=0.124000s
+[INFO] [launch.user]: ============================================================
+[INFO] [launch.user]: Launching RViz visualization...
+[INFO] [launch.user]: ============================================================
+[INFO] [rviz2-25]: process started with pid [7343]
+[rgbd_odometry-10] [INFO] [1768748153.508317294] [rgbd_odometry]: Odom: quality=178, std dev=0.014850m|0.018867rad, update time=0.090470s delay=0.096000s
+[rgbd_odometry-10] [INFO] [1768748153.631456496] [rgbd_odometry]: Odom: quality=180, std dev=0.015800m|0.020720rad, update time=0.081675s delay=0.097000s
+[rgbd_odometry-10] [INFO] [1768748153.776900353] [rgbd_odometry]: Odom: quality=176, std dev=0.017196m|0.023281rad, update time=0.093607s delay=0.114000s
+[rgbd_odometry-10] [INFO] [1768748153.905915732] [rgbd_odometry]: Odom: quality=170, std dev=0.025197m|0.029640rad, update time=0.100360s delay=0.103000s
+[rgbd_odometry-10] [INFO] [1768748154.035573354] [rgbd_odometry]: Odom: quality=160, std dev=0.024310m|0.024640rad, update time=0.096816s delay=0.100000s
+[rtabmap-11] [INFO] [1768748154.112488682] [rtabmap]: rtabmap (14): Rate=1.00s, Limit=0.000s, Conversion=0.6387s, RTAB-Map=0.0655s, Maps update=0.0002s pub=0.0001s delay=0.6660s (local map=1, WM=1)
+[rviz2-25] [INFO] [1768748154.163197113] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-25] [INFO] [1768748154.164439656] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rgbd_odometry-10] [INFO] [1768748154.190517127] [rgbd_odometry]: Odom: quality=156, std dev=0.031152m|0.029529rad, update time=0.118924s delay=0.099000s
+[rviz2-25] [INFO] [1768748154.214379034] [rviz2]: Stereo is NOT SUPPORTED
+[rgbd_odometry-10] [INFO] [1768748154.357702134] [rgbd_odometry]: Odom: quality=151, std dev=0.035051m|0.027685rad, update time=0.112387s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748154.491944816] [rgbd_odometry]: Odom: quality=187, std dev=0.014062m|0.019282rad, update time=0.093945s delay=0.089000s
+[rgbd_odometry-10] [INFO] [1768748154.617438729] [rgbd_odometry]: Odom: quality=179, std dev=0.018835m|0.023281rad, update time=0.111326s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748154.789422936] [rgbd_odometry]: Odom: quality=172, std dev=0.021596m|0.023394rad, update time=0.103845s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748154.968266515] [rgbd_odometry]: Odom: quality=181, std dev=0.023829m|0.029966rad, update time=0.101193s delay=0.072000s
+[rgbd_odometry-10] [INFO] [1768748155.074008338] [rgbd_odometry]: Odom: quality=176, std dev=0.024083m|0.024640rad, update time=0.092906s delay=0.066000s
+[rgbd_odometry-10] [INFO] [1768748155.208388926] [rgbd_odometry]: Odom: quality=167, std dev=0.027122m|0.029302rad, update time=0.099573s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748155.360331195] [rgbd_odometry]: Odom: quality=171, std dev=0.030461m|0.028084rad, update time=0.099802s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748155.451499152] [rgbd_odometry]: Odom: quality=163, std dev=0.031013m|0.028340rad, update time=0.083127s delay=0.083000s
+[rgbd_odometry-10] [INFO] [1768748155.601449316] [rgbd_odometry]: Odom: quality=167, std dev=0.035741m|0.033551rad, update time=0.091624s delay=0.103000s
+[rgbd_odometry-10] [INFO] [1768748155.750054196] [rgbd_odometry]: Odom: quality=163, std dev=0.036525m|0.030488rad, update time=0.098124s delay=0.118000s
+[rtabmap-11] [INFO] [1768748155.759547644] [rtabmap]: rtabmap (15): Rate=1.00s, Limit=0.000s, Conversion=0.7348s, RTAB-Map=0.0480s, Maps update=0.0063s pub=0.0007s delay=0.6450s (local map=1, WM=1)
+[rviz2-25] [INFO] [1768748155.790795251] [rviz2]: Trying to create a map of size 111 x 55 using 1 swatches
+[rviz2-25] [ERROR] [1768748155.838899939] [rviz2]: Vertex Program:rviz/glsl120/indexed_8bit_image.vert Fragment Program:rviz/glsl120/indexed_8bit_image.frag GLSL link result : 
+[rviz2-25] active samplers with a different type refer to the same texture image unit
+[rgbd_odometry-10] [INFO] [1768748155.890323052] [rgbd_odometry]: Odom: quality=152, std dev=0.041136m|0.032802rad, update time=0.108953s delay=0.111000s
+[rgbd_odometry-10] [INFO] [1768748156.020006957] [rgbd_odometry]: Odom: quality=187, std dev=0.018572m|0.021909rad, update time=0.087617s delay=0.115000s
+[rgbd_odometry-10] [INFO] [1768748156.166537152] [rgbd_odometry]: Odom: quality=173, std dev=0.029631m|0.024144rad, update time=0.099129s delay=0.117000s
+[rgbd_odometry-10] [INFO] [1768748156.301614293] [rgbd_odometry]: Odom: quality=167, std dev=0.033187m|0.033044rad, update time=0.099788s delay=0.113000s
+[rgbd_odometry-10] [INFO] [1768748156.441754642] [rgbd_odometry]: Odom: quality=174, std dev=0.032459m|0.026980rad, update time=0.088960s delay=0.108000s
+[rgbd_odometry-10] [INFO] [1768748156.586912525] [rgbd_odometry]: Odom: quality=167, std dev=0.036659m|0.031549rad, update time=0.095955s delay=0.114000s
+[rgbd_odometry-10] [INFO] [1768748156.731987261] [rgbd_odometry]: Odom: quality=163, std dev=0.037879m|0.024246rad, update time=0.105701s delay=0.120000s
+[rgbd_odometry-10] [INFO] [1768748156.882543401] [rgbd_odometry]: Odom: quality=192, std dev=0.021451m|0.027549rad, update time=0.108955s delay=0.129000s
+[rgbd_odometry-10] [INFO] [1768748157.006282096] [rgbd_odometry]: Odom: quality=181, std dev=0.032080m|0.028466rad, update time=0.100164s delay=0.116000s
+[rgbd_odometry-10] [INFO] [1768748157.137387954] [rgbd_odometry]: Odom: quality=191, std dev=0.025760m|0.025199rad, update time=0.106850s delay=0.123000s
+[rtabmap-11] [INFO] [1768748157.192203239] [rtabmap]: rtabmap (16): Rate=1.00s, Limit=0.000s, Conversion=0.6862s, RTAB-Map=0.0554s, Maps update=0.0043s pub=0.0001s delay=0.6790s (local map=1, WM=1)
+[topic_rate_monitor-7] [WARN] [1768748157.228002664] [health_monitor]: System health: 1 errors, 0 warnings
+[rgbd_odometry-10] [INFO] [1768748157.254901958] [rgbd_odometry]: Odom: quality=184, std dev=0.029238m|0.030437rad, update time=0.100282s delay=0.088000s
+[rgbd_odometry-10] [INFO] [1768748157.417355007] [rgbd_odometry]: Odom: quality=182, std dev=0.031183m|0.025551rad, update time=0.106691s delay=0.127000s
+[INFO] [launch.user]: Monitoring TF tree (map → odom → base_link)...
+[INFO] [tf_monitor-26]: process started with pid [7413]
+[rgbd_odometry-10] [INFO] [1768748157.549510450] [rgbd_odometry]: Odom: quality=177, std dev=0.034134m|0.033004rad, update time=0.109817s delay=0.124000s
+[rgbd_odometry-10] [INFO] [1768748157.685623350] [rgbd_odometry]: Odom: quality=174, std dev=0.037481m|0.031686rad, update time=0.104355s delay=0.116000s
+[rgbd_odometry-10] [INFO] [1768748157.826462075] [rgbd_odometry]: Odom: quality=182, std dev=0.040457m|0.031080rad, update time=0.103461s delay=0.126000s
+[rgbd_odometry-10] [INFO] [1768748157.937780459] [rgbd_odometry]: Odom: quality=176, std dev=0.048829m|0.036256rad, update time=0.088564s delay=0.093000s
+[tf_monitor-26] [INFO] [1768748157.994760033] [tf2_echo]: Waiting for transform map ->  base_link: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[rgbd_odometry-10] [INFO] [1768748158.065297223] [rgbd_odometry]: Odom: quality=170, std dev=0.046888m|0.034000rad, update time=0.097290s delay=0.116000s
+[rgbd_odometry-10] [INFO] [1768748158.198194674] [rgbd_odometry]: Odom: quality=167, std dev=0.045840m|0.030178rad, update time=0.086370s delay=0.122000s
+[rgbd_odometry-10] [INFO] [1768748158.327128490] [rgbd_odometry]: Odom: quality=174, std dev=0.051087m|0.041029rad, update time=0.099403s delay=0.116000s
+[rgbd_odometry-10] [INFO] [1768748158.483673140] [rgbd_odometry]: Odom: quality=165, std dev=0.051368m|0.037187rad, update time=0.117508s delay=0.132000s
+[rtabmap-11] [INFO] [1768748158.542254685] [rtabmap]: rtabmap (17): Rate=1.00s, Limit=0.000s, Conversion=0.6452s, RTAB-Map=0.0566s, Maps update=0.0033s pub=0.0002s delay=0.6670s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748158.587754944] [rgbd_odometry]: Odom: quality=181, std dev=0.033125m|0.029750rad, update time=0.084305s delay=0.097000s
+[rgbd_odometry-10] [INFO] [1768748158.721779954] [rgbd_odometry]: Odom: quality=178, std dev=0.033640m|0.028084rad, update time=0.089783s delay=0.118000s
+[rgbd_odometry-10] [INFO] [1768748158.825557611] [rgbd_odometry]: Odom: quality=181, std dev=0.034123m|0.029966rad, update time=0.082900s delay=0.098000s
+[rgbd_odometry-10] [INFO] [1768748158.925965209] [rgbd_odometry]: Odom: quality=180, std dev=0.036290m|0.030178rad, update time=0.091694s delay=0.131000s
+[tf_monitor-26] At time 23.167000000
+[tf_monitor-26] - Translation: [0.016, 0.002, 0.005]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.001, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.001, -0.001]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.064, 0.076, -0.076]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.001  0.001  0.016
+[tf_monitor-26]  -0.001  1.000  0.001  0.002
+[tf_monitor-26]  -0.001 -0.001  1.000  0.005
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748159.051609577] [rgbd_odometry]: Odom: quality=174, std dev=0.041089m|0.033242rad, update time=0.098055s delay=0.092000s
+[rgbd_odometry-10] [INFO] [1768748159.165444557] [rgbd_odometry]: Odom: quality=168, std dev=0.044075m|0.041839rad, update time=0.103292s delay=0.100000s
+[rgbd_odometry-10] [INFO] [1768748159.313229994] [rgbd_odometry]: Odom: quality=202, std dev=0.025754m|0.027198rad, update time=0.094122s delay=0.081000s
+[rgbd_odometry-10] [INFO] [1768748159.447684970] [rgbd_odometry]: Odom: quality=197, std dev=0.031394m|0.025199rad, update time=0.084081s delay=0.072000s
+[rgbd_odometry-10] [INFO] [1768748159.588034472] [rgbd_odometry]: Odom: quality=200, std dev=0.029872m|0.027820rad, update time=0.084830s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748159.753946235] [rgbd_odometry]: Odom: quality=195, std dev=0.034259m|0.029585rad, update time=0.100900s delay=0.123000s
+[rgbd_odometry-10] [INFO] [1768748159.877244231] [rgbd_odometry]: Odom: quality=186, std dev=0.038732m|0.029585rad, update time=0.096373s delay=0.075000s
+[rtabmap-11] [INFO] [1768748159.952360181] [rtabmap]: rtabmap (18): Rate=1.00s, Limit=0.000s, Conversion=0.7266s, RTAB-Map=0.0535s, Maps update=0.0052s pub=0.0001s delay=0.6910s (local map=1, WM=1)
+[tf_monitor-26] At time 23.826000000
+[tf_monitor-26] - Translation: [0.017, 0.002, 0.005]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.001, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.001, -0.001]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.071, 0.075, -0.075]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.001  0.001  0.017
+[tf_monitor-26]  -0.001  1.000  0.001  0.002
+[tf_monitor-26]  -0.001 -0.001  1.000  0.005
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748160.019260333] [rgbd_odometry]: Odom: quality=190, std dev=0.044860m|0.032924rad, update time=0.089336s delay=0.075000s
+[rgbd_odometry-10] [INFO] [1768748160.155217161] [rgbd_odometry]: Odom: quality=193, std dev=0.045490m|0.030589rad, update time=0.087665s delay=0.105000s
+[rgbd_odometry-10] [INFO] [1768748160.279893333] [rgbd_odometry]: Odom: quality=196, std dev=0.044745m|0.029913rad, update time=0.084745s delay=0.103000s
+[rgbd_odometry-10] [INFO] [1768748160.408044645] [rgbd_odometry]: Odom: quality=185, std dev=0.046102m|0.035049rad, update time=0.083305s delay=0.078000s
+[INFO] [launch.user]: ============================================================
+[INFO] [launch.user]: SAR DRONE SIMULATION READY
+[INFO] [launch.user]: ============================================================
+[INFO] [launch.user]: 
+[INFO] [launch.user]: 🎯 USAGE:
+[INFO] [launch.user]:   1. Use RViz '2D Nav Goal' to send navigation commands
+[INFO] [launch.user]:   2. Monitor /diagnostics for system health
+[INFO] [launch.user]:   3. Check /map topic for SLAM output
+[INFO] [launch.user]:   4. View odometry at /odometry/filtered
+[INFO] [launch.user]: 
+[INFO] [launch.user]: 🔍 DEBUGGING:
+[INFO] [launch.user]:   - Topics: ros2 topic list
+[INFO] [launch.user]:   - Nodes: ros2 node list
+[INFO] [launch.user]:   - TF: ros2 run tf2_tools view_frames
+[INFO] [launch.user]: 
+[INFO] [launch.user]: ============================================================
+[INFO] [bash-27]: process started with pid [7438]
+[bash-27] 
+[rgbd_odometry-10] [INFO] [1768748160.507539015] [rgbd_odometry]: Odom: quality=168, std dev=0.052778m|0.033475rad, update time=0.091988s delay=0.089000s
+[rgbd_odometry-10] [INFO] [1768748160.602213426] [rgbd_odometry]: Odom: quality=200, std dev=0.033464m|0.028652rad, update time=0.092403s delay=0.086000s
+[rgbd_odometry-10] [INFO] [1768748160.751838761] [rgbd_odometry]: Odom: quality=203, std dev=0.033827m|0.025108rad, update time=0.099312s delay=0.087000s
+[rgbd_odometry-10] [INFO] [1768748160.919848723] [rgbd_odometry]: Odom: quality=199, std dev=0.035064m|0.028713rad, update time=0.117540s delay=0.124000s
+[tf_monitor-26] At time 24.553000000
+[tf_monitor-26] - Translation: [0.018, 0.002, 0.005]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.001, -0.001]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.055, 0.085, -0.083]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.001  0.001  0.018
+[tf_monitor-26]  -0.001  1.000  0.001  0.002
+[tf_monitor-26]  -0.001 -0.001  1.000  0.005
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748161.045942590] [rgbd_odometry]: Odom: quality=191, std dev=0.039657m|0.027269rad, update time=0.106038s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748161.149222064] [rgbd_odometry]: Odom: quality=185, std dev=0.043178m|0.027053rad, update time=0.098655s delay=0.083000s
+[rgbd_odometry-10] [INFO] [1768748161.329283782] [rgbd_odometry]: Odom: quality=192, std dev=0.049677m|0.030984rad, update time=0.118602s delay=0.133000s
+[rtabmap-11] [INFO] [1768748161.444673871] [rtabmap]: rtabmap (19): Rate=1.00s, Limit=0.000s, Conversion=0.7656s, RTAB-Map=0.0695s, Maps update=0.0040s pub=0.0001s delay=0.7000s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748161.466612358] [rgbd_odometry]: Odom: quality=192, std dev=0.048134m|0.035981rad, update time=0.112635s delay=0.127000s
+[rgbd_odometry-10] [INFO] [1768748161.607666649] [rgbd_odometry]: Odom: quality=181, std dev=0.053801m|0.034536rad, update time=0.095395s delay=0.086000s
+[rgbd_odometry-10] [INFO] [1768748161.775158448] [rgbd_odometry]: Odom: quality=175, std dev=0.054597m|0.036043rad, update time=0.112037s delay=0.125000s
+[rgbd_odometry-10] [WARN] [1768748161.909167526] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 14 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748161.909710655] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.123546s delay=0.129000s
+[tf_monitor-26] At time 25.113000000
+[tf_monitor-26] - Translation: [0.019, 0.002, 0.005]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.001, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.001, -0.001]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.061, 0.076, -0.074]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.001  0.001  0.019
+[tf_monitor-26]  -0.001  1.000  0.001  0.002
+[tf_monitor-26]  -0.001 -0.001  1.000  0.005
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748162.101479662] [rgbd_odometry]: Odom: quality=107, std dev=0.022507m|0.028340rad, update time=0.164933s delay=0.166000s
+[rgbd_odometry-10] [INFO] [1768748162.302909638] [rgbd_odometry]: Odom: quality=102, std dev=0.020478m|0.020040rad, update time=0.173056s delay=0.156000s
+[rgbd_odometry-10] [INFO] [1768748162.420048901] [rgbd_odometry]: Odom: quality=188, std dev=0.028654m|0.026682rad, update time=0.108609s delay=0.124000s
+[rgbd_odometry-10] [INFO] [1768748162.526192608] [rgbd_odometry]: Odom: quality=191, std dev=0.030525m|0.031175rad, update time=0.090930s delay=0.090000s
+[rgbd_odometry-10] [INFO] [1768748162.673957764] [rgbd_odometry]: Odom: quality=190, std dev=0.031798m|0.029302rad, update time=0.101497s delay=0.125000s
+[rgbd_odometry-10] [INFO] [1768748162.786133607] [rgbd_odometry]: Odom: quality=185, std dev=0.033890m|0.032172rad, update time=0.095480s delay=0.095000s
+[topic_rate_monitor-7] [WARN] [1768748162.797287111] [health_monitor]: System health: 1 errors, 0 warnings
+[rtabmap-11] [INFO] [1768748162.849225200] [rtabmap]: rtabmap (20): Rate=1.00s, Limit=0.000s, Conversion=0.6723s, RTAB-Map=0.0489s, Maps update=0.0072s pub=0.0001s delay=0.7330s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748162.918983810] [rgbd_odometry]: Odom: quality=179, std dev=0.044299m|0.032554rad, update time=0.095638s delay=0.093000s
+[tf_monitor-26] At time 25.972000000
+[tf_monitor-26] - Translation: [0.020, 0.003, 0.005]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.002, -0.001]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.053, 0.086, -0.082]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.001  0.002  0.020
+[tf_monitor-26]  -0.001  1.000  0.001  0.003
+[tf_monitor-26]  -0.002 -0.001  1.000  0.005
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748163.056270990] [rgbd_odometry]: Odom: quality=173, std dev=0.041859m|0.033740rad, update time=0.103217s delay=0.125000s
+[rgbd_odometry-10] [INFO] [1768748163.159613862] [rgbd_odometry]: Odom: quality=186, std dev=0.026186m|0.024640rad, update time=0.085799s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748163.264101843] [rgbd_odometry]: Odom: quality=178, std dev=0.033334m|0.025722rad, update time=0.100560s delay=0.121000s
+[rgbd_odometry-10] [INFO] [1768748163.404740266] [rgbd_odometry]: Odom: quality=235, std dev=0.005413m|0.017423rad, update time=0.122452s delay=0.132000s
+[rgbd_odometry-10] [INFO] [1768748163.537268571] [rgbd_odometry]: Odom: quality=215, std dev=0.021585m|0.027480rad, update time=0.099440s delay=0.132000s
+[rgbd_odometry-10] [INFO] [1768748163.664238499] [rgbd_odometry]: Odom: quality=222, std dev=0.017646m|0.029187rad, update time=0.102891s delay=0.106000s
+[rgbd_odometry-10] [INFO] [1768748163.794294036] [rgbd_odometry]: Odom: quality=220, std dev=0.024812m|0.027887rad, update time=0.088669s delay=0.098000s
+[rgbd_odometry-10] [INFO] [1768748163.914123768] [rgbd_odometry]: Odom: quality=207, std dev=0.021743m|0.029071rad, update time=0.074675s delay=0.070000s
+[tf_monitor-26] At time 26.730000000
+[tf_monitor-26] - Translation: [0.021, 0.003, 0.005]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.051, 0.092, -0.087]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.021
+[tf_monitor-26]  -0.002  1.000  0.001  0.003
+[tf_monitor-26]  -0.002 -0.001  1.000  0.005
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748164.032041761] [rgbd_odometry]: Odom: quality=204, std dev=0.026408m|0.027126rad, update time=0.100659s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748164.131246237] [rgbd_odometry]: Odom: quality=204, std dev=0.032995m|0.027126rad, update time=0.091509s delay=0.092000s
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:42.394) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:43.704) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:44.899) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:46.177) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:47.477) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:48.776) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:50.076) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:51.364) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:52.743) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:54.046) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:55.704) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:57.132) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:58.481) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:25:59.893) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:01.370) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:02.792) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [INFO] [1768748164.251830312] [rtabmap]: rtabmap (21): Rate=1.00s, Limit=0.000s, Conversion=0.7784s, RTAB-Map=0.0588s, Maps update=0.0062s pub=0.0001s delay=0.7000s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748164.269935490] [rgbd_odometry]: Odom: quality=209, std dev=0.030125m|0.028953rad, update time=0.102680s delay=0.072000s
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:36.339) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:36.341) Features2d.cpp:658::create() BRIEF, FREAK and DAISY features cannot be used because OpenCV was not built with xfeatures2d module. GFTT/ORB is used instead.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:39.186) OdometryF2M.cpp:626::computeTransform() Registration failed: "Too low inliers after bundle adjustment: 13<15" (guess=xyz=-0.058740,0.268419,-0.081640 rpy=0.057170,0.010555,-0.010744)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:39.188) OdometryF2M.cpp:319::computeTransform() Failed to find a transformation with the provided guess (xyz=-0.058740,0.268419,-0.081640 rpy=0.057170,0.010555,-0.010744), trying again without a guess.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:39.297) OdometryF2M.cpp:636::computeTransform() Trial with no guess succeeded![0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:39.340) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough inliers 0/15 (matches=13) between -1 and 35" (guess=xyz=0.116641,-0.499567,0.183232 rpy=-0.108646,-0.019215,0.022032)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:39.341) OdometryF2M.cpp:319::computeTransform() Failed to find a transformation with the provided guess (xyz=0.116641,-0.499567,0.183232 rpy=-0.108646,-0.019215,0.022032), trying again without a guess.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:39.444) OdometryF2M.cpp:636::computeTransform() Trial with no guess succeeded![0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:49.038) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough inliers 11/15 (matches=27) between -1 and 119" (guess=xyz=0.000128,0.000084,-0.000015 rpy=0.000038,0.000001,-0.000003)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:49.040) OdometryF2M.cpp:319::computeTransform() Failed to find a transformation with the provided guess (xyz=0.000128,0.000084,-0.000015 rpy=0.000038,0.000001,-0.000003), trying again without a guess.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:49.081) OdometryF2M.cpp:616::computeTransform() Trial with no guess still fail.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:49.081) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough features in images (old=2000, new=11, min=15)" (guess=xyz=0.000128,0.000084,-0.000015 rpy=0.000038,0.000001,-0.000003)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:51.461) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough inliers 0/15 (matches=13) between -1 and 137" (guess=xyz=0.000227,-0.000072,0.000025 rpy=-0.000039,-0.000031,0.000021)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:51.463) OdometryF2M.cpp:319::computeTransform() Failed to find a transformation with the provided guess (xyz=0.000227,-0.000072,0.000025 rpy=-0.000039,-0.000031,0.000021), trying again without a guess.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:51.522) OdometryF2M.cpp:616::computeTransform() Trial with no guess still fail.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:25:51.522) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough inliers 0/15 (matches=6) between -1 and 137" (guess=xyz=0.000227,-0.000072,0.000025 rpy=-0.000039,-0.000031,0.000021)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:01.835) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough inliers 0/15 (matches=20) between -1 and 213" (guess=xyz=0.000565,-0.000379,-0.000206 rpy=-0.000084,-0.000172,0.000176)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:01.837) OdometryF2M.cpp:319::computeTransform() Failed to find a transformation with the provided guess (xyz=0.000565,-0.000379,-0.000206 rpy=-0.000084,-0.000172,0.000176), trying again without a guess.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:01.906) OdometryF2M.cpp:616::computeTransform() Trial with no guess still fail.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:01.906) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough features in images (old=2000, new=14, min=15)" (guess=xyz=0.000565,-0.000379,-0.000206 rpy=-0.000084,-0.000172,0.000176)[0m
+[rgbd_odometry-10] [WARN] [1768748164.427073671] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 14 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748164.427282567] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.102745s delay=0.073000s
+[rgbd_odometry-10] [INFO] [1768748164.573279828] [rgbd_odometry]: Odom: quality=119, std dev=0.041774m|0.036436rad, update time=0.145145s delay=0.144000s
+[rgbd_odometry-10] [INFO] [1768748164.746076809] [rgbd_odometry]: Odom: quality=115, std dev=0.035535m|0.030886rad, update time=0.141170s delay=0.150000s
+[rgbd_odometry-10] [INFO] [1768748164.881150099] [rgbd_odometry]: Odom: quality=179, std dev=0.039402m|0.036256rad, update time=0.101980s delay=0.102000s
+[tf_monitor-26] At time 27.358000000
+[tf_monitor-26] - Translation: [0.021, 0.003, 0.006]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.044, 0.100, -0.092]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.021
+[tf_monitor-26]  -0.002  1.000  0.001  0.003
+[tf_monitor-26]  -0.002 -0.001  1.000  0.006
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748165.018211038] [rgbd_odometry]: Odom: quality=183, std dev=0.042388m|0.037102rad, update time=0.092477s delay=0.115000s
+[rgbd_odometry-10] [INFO] [1768748165.182398693] [rgbd_odometry]: Odom: quality=184, std dev=0.044847m|0.036555rad, update time=0.111524s delay=0.129000s
+[rgbd_odometry-10] [INFO] [1768748165.312941245] [rgbd_odometry]: Odom: quality=167, std dev=0.046613m|0.038984rad, update time=0.107909s delay=0.086000s
+[rgbd_odometry-10] [INFO] [1768748165.480065828] [rgbd_odometry]: Odom: quality=183, std dev=0.023799m|0.028466rad, update time=0.112796s delay=0.118000s
+[rgbd_odometry-10] [INFO] [1768748165.608975581] [rgbd_odometry]: Odom: quality=238, std dev=0.003522m|0.018188rad, update time=0.088129s delay=0.107000s
+[rtabmap-11] [INFO] [1768748165.704859960] [rtabmap]: rtabmap (22): Rate=1.00s, Limit=0.000s, Conversion=0.7667s, RTAB-Map=0.0456s, Maps update=0.0047s pub=0.0001s delay=0.7000s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748165.730887281] [rgbd_odometry]: Odom: quality=225, std dev=0.012141m|0.020388rad, update time=0.082270s delay=0.088000s
+[rgbd_odometry-10] [INFO] [1768748165.827126059] [rgbd_odometry]: Odom: quality=223, std dev=0.017641m|0.023616rad, update time=0.080763s delay=0.083000s
+[rgbd_odometry-10] [INFO] [1768748165.931437689] [rgbd_odometry]: Odom: quality=215, std dev=0.014203m|0.021339rad, update time=0.100122s delay=0.116000s
+[tf_monitor-26] At time 28.84000000
+[tf_monitor-26] - Translation: [0.023, 0.003, 0.006]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.042, 0.095, -0.086]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.023
+[tf_monitor-26]  -0.002  1.000  0.001  0.003
+[tf_monitor-26]  -0.002 -0.001  1.000  0.006
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748166.055213967] [rgbd_odometry]: Odom: quality=224, std dev=0.019979m|0.027549rad, update time=0.086894s delay=0.098000s
+[rgbd_odometry-10] [WARN] [1768748166.175194049] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 14 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748166.175448506] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.116278s delay=0.122000s
+[rgbd_odometry-10] [INFO] [1768748166.332873780] [rgbd_odometry]: Odom: quality=118, std dev=0.031697m|0.036196rad, update time=0.155821s delay=0.152000s
+[rgbd_odometry-10] [INFO] [1768748166.521652035] [rgbd_odometry]: Odom: quality=101, std dev=0.029069m|0.035049rad, update time=0.184899s delay=0.155000s
+[rgbd_odometry-10] [INFO] [1768748166.650153294] [rgbd_odometry]: Odom: quality=201, std dev=0.028406m|0.026529rad, update time=0.109397s delay=0.121000s
+[rgbd_odometry-10] [INFO] [1768748166.777715062] [rgbd_odometry]: Odom: quality=195, std dev=0.029437m|0.031503rad, update time=0.106275s delay=0.125000s
+[rgbd_odometry-10] [INFO] [1768748166.918708223] [rgbd_odometry]: Odom: quality=193, std dev=0.033033m|0.032679rad, update time=0.116140s delay=0.122000s
+[tf_monitor-26] At time 28.809000000
+[tf_monitor-26] - Translation: [0.024, 0.003, 0.006]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.001, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.002, -0.001]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.078, 0.099, -0.079]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.001  0.002  0.024
+[tf_monitor-26]  -0.001  1.000  0.001  0.003
+[tf_monitor-26]  -0.002 -0.001  1.000  0.006
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748167.034544090] [rgbd_odometry]: Odom: quality=180, std dev=0.038044m|0.033475rad, update time=0.109801s delay=0.127000s
+[rtabmap-11] [INFO] [1768748167.087982883] [rtabmap]: rtabmap (23): Rate=1.00s, Limit=0.000s, Conversion=0.6728s, RTAB-Map=0.0615s, Maps update=0.0052s pub=0.0003s delay=0.7660s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748167.152028836] [rgbd_odometry]: Odom: quality=194, std dev=0.025030m|0.028149rad, update time=0.090502s delay=0.093000s
+[rgbd_odometry-10] [INFO] [1768748167.284293242] [rgbd_odometry]: Odom: quality=192, std dev=0.027728m|0.029416rad, update time=0.092806s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748167.407143591] [rgbd_odometry]: Odom: quality=189, std dev=0.029254m|0.032924rad, update time=0.081368s delay=0.095000s
+[rgbd_odometry-10] [INFO] [1768748167.546445724] [rgbd_odometry]: Odom: quality=185, std dev=0.034492m|0.035049rad, update time=0.094975s delay=0.096000s
+[rgbd_odometry-10] [INFO] [1768748167.689614796] [rgbd_odometry]: Odom: quality=226, std dev=0.017245m|0.021486rad, update time=0.097200s delay=0.120000s
+[rgbd_odometry-10] [INFO] [1768748167.804811533] [rgbd_odometry]: Odom: quality=223, std dev=0.019059m|0.020556rad, update time=0.088480s delay=0.098000s
+[rgbd_odometry-10] [INFO] [1768748167.925427246] [rgbd_odometry]: Odom: quality=218, std dev=0.023357m|0.022044rad, update time=0.075281s delay=0.117000s
+[tf_monitor-26] At time 29.601000000
+[tf_monitor-26] - Translation: [0.025, 0.004, 0.006]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.032, 0.106, -0.094]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.025
+[tf_monitor-26]  -0.002  1.000  0.001  0.004
+[tf_monitor-26]  -0.002 -0.001  1.000  0.006
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748168.037077431] [rgbd_odometry]: Odom: quality=204, std dev=0.026497m|0.027953rad, update time=0.086896s delay=0.098000s
+[rgbd_odometry-10] [INFO] [1768748168.143317155] [rgbd_odometry]: Odom: quality=219, std dev=0.027035m|0.028773rad, update time=0.098654s delay=0.103000s
+[rtabmap-11] [INFO] [1768748168.235259298] [rtabmap]: rtabmap (24): Rate=1.00s, Limit=0.000s, Conversion=0.6300s, RTAB-Map=0.0467s, Maps update=0.0041s pub=0.0001s delay=0.6350s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748168.254087970] [rgbd_odometry]: Odom: quality=220, std dev=0.026852m|0.029529rad, update time=0.082632s delay=0.085000s
+[topic_rate_monitor-7] [WARN] [1768748168.354487369] [health_monitor]: System health: 1 errors, 0 warnings
+[rgbd_odometry-10] [INFO] [1768748168.385907754] [rgbd_odometry]: Odom: quality=216, std dev=0.029452m|0.026374rad, update time=0.089298s delay=0.097000s
+[rgbd_odometry-10] [INFO] [1768748168.536785127] [rgbd_odometry]: Odom: quality=200, std dev=0.035680m|0.039008rad, update time=0.088416s delay=0.070000s
+[rgbd_odometry-10] [INFO] [1768748168.671607678] [rgbd_odometry]: Odom: quality=214, std dev=0.035626m|0.041581rad, update time=0.079263s delay=0.071000s
+[rgbd_odometry-10] [INFO] [1768748168.759660423] [rgbd_odometry]: Odom: quality=205, std dev=0.041568m|0.037270rad, update time=0.082789s delay=0.087000s
+[rgbd_odometry-10] [INFO] [1768748168.844951453] [rgbd_odometry]: Odom: quality=204, std dev=0.042569m|0.036012rad, update time=0.072627s delay=0.077000s
+[tf_monitor-26] At time 30.262000000
+[tf_monitor-26] - Translation: [0.026, 0.004, 0.006]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.001, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.037, 0.116, -0.099]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.026
+[tf_monitor-26]  -0.002  1.000  0.001  0.004
+[tf_monitor-26]  -0.002 -0.001  1.000  0.006
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748168.975227469] [rgbd_odometry]: Odom: quality=204, std dev=0.044750m|0.040191rad, update time=0.092069s delay=0.103000s
+[rgbd_odometry-10] [INFO] [1768748169.104508742] [rgbd_odometry]: Odom: quality=188, std dev=0.049474m|0.044189rad, update time=0.079482s delay=0.103000s
+[rgbd_odometry-10] [INFO] [1768748169.220944950] [rgbd_odometry]: Odom: quality=226, std dev=0.016572m|0.025722rad, update time=0.078001s delay=0.075000s
+[rgbd_odometry-10] [INFO] [1768748169.310617987] [rgbd_odometry]: Odom: quality=225, std dev=0.026398m|0.029302rad, update time=0.084000s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748169.410955410] [rgbd_odometry]: Odom: quality=214, std dev=0.031323m|0.034778rad, update time=0.090999s delay=0.086000s
+[rgbd_odometry-10] [INFO] [1768748169.514029434] [rgbd_odometry]: Odom: quality=210, std dev=0.030709m|0.035731rad, update time=0.098769s delay=0.077000s
+[rgbd_odometry-10] [INFO] [1768748169.639369605] [rgbd_odometry]: Odom: quality=215, std dev=0.032605m|0.031410rad, update time=0.083190s delay=0.078000s
+[rtabmap-11] [INFO] [1768748169.729211779] [rtabmap]: rtabmap (25): Rate=1.00s, Limit=0.000s, Conversion=0.6813s, RTAB-Map=0.0581s, Maps update=0.0046s pub=0.0001s delay=0.6830s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748169.771990979] [rgbd_odometry]: Odom: quality=196, std dev=0.034659m|0.036165rad, update time=0.084456s delay=0.079000s
+[rgbd_odometry-10] [INFO] [1768748169.864039283] [rgbd_odometry]: Odom: quality=191, std dev=0.040442m|0.038564rad, update time=0.084761s delay=0.094000s
+[tf_monitor-26] At time 30.988000000
+[tf_monitor-26] - Translation: [0.028, 0.004, 0.006]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.000, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.028, 0.114, -0.096]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.028
+[tf_monitor-26]  -0.002  1.000  0.000  0.004
+[tf_monitor-26]  -0.002 -0.000  1.000  0.006
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748169.980154305] [rgbd_odometry]: Odom: quality=191, std dev=0.037932m|0.028953rad, update time=0.098328s delay=0.092000s
+[rgbd_odometry-10] [INFO] [1768748170.073569432] [rgbd_odometry]: Odom: quality=220, std dev=0.014524m|0.029187rad, update time=0.090846s delay=0.081000s
+[rgbd_odometry-10] [INFO] [1768748170.218893487] [rgbd_odometry]: Odom: quality=221, std dev=0.017448m|0.026833rad, update time=0.097514s delay=0.082000s
+[rgbd_odometry-10] [INFO] [1768748170.360819530] [rgbd_odometry]: Odom: quality=201, std dev=0.020999m|0.030334rad, update time=0.092861s delay=0.109000s
+[rgbd_odometry-10] [INFO] [1768748170.497924371] [rgbd_odometry]: Odom: quality=198, std dev=0.028062m|0.032679rad, update time=0.089359s delay=0.110000s
+[rgbd_odometry-10] [INFO] [1768748170.617842574] [rgbd_odometry]: Odom: quality=198, std dev=0.027318m|0.031998rad, update time=0.082526s delay=0.085000s
+[rgbd_odometry-10] [INFO] [1768748170.713932810] [rgbd_odometry]: Odom: quality=199, std dev=0.031704m|0.036759rad, update time=0.091125s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748170.810017992] [rgbd_odometry]: Odom: quality=184, std dev=0.032084m|0.038000rad, update time=0.086509s delay=0.090000s
+[rgbd_odometry-10] [INFO] [1768748170.896791137] [rgbd_odometry]: Odom: quality=228, std dev=0.006350m|0.019282rad, update time=0.081238s delay=0.087000s
+[tf_monitor-26] At time 31.713000000
+[tf_monitor-26] - Translation: [0.029, 0.004, 0.007]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.000, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.028, 0.121, -0.107]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.029
+[tf_monitor-26]  -0.002  1.000  0.000  0.004
+[tf_monitor-26]  -0.002 -0.000  1.000  0.007
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748171.023827775] [rgbd_odometry]: Odom: quality=224, std dev=0.014635m|0.026215rad, update time=0.086709s delay=0.088000s
+[rtabmap-11] [INFO] [1768748171.128727639] [rtabmap]: rtabmap (26): Rate=1.00s, Limit=0.000s, Conversion=0.7030s, RTAB-Map=0.0610s, Maps update=0.0012s pub=0.0002s delay=0.6760s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748171.148639024] [rgbd_odometry]: Odom: quality=230, std dev=0.014847m|0.022810rad, update time=0.105055s delay=0.097000s
+[rgbd_odometry-10] [INFO] [1768748171.271787342] [rgbd_odometry]: Odom: quality=229, std dev=0.016568m|0.023506rad, update time=0.089004s delay=0.095000s
+[rgbd_odometry-10] [INFO] [1768748171.408657811] [rgbd_odometry]: Odom: quality=221, std dev=0.020296m|0.029245rad, update time=0.092820s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748171.510371345] [rgbd_odometry]: Odom: quality=215, std dev=0.020432m|0.028713rad, update time=0.090769s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748171.598718267] [rgbd_odometry]: Odom: quality=200, std dev=0.026324m|0.039008rad, update time=0.083290s delay=0.092000s
+[rgbd_odometry-10] [INFO] [1768748171.690832841] [rgbd_odometry]: Odom: quality=207, std dev=0.028378m|0.042265rad, update time=0.087099s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748171.809806695] [rgbd_odometry]: Odom: quality=197, std dev=0.033156m|0.039296rad, update time=0.075281s delay=0.097000s
+[rgbd_odometry-10] [INFO] [1768748171.932179919] [rgbd_odometry]: Odom: quality=195, std dev=0.032863m|0.045111rad, update time=0.100160s delay=0.099000s
+[tf_monitor-26] At time 32.440000000
+[tf_monitor-26] - Translation: [0.031, 0.005, 0.007]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.000, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.012, 0.133, -0.114]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.031
+[tf_monitor-26]  -0.002  1.000  0.000  0.005
+[tf_monitor-26]  -0.002 -0.000  1.000  0.007
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748172.044598099] [rgbd_odometry]: Odom: quality=188, std dev=0.033399m|0.042188rad, update time=0.098999s delay=0.133000s
+[rgbd_odometry-10] [INFO] [1768748172.157121641] [rgbd_odometry]: Odom: quality=222, std dev=0.015096m|0.025199rad, update time=0.079784s delay=0.094000s
+[rgbd_odometry-10] [INFO] [1768748172.292717303] [rgbd_odometry]: Odom: quality=197, std dev=0.018323m|0.029473rad, update time=0.093730s delay=0.097000s
+[rgbd_odometry-10] [INFO] [1768748172.409152189] [rgbd_odometry]: Odom: quality=211, std dev=0.020028m|0.031640rad, update time=0.100265s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748172.521263442] [rgbd_odometry]: Odom: quality=215, std dev=0.023251m|0.029012rad, update time=0.082088s delay=0.097000s
+[rgbd_odometry-10] [INFO] [1768748172.627697446] [rgbd_odometry]: Odom: quality=215, std dev=0.024619m|0.036406rad, update time=0.088423s delay=0.115000s
+[rtabmap-11] [INFO] [1768748172.690708449] [rtabmap]: rtabmap (27): Rate=1.00s, Limit=0.000s, Conversion=0.6971s, RTAB-Map=0.0465s, Maps update=0.0059s pub=0.0001s delay=0.6990s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748172.757327805] [rgbd_odometry]: Odom: quality=209, std dev=0.029035m|0.035182rad, update time=0.086654s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748172.880736309] [rgbd_odometry]: Odom: quality=186, std dev=0.032149m|0.036043rad, update time=0.079050s delay=0.067000s
+[tf_monitor-26] At time 33.133000000
+[tf_monitor-26] - Translation: [0.032, 0.005, 0.007]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.000, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.027, 0.133, -0.112]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.032
+[tf_monitor-26]  -0.002  1.000  0.000  0.005
+[tf_monitor-26]  -0.002 -0.000  1.000  0.007
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748173.024201605] [rgbd_odometry]: Odom: quality=234, std dev=0.009480m|0.025199rad, update time=0.081578s delay=0.069000s
+[rgbd_odometry-10] [INFO] [1768748173.116438736] [rgbd_odometry]: Odom: quality=232, std dev=0.019981m|0.031410rad, update time=0.076692s delay=0.085000s
+[rgbd_odometry-10] [INFO] [1768748173.254424600] [rgbd_odometry]: Odom: quality=231, std dev=0.018200m|0.030739rad, update time=0.092358s delay=0.090000s
+[rgbd_odometry-10] [INFO] [1768748173.363199482] [rgbd_odometry]: Odom: quality=225, std dev=0.020958m|0.035379rad, update time=0.097859s delay=0.071000s
+[rgbd_odometry-10] [INFO] [1768748173.483182732] [rgbd_odometry]: Odom: quality=219, std dev=0.024965m|0.036074rad, update time=0.063239s delay=0.093000s
+[rgbd_odometry-10] [INFO] [1768748173.647556364] [rgbd_odometry]: Odom: quality=209, std dev=0.027992m|0.038259rad, update time=0.094878s delay=0.073000s
+[rgbd_odometry-10] [INFO] [1768748173.775046725] [rgbd_odometry]: Odom: quality=202, std dev=0.032948m|0.044388rad, update time=0.080002s delay=0.074000s
+[rgbd_odometry-10] [INFO] [1768748173.908182690] [rgbd_odometry]: Odom: quality=228, std dev=0.014648m|0.030334rad, update time=0.077853s delay=0.075000s
+[tf_monitor-26] At time 33.825000000
+[tf_monitor-26] - Translation: [0.034, 0.005, 0.007]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.000, 0.002, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [-0.008, 0.141, -0.115]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.002  0.034
+[tf_monitor-26]  -0.002  1.000  0.000  0.005
+[tf_monitor-26]  -0.002 -0.000  1.000  0.007
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[topic_rate_monitor-7] [WARN] [1768748174.017479431] [health_monitor]: System health: 1 errors, 0 warnings
+[rgbd_odometry-10] [INFO] [1768748174.049328602] [rgbd_odometry]: Odom: quality=211, std dev=0.016402m|0.034000rad, update time=0.081139s delay=0.076000s
+[rtabmap-11] [INFO] [1768748174.117836382] [rtabmap]: rtabmap (28): Rate=1.00s, Limit=0.000s, Conversion=0.6901s, RTAB-Map=0.0530s, Maps update=0.0050s pub=0.0001s delay=0.6820s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748174.192770623] [rgbd_odometry]: Odom: quality=219, std dev=0.019489m|0.032964rad, update time=0.090916s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748174.319431501] [rgbd_odometry]: Odom: quality=218, std dev=0.020854m|0.037102rad, update time=0.084561s delay=0.078000s
+[rgbd_odometry-10] [INFO] [1768748174.435440773] [rgbd_odometry]: Odom: quality=221, std dev=0.025065m|0.042111rad, update time=0.068694s delay=0.079000s
+[rgbd_odometry-10] [INFO] [1768748174.543769003] [rgbd_odometry]: Odom: quality=206, std dev=0.029269m|0.043886rad, update time=0.090386s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748174.665056721] [rgbd_odometry]: Odom: quality=189, std dev=0.031374m|0.045741rad, update time=0.105540s delay=0.093000s
+[rgbd_odometry-10] [INFO] [1768748174.781010681] [rgbd_odometry]: Odom: quality=228, std dev=0.013825m|0.028149rad, update time=0.084926s delay=0.088000s
+[rgbd_odometry-10] [INFO] [1768748174.877395979] [rgbd_odometry]: Odom: quality=224, std dev=0.015122m|0.028590rad, update time=0.088766s delay=0.082000s
+[tf_monitor-26] At time 34.518000000
+[tf_monitor-26] - Translation: [0.035, 0.006, 0.007]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.000, 0.003, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.000, 0.158, -0.130]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.003  0.035
+[tf_monitor-26]  -0.002  1.000 -0.000  0.006
+[tf_monitor-26]  -0.003  0.000  1.000  0.007
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748175.023484722] [rgbd_odometry]: Odom: quality=206, std dev=0.025320m|0.042435rad, update time=0.092815s delay=0.119000s
+[rgbd_odometry-10] [INFO] [1768748175.149173263] [rgbd_odometry]: Odom: quality=198, std dev=0.027196m|0.045468rad, update time=0.091441s delay=0.084000s
+[rgbd_odometry-10] [INFO] [1768748175.235526598] [rgbd_odometry]: Odom: quality=229, std dev=0.011311m|0.023937rad, update time=0.085190s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748175.334145636] [rgbd_odometry]: Odom: quality=213, std dev=0.014619m|0.026980rad, update time=0.083676s delay=0.088000s
+[rgbd_odometry-10] [INFO] [1768748175.463987767] [rgbd_odometry]: Odom: quality=221, std dev=0.017812m|0.028277rad, update time=0.098999s delay=0.090000s
+[rtabmap-11] [INFO] [1768748175.551213615] [rtabmap]: rtabmap (29): Rate=1.00s, Limit=0.000s, Conversion=0.6943s, RTAB-Map=0.0676s, Maps update=0.0043s pub=0.0000s delay=0.7000s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748175.614050174] [rgbd_odometry]: Odom: quality=217, std dev=0.019389m|0.025890rad, update time=0.095969s delay=0.116000s
+[rgbd_odometry-10] [INFO] [1768748175.763853114] [rgbd_odometry]: Odom: quality=204, std dev=0.021777m|0.037187rad, update time=0.106499s delay=0.092000s
+[rgbd_odometry-10] [INFO] [1768748175.886717783] [rgbd_odometry]: Odom: quality=200, std dev=0.024692m|0.036406rad, update time=0.096159s delay=0.102000s
+[tf_monitor-26] At time 35.245000000
+[tf_monitor-26] - Translation: [0.036, 0.006, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.001, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.000, 0.003, -0.002]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.002, 0.167, -0.138]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.002  0.003  0.036
+[tf_monitor-26]  -0.002  1.000 -0.000  0.006
+[tf_monitor-26]  -0.003  0.000  1.000  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748176.012293565] [rgbd_odometry]: Odom: quality=201, std dev=0.011853m|0.027549rad, update time=0.093994s delay=0.089000s
+[rgbd_odometry-10] [INFO] [1768748176.152744863] [rgbd_odometry]: Odom: quality=224, std dev=0.004495m|0.017944rad, update time=0.087689s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748176.257121638] [rgbd_odometry]: Odom: quality=214, std dev=0.008380m|0.022688rad, update time=0.093574s delay=0.092000s
+[rgbd_odometry-10] [INFO] [1768748176.406115950] [rgbd_odometry]: Odom: quality=224, std dev=0.012204m|0.029966rad, update time=0.089608s delay=0.093000s
+[rgbd_odometry-10] [INFO] [1768748176.541984611] [rgbd_odometry]: Odom: quality=215, std dev=0.014967m|0.024346rad, update time=0.089051s delay=0.091000s
+[rgbd_odometry-10] [INFO] [1768748176.679883697] [rgbd_odometry]: Odom: quality=217, std dev=0.015894m|0.029187rad, update time=0.093015s delay=0.095000s
+[rgbd_odometry-10] [INFO] [1768748176.816758255] [rgbd_odometry]: Odom: quality=213, std dev=0.021104m|0.037187rad, update time=0.084365s delay=0.091000s
+[rtabmap-11] [INFO] [1768748176.961501075] [rtabmap]: rtabmap (30): Rate=1.00s, Limit=0.000s, Conversion=0.7303s, RTAB-Map=0.0590s, Maps update=0.0075s pub=0.0001s delay=0.6980s (local map=1, WM=1)
+[tf_monitor-26] At time 35.904000000
+[tf_monitor-26] - Translation: [0.038, 0.007, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.002, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.000, 0.003, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.014, 0.177, -0.143]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.003  0.003  0.038
+[tf_monitor-26]  -0.003  1.000 -0.000  0.007
+[tf_monitor-26]  -0.003  0.000  1.000  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748176.975589491] [rgbd_odometry]: Odom: quality=203, std dev=0.023475m|0.042034rad, update time=0.098230s delay=0.102000s
+[rgbd_odometry-10] [INFO] [1768748177.117268609] [rgbd_odometry]: Odom: quality=200, std dev=0.025749m|0.042303rad, update time=0.087212s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748177.277368756] [rgbd_odometry]: Odom: quality=219, std dev=0.013486m|0.027953rad, update time=0.101529s delay=0.126000s
+[rgbd_odometry-10] [INFO] [1768748177.394500248] [rgbd_odometry]: Odom: quality=206, std dev=0.016990m|0.024041rad, update time=0.103793s delay=0.132000s
+[rgbd_odometry-10] [INFO] [1768748177.514565497] [rgbd_odometry]: Odom: quality=207, std dev=0.021191m|0.034982rad, update time=0.089886s delay=0.099000s
+[rgbd_odometry-10] [INFO] [1768748177.595360829] [rgbd_odometry]: Odom: quality=195, std dev=0.023853m|0.038078rad, update time=0.075122s delay=0.081000s
+[rgbd_odometry-10] [INFO] [1768748177.724269864] [rgbd_odometry]: Odom: quality=245, std dev=0.008032m|0.023394rad, update time=0.091375s delay=0.069000s
+[rgbd_odometry-10] [INFO] [1768748177.851291840] [rgbd_odometry]: Odom: quality=232, std dev=0.013235m|0.031549rad, update time=0.078078s delay=0.070000s
+[rgbd_odometry-10] [INFO] [1768748177.959421758] [rgbd_odometry]: Odom: quality=232, std dev=0.014557m|0.026606rad, update time=0.093096s delay=0.094000s
+[tf_monitor-26] At time 36.697000000
+[tf_monitor-26] - Translation: [0.040, 0.007, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.002, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.001, 0.003, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.029, 0.189, -0.147]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.003  0.003  0.040
+[tf_monitor-26]  -0.003  1.000 -0.001  0.007
+[tf_monitor-26]  -0.003  0.001  1.000  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [INFO] [1768748178.063330593] [rgbd_odometry]: Odom: quality=222, std dev=0.017356m|0.030020rad, update time=0.089750s delay=0.089000s
+[rgbd_odometry-10] [INFO] [1768748178.169452075] [rgbd_odometry]: Odom: quality=204, std dev=0.022716m|0.041621rad, update time=0.099106s delay=0.072000s
+[rgbd_odometry-10] [INFO] [1768748178.312373125] [rgbd_odometry]: Odom: quality=242, std dev=0.010041m|0.031270rad, update time=0.084411s delay=0.073000s
+[rtabmap-11] [INFO] [1768748178.346159315] [rtabmap]: rtabmap (31): Rate=1.00s, Limit=0.000s, Conversion=0.7760s, RTAB-Map=0.0471s, Maps update=0.0051s pub=0.0001s delay=0.6420s (local map=1, WM=1)
+[rgbd_odometry-10] [INFO] [1768748178.398812391] [rgbd_odometry]: Odom: quality=236, std dev=0.010702m|0.029913rad, update time=0.073986s delay=0.096000s
+[rgbd_odometry-10] [WARN] [1768748178.478837483] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 14 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748178.479016333] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.042462s delay=0.040000s
+[rgbd_odometry-10] [WARN] [1768748178.556796619] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 13 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748178.556974902] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.025169s delay=0.060000s
+[rgbd_odometry-10] [WARN] [1768748178.658687455] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 12 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748178.658794263] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.071968s delay=0.089000s
+[rgbd_odometry-10] [WARN] [1768748178.750869692] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 11 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748178.751100615] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.066963s delay=0.076000s
+[rgbd_odometry-10] [WARN] [1768748178.836699476] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 10 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748178.836887697] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.066996s delay=0.090000s
+[rgbd_odometry-10] [WARN] [1768748178.921898814] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 9 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748178.922076606] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.062628s delay=0.083000s
+[tf_monitor-26] At time 36.994000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.002, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.001, 0.003, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.034, 0.196, -0.151]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.003  0.003  0.041
+[tf_monitor-26]  -0.003  1.000 -0.001  0.007
+[tf_monitor-26]  -0.003  0.001  1.000  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748178.972564197] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 8 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748178.972674802] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.018390s delay=0.060000s
+[rgbd_odometry-10] [WARN] [1768748179.012448466] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 7 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748179.012710563] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.014299s delay=0.044000s
+[rgbd_odometry-10] [WARN] [1768748179.051232063] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 6 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748179.051456846] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.016350s delay=0.046000s
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:04.366) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough inliers 0/15 (matches=21) between -1 and 232" (guess=xyz=0.000229,0.000008,-0.000020 rpy=0.000016,-0.000020,0.000021)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:04.367) OdometryF2M.cpp:319::computeTransform() Failed to find a transformation with the provided guess (xyz=0.000229,0.000008,-0.000020 rpy=0.000016,-0.000020,0.000021), trying again without a guess.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:04.425) OdometryF2M.cpp:616::computeTransform() Trial with no guess still fail.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:04.425) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough features in images (old=2000, new=9, min=15)" (guess=xyz=0.000229,0.000008,-0.000020 rpy=0.000016,-0.000020,0.000021)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:06.106) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough inliers 0/15 (matches=21) between -1 and 245" (guess=xyz=0.000252,-0.000032,-0.000060 rpy=0.000022,-0.000071,0.000091)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:06.107) OdometryF2M.cpp:319::computeTransform() Failed to find a transformation with the provided guess (xyz=0.000252,-0.000032,-0.000060 rpy=0.000022,-0.000071,0.000091), trying again without a guess.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:06.172) OdometryF2M.cpp:616::computeTransform() Trial with no guess still fail.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:06.173) OdometryF2M.cpp:626::computeTransform() Registration failed: "Not enough inliers 0/15 (matches=3) between -1 and 245" (guess=xyz=0.000252,-0.000032,-0.000060 rpy=0.000022,-0.000071,0.000091)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.460) OdometryF2M.cpp:626::computeTransform() Registration failed: "Missing correspondences for registration (-1->346). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0" (guess=xyz=0.000076,0.000065,0.000134 rpy=-0.000056,0.000113,-0.000079)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.461) OdometryF2M.cpp:319::computeTransform() Failed to find a transformation with the provided guess (xyz=0.000076,0.000065,0.000134 rpy=-0.000056,0.000113,-0.000079), trying again without a guess.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.477) OdometryF2M.cpp:616::computeTransform() Trial with no guess still fail.[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.477) OdometryF2M.cpp:626::computeTransform() Registration failed: "Missing correspondences for registration (-1->346). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0" (guess=xyz=0.000076,0.000065,0.000134 rpy=-0.000056,0.000113,-0.000079)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.554) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->347). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.656) OdometryF2M.cpp:622::computeTransform() Registration failed: "Not enough features in images (old=2000, new=1, min=15)"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.749) OdometryF2M.cpp:622::computeTransform() Registration failed: "Not enough features in images (old=2000, new=1, min=15)"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.835) OdometryF2M.cpp:622::computeTransform() Registration failed: "Not enough features in images (old=2000, new=1, min=15)"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.921) OdometryF2M.cpp:622::computeTransform() Registration failed: "Not enough features in images (old=2000, new=1, min=15)"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:18.971) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->352). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:19.011) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->353). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:19.048) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->354). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [WARN] [1768748179.104616428] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 5 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748179.104761476] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.015862s delay=0.060000s
+[rgbd_odometry-10] [WARN] [1768748179.162985384] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 4 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748179.163167043] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.026590s delay=0.045000s
+[rgbd_odometry-10] [WARN] [1768748179.186132830] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 3 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748179.186280006] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.017721s delay=0.050000s
+[rgbd_odometry-10] [WARN] [1768748179.248000392] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 2 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748179.248162559] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.025923s delay=0.067000s
+[rgbd_odometry-10] [WARN] [1768748179.293811659] [rgbd_odometry]: Odometry lost! Odometry will be reset after next 1 consecutive unsuccessful odometry updates...
+[rgbd_odometry-10] [INFO] [1768748179.293951261] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.021730s delay=0.046000s
+[topic_rate_monitor-7] [WARN] [1768748179.687517303] [health_monitor]: System health: 1 errors, 0 warnings
+[tf_monitor-26] At time 36.994000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.002, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.001, 0.003, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.034, 0.196, -0.151]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.003  0.003  0.041
+[tf_monitor-26]  -0.003  1.000 -0.001  0.007
+[tf_monitor-26]  -0.003  0.001  1.000  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748180.002235987] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748180.009302000] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.699846s delay=0.556000s
+[rgbd_odometry-10] [WARN] [1768748180.733770059] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748180.734002861] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.707884s delay=0.586000s
+[tf_monitor-26] At time 36.994000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.002, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.001, 0.003, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.034, 0.196, -0.151]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.003  0.003  0.041
+[tf_monitor-26]  -0.003  1.000 -0.001  0.007
+[tf_monitor-26]  -0.003  0.001  1.000  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:04.186) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:05.654) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:07.020) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:08.184) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:09.666) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:11.066) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:12.638) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:14.059) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:15.479) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:16.894) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:18.293) MsgConversion.cpp:2010::getTransform() (getting transform base_link -> sar_drone/base_link/imu) "sar_drone/base_link/imu" passed to lookupTransform argument source_frame does not exist.  (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:19.072) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 37.000000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:19.773) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 37.100000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:20.480) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 37.200000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [WARN] [1768748181.410341830] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748181.410748204] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.657445s delay=0.585000s
+[tf_monitor-26] At time 36.994000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.002, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.001, 0.003, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.034, 0.196, -0.151]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.003  0.003  0.041
+[tf_monitor-26]  -0.003  1.000 -0.001  0.007
+[tf_monitor-26]  -0.003  0.001  1.000  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748182.124751093] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748182.125209087] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.692974s delay=0.563000s
+[rgbd_odometry-10] [WARN] [1768748182.843645512] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748182.843896658] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.695575s delay=0.540000s
+[tf_monitor-26] At time 36.994000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.002, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.001, 0.003, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.034, 0.196, -0.151]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.003  0.003  0.041
+[tf_monitor-26]  -0.003  1.000 -0.001  0.007
+[tf_monitor-26]  -0.003  0.001  1.000  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:19.103) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->355). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:19.161) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->356). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:19.184) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->357). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:19.245) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->358). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:19.292) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->359). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:19.326) OdometryF2M.cpp:622::computeTransform() Registration failed: "Missing correspondences for registration (-1->360). fromWords = 2000 fromImageEmpty=1 toWords = 0 toImageEmpty=0"[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:20.002) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 37.687000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:20.043) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:20.733) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 38.214000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:20.767) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:21.410) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 38.776000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:21.441) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:22.124) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 39.337000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:22.159) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:22.843) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 39.898000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:22.878) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [WARN] [1768748183.560444974] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748183.560673905] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.691564s delay=0.550000s
+[tf_monitor-26] At time 36.994000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [0.000, 0.002, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [0.001, 0.003, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [0.034, 0.196, -0.151]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   1.000  0.003  0.003  0.041
+[tf_monitor-26]  -0.003  1.000 -0.001  0.007
+[tf_monitor-26]  -0.003  0.001  1.000  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748184.277937757] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748184.278257589] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.692386s delay=0.546000s
+[topic_rate_monitor-7] [WARN] [1768748184.929374285] [health_monitor]: System health: 1 errors, 0 warnings
+[tf_monitor-26] At time 36.994000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.008]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.013, 0.020, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.026, 0.040, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [-1.502, 2.297, -0.151]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   0.999  0.002  0.040  0.041
+[tf_monitor-26]  -0.003  1.000  0.026  0.007
+[tf_monitor-26]  -0.040 -0.026  0.999  0.008
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748184.973108422] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748184.974500514] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.675488s delay=0.550000s
+[rgbd_odometry-10] [WARN] [1768748185.606747142] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748185.607085481] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.611859s delay=0.558000s
+[tf_monitor-26] At time 37.125000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.009]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.013, 0.020, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.026, 0.040, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [-1.510, 2.310, -0.153]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   0.999  0.002  0.040  0.041
+[tf_monitor-26]  -0.003  1.000  0.026  0.007
+[tf_monitor-26]  -0.040 -0.026  0.999  0.009
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748186.233359468] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748186.233893914] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.609657s delay=0.558000s
+[rgbd_odometry-10] [WARN] [1768748186.929531662] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748186.929750682] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.672888s delay=0.534000s
+[tf_monitor-26] At time 37.125000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.009]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.013, 0.020, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.026, 0.040, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [-1.510, 2.310, -0.153]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   0.999  0.002  0.040  0.041
+[tf_monitor-26]  -0.003  1.000  0.026  0.007
+[tf_monitor-26]  -0.040 -0.026  0.999  0.009
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748187.652672343] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748187.653108981] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.688383s delay=0.537000s
+[tf_monitor-26] At time 37.291000000
+[tf_monitor-26] - Translation: [0.041, 0.007, 0.009]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.013, 0.020, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.027, 0.041, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [-1.521, 2.327, -0.155]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   0.999  0.002  0.041  0.041
+[tf_monitor-26]  -0.003  1.000  0.026  0.007
+[tf_monitor-26]  -0.041 -0.027  0.999  0.009
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748188.396900630] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748188.397341918] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.707056s delay=0.579000s
+[tf_monitor-26] At time 37.422000000
+[tf_monitor-26] - Translation: [0.041, 0.008, 0.009]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.013, 0.020, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.027, 0.041, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [-1.529, 2.341, -0.156]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   0.999  0.002  0.041  0.041
+[tf_monitor-26]  -0.003  1.000  0.027  0.008
+[tf_monitor-26]  -0.041 -0.027  0.999  0.009
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748189.062429167] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748189.062786675] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.639276s delay=0.551000s
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:23.560) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 40.425000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:23.598) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:24.277) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 40.954000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:24.311) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 1 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:24.972) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 41.482000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:25.005) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:25.606) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 42.009000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:25.634) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:26.233) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 42.538000 but the latest data is at time 37.125000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:26.273) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:26.929) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 43.066000 but the latest data is at time 37.125000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:26.972) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:27.652) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 43.594000 but the latest data is at time 37.291000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:27.704) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:28.396) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 44.121000 but the latest data is at time 37.291000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:28.435) OdometryF2M.cpp:1407::computeTransform() 15 visual features required to initialize the odometry (only 0 extracted).[0m
+[rgbd_odometry-10] [33m[ WARN] (2026-01-18 20:26:29.062) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 44.683000 but the latest data is at time 37.422000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rgbd_odometry-10] [WARN] [1768748189.731968542] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748189.732239441] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.636564s delay=0.580000s
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:21.113) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 37.700000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:21.749) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 37.800000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:22.445) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 38.600000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:23.154) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 39.300000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:23.844) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 39.700000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:24.552) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 40.200000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:25.195) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 40.700000 but the latest data is at time 36.994000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:25.831) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 41.300000 but the latest data is at time 37.125000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:26.486) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 41.800000 but the latest data is at time 37.125000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:27.238) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 42.300000 but the latest data is at time 37.125000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:27.871) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 42.800000 but the latest data is at time 37.291000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:28.516) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 43.300000 but the latest data is at time 37.291000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[rtabmap-11] [33m[ WARN] (2026-01-18 20:26:29.148) MsgConversion.cpp:2010::getTransform() (getting transform odom -> base_link) Lookup would require extrapolation into the future.  Requested time 43.800000 but the latest data is at time 37.422000, when looking up transform from frame [base_link] to frame [odom] (wait_for_transform=0.500000)[0m
+[tf_monitor-26] At time 37.422000000
+[tf_monitor-26] - Translation: [0.041, 0.008, 0.009]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.013, 0.020, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.027, 0.041, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [-1.529, 2.341, -0.156]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   0.999  0.002  0.041  0.041
+[tf_monitor-26]  -0.003  1.000  0.027  0.008
+[tf_monitor-26]  -0.041 -0.027  0.999  0.009
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[topic_rate_monitor-7] [WARN] [1768748190.046427363] [health_monitor]: System health: 1 errors, 0 warnings
+[rgbd_odometry-10] [WARN] [1768748190.462363558] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748190.462688850] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.700070s delay=0.576000s
+[tf_monitor-26] At time 37.489000000
+[tf_monitor-26] - Translation: [0.041, 0.008, 0.009]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.013, 0.020, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.027, 0.041, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [-1.533, 2.347, -0.157]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   0.999  0.002  0.041  0.041
+[tf_monitor-26]  -0.003  1.000  0.027  0.008
+[tf_monitor-26]  -0.041 -0.027  0.999  0.009
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748191.257289037] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748191.257536120] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.754651s delay=0.567000s
+[rgbd_odometry-10] [WARN] [1768748191.947466831] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748191.947819701] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.668174s delay=0.537000s
+[tf_monitor-26] At time 37.489000000
+[tf_monitor-26] - Translation: [0.041, 0.008, 0.009]
+[tf_monitor-26] - Rotation: in Quaternion (xyzw) [-0.013, 0.020, -0.001, 1.000]
+[tf_monitor-26] - Rotation: in RPY (radian) [-0.027, 0.041, -0.003]
+[tf_monitor-26] - Rotation: in RPY (degree) [-1.533, 2.347, -0.157]
+[tf_monitor-26] - Matrix:
+[tf_monitor-26]   0.999  0.002  0.041  0.041
+[tf_monitor-26]  -0.003  1.000  0.027  0.008
+[tf_monitor-26]  -0.041 -0.027  0.999  0.009
+[tf_monitor-26]   0.000  0.000  0.000  1.000
+[rgbd_odometry-10] [WARN] [1768748192.666256289] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748192.666991988] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.689029s delay=0.558000s
+[tf_monitor-26] Failure at 1768748192.970
+[tf_monitor-26] Exception thrown:Lookup would require extrapolation into the past.  Requested time 37.555000 but the earliest data is at time 38.240000, when looking up transform from frame [base_link] to frame [map]
+[tf_monitor-26] The current list of frames is:
+[tf_monitor-26] Frame sar_drone/base_link/rgbd exists with parent camera_link.
+[tf_monitor-26] Frame camera_link exists with parent base_link.
+[tf_monitor-26] Frame sar_drone/base_link/rplidar exists with parent lidar_link.
+[tf_monitor-26] Frame lidar_link exists with parent base_link.
+[tf_monitor-26] Frame base_link exists with parent odom.
+[tf_monitor-26] Frame imu_link exists with parent base_link.
+[tf_monitor-26] Frame odom exists with parent map.
+[tf_monitor-26] 
+[rgbd_odometry-10] [WARN] [1768748193.306722588] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748193.307121167] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.612285s delay=0.550000s
+[rgbd_odometry-10] [WARN] [1768748193.967358569] [rgbd_odometry]: Odometry automatically reset to latest computed pose!
+[rgbd_odometry-10] [INFO] [1768748193.967846335] [rgbd_odometry]: Odom: quality=0, std dev=0.000000m|0.000000rad, update time=0.643440s delay=0.562000s
+[tf_monitor-26] Failure at 1768748193.970
+[tf_monitor-26] Exception thrown:Lookup would require extrapolation into the past.  Requested time 37.654000 but the earliest data is at time 39.100000, when looking up transform from frame [base_link] to frame [map]
+[tf_monitor-26] The current list of frames is:
+[tf_monitor-26] Frame sar_drone/base_link/rgbd exists with parent camera_link.
+[tf_monitor-26] Frame camera_link exists with parent base_link.
+[tf_monitor-26] Frame sar_drone/base_link/rplidar exists with parent lidar_link.
+[tf_monitor-26] Frame lidar_link exists with parent base_link.
+[tf_monitor-26] Frame base_link exists with parent odom.
+[tf_monitor-26] Frame imu_link exists with parent base_link.
+[tf_monitor-26] Frame odom exists with parent map.
+[tf_monitor-26] 
