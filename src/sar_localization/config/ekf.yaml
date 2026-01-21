@@ -1,14 +1,14 @@
 ekf_filter_node:
   ros__parameters:
-    frequency: 50.0
-    sensor_timeout: 0.2
+    frequency: 30.0  # Reduced from 50.0 for stability
+    sensor_timeout: 0.5  # Increased from 0.2 for more tolerance
     two_d_mode: false
 
     publish_tf: true
     publish_acceleration: true
 
     transform_time_offset: 0.0
-    transform_timeout: 0.2
+    transform_timeout: 0.5  # Increased from 0.2
     print_diagnostics: true
     debug: false
 
@@ -25,7 +25,7 @@ ekf_filter_node:
       false, false, false,    # x, y, z position (not from IMU)
       true,  true,  true,     # roll, pitch, yaw orientation
       false, false, false,    # x, y, z velocity (not from IMU)
-      true,  true,  true,     # roll, pitch, yaw velocity
+      false, false, false,    # roll, pitch, yaw velocity (changed: use IMU for orientation only)
       true,  true,  true      # x, y, z acceleration
     ]
     imu0_differential: false
@@ -41,7 +41,7 @@ ekf_filter_node:
       true,  true,  true,     # x, y, z position
       false, false, true,     # roll, pitch, yaw (use only yaw from visual odom)
       true,  true,  true,     # x, y, z velocity
-      false, false, false,    # roll, pitch, yaw velocity (use IMU instead)
+      false, false, true,     # roll, pitch, yaw velocity (use yaw velocity from visual odom)
       false, false, false     # x, y, z acceleration (use IMU instead)
     ]
     odom0_differential: false
@@ -52,43 +52,41 @@ ekf_filter_node:
     # Gazebo Ground Truth (SIMULATION ONLY)
     # Comment out for real hardware
     # =========================
-    odom1: /odom
-    odom1_config: [
-      true,  true,  true,     # x, y, z position (as backup/validation)
-      false, false, false,    # roll, pitch, yaw
-      false, false, false,    # velocities
-      false, false, false,    # angular velocities
-      false, false, false     # accelerations
-    ]
-    odom1_differential: false
-    odom1_relative: false
-    odom1_queue_size: 10
+    # odom1: /odom
+    # odom1_config: [
+    #   true,  true,  true,     # x, y, z position (as backup/validation)
+    #   false, false, false,    # roll, pitch, yaw
+    #   false, false, false,    # velocities
+    #   false, false, false,    # angular velocities
+    #   false, false, false     # accelerations
+    # ]
+    # odom1_differential: false
+    # odom1_relative: false
+    # odom1_queue_size: 10
 
     # =========================
-    # Process Noise Covariance
+    # Process Noise Covariance (from Isaac SLAM)
     # Tuned for drone dynamics (higher z, yaw noise)
-    # Order: x y z roll pitch yaw vx vy vz vroll vpitch vyaw ax ay az
+    # Order: x, y, z, roll, pitch, yaw, vx, vy, vz, vroll, vpitch, vyaw, ax, ay, az
     # =========================
     process_noise_covariance: [
-      0.05, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
-      0.0,  0.05, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
-      0.0,  0.0,  0.10, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
-      0.0,  0.0,  0.0,  0.02, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
-      0.0,  0.0,  0.0,  0.0,  0.02, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.08, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
-      
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.05, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.05, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.08, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
-      
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.02, 0.0,  0.0,  0.0,  0.0,  0.0,
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.02, 0.0,  0.0,  0.0,  0.0,
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.06, 0.0,  0.0,  0.0,
-      
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.02, 0.0,  0.0,
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.02, 0.0,
-      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.04
-    ]
+  0.05, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,   0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.05, 0.0,  0.0,  0.0,  0.0,  0.0,   0.0,   0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.06, 0.0,  0.0,  0.0,  0.0,   0.0,   0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.03, 0.0,  0.0,  0.0,   0.0,   0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.03, 0.0,  0.0,   0.0,   0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.06, 0.0,   0.0,   0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.025, 0.0,   0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.025, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,   0.04, 0.0,  0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,   0.0,  0.01, 0.0,  0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,   0.0,  0.0,  0.01, 0.0,  0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,   0.0,  0.0,  0.0,  0.02, 0.0,  0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,   0.0,  0.0,  0.0,  0.0,  0.01, 0.0,   0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,   0.0,  0.0,  0.0,  0.0,  0.0,  0.01,  0.0,
+  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.0,   0.0,  0.0,  0.0,  0.0,  0.0,  0.0,   0.015
+]
+
 
     # =========================
     # Initial State Covariance
@@ -111,3 +109,4 @@ ekf_filter_node:
       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.0,
       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1
     ]
+

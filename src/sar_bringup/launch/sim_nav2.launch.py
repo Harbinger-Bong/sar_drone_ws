@@ -151,14 +151,26 @@ def generate_launch_description():
         ]
     )
 
-    # 5. Nav2 Navigation Stack
+    # 5. Nav2 Navigation Stack (DELAYED + TF CHECK)
     nav2_navigation = TimerAction(
-        period=25.0,  # Wait for map and TF
+        period=35.0,  # ← INCREASED from 25s to 35s
         actions=[
             LogInfo(msg="="*60),
             LogInfo(msg="Starting Nav2 navigation stack..."),
-            LogInfo(msg="Loading planners and controllers"),
+            LogInfo(msg="Waiting for stable TF tree..."),
             LogInfo(msg="="*60),
+            # Add TF check before launching Nav2
+            ExecuteProcess(
+                cmd=[
+                    'bash', '-c',
+                    'timeout 5 ros2 run tf2_ros tf2_echo map base_link > /dev/null 2>&1 && '
+                    'echo "[TF CHECK] ✓ map→base_link transform available" || '
+                    'echo "[TF CHECK] ✗ WARNING: map→base_link not available - Nav2 may fail!"'
+                ],
+                name='nav2_tf_check',
+                output='screen',
+                shell=True
+            ),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
                     os.path.join(
@@ -172,6 +184,24 @@ def generate_launch_description():
                     'params_file': nav2_params,
                     'autostart': 'true'
                 }.items()
+            )
+        ]
+    )
+
+    # Nav2 lifecycle state check
+    nav2_watchdog = TimerAction(
+        period=40.0,
+        actions=[
+            ExecuteProcess(
+                cmd=[
+                    'bash', '-c',
+                    'ros2 lifecycle get /controller_server 2>/dev/null | grep -q "active" && '
+                    'echo "[WATCHDOG] ✓ Nav2 controller is ACTIVE" || '
+                    'echo "[WATCHDOG] ✗ WARNING: Nav2 controller not active - check TF tree!"'
+                ],
+                name='nav2_lifecycle_check',
+                output='screen',
+                shell=True
             )
         ]
     )
@@ -215,7 +245,7 @@ def generate_launch_description():
 
     # Final status check
     system_ready = TimerAction(
-        period=35.0,
+        period=45.0,  # ← INCREASED from 35s to 45s (after Nav2 watchdog)
         actions=[
             LogInfo(msg="="*60),
             LogInfo(msg="SAR DRONE SIMULATION READY"),
@@ -231,6 +261,7 @@ def generate_launch_description():
             LogInfo(msg="  - Topics: ros2 topic list"),
             LogInfo(msg="  - Nodes: ros2 node list"),
             LogInfo(msg="  - TF: ros2 run tf2_tools view_frames"),
+            LogInfo(msg="  - Nav2 State: ros2 lifecycle get /controller_server"),
             LogInfo(msg=""),
             LogInfo(msg="="*60),
             # Run comprehensive health check
@@ -243,7 +274,9 @@ def generate_launch_description():
                     'echo "IMU: $(ros2 topic hz /sar_drone/imu/data --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
                     'echo "RTAB-Map: $(ros2 topic list | grep -q "/rtabmap/odom" && echo "✓" || echo "✗")" && '
                     'echo "EKF: $(ros2 topic list | grep -q "/odometry/filtered" && echo "✓" || echo "✗")" && '
-                    'echo "Nav2: $(ros2 node list | grep -q "controller_server" && echo "✓" || echo "✗")"'
+                    'echo "Nav2: $(ros2 lifecycle get /controller_server 2>/dev/null | grep -q "active" && echo "✓ ACTIVE" || echo "✗ NOT ACTIVE")" && '
+                    'echo "TF map→odom: $(timeout 2 ros2 run tf2_ros tf2_echo map odom 2>&1 | grep -q "Translation" && echo "✓" || echo "✗")" && '
+                    'echo "TF odom→base_link: $(timeout 2 ros2 run tf2_ros tf2_echo odom base_link 2>&1 | grep -q "Translation" && echo "✓" || echo "✗")"'
                 ],
                 output='screen',
                 shell=True
@@ -271,8 +304,9 @@ def generate_launch_description():
         ekf,
         ekf_watchdog,
         
-        # Navigation
+        # Navigation (DELAYED)
         nav2_navigation,
+        nav2_watchdog,  # ← NEW: Check Nav2 lifecycle state
         
         # Visualization
         rviz,

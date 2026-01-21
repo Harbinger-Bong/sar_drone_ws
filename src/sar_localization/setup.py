@@ -26,6 +26,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+        'map_odom = sar_localization.map_odom_tf:main',
         ],
     },
 )

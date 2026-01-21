@@ -18,8 +18,8 @@ rtabmap:
     # Topic Subscriptions
     # =========================
     subscribe_rgbd: true
-    subscribe_rgb: true
-    subscribe_depth: true
+    subscribe_rgb: false
+    subscribe_depth: false
     subscribe_scan: true
     subscribe_imu: true
 
@@ -32,7 +32,7 @@ rtabmap:
     # =========================
     # Publishing
     # =========================
-    publish_tf: true
+    publish_tf: false
     use_sim_time: true
 
     # =========================

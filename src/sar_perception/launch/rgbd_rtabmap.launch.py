@@ -20,12 +20,22 @@ def generate_launch_description():
             default_value='true'
         ),
 
-        # Static transform bridge for Gazebo frame naming
+        # Static transform bridge for Gazebo camera frame naming
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',
             name='camera_frame_fix',
             arguments=['0', '0', '0', '0', '0', '0', 'camera_link', 'sar_drone/base_link/rgbd'],
+            parameters=[{'use_sim_time': use_sim_time}],
+            output='screen'
+        ),
+
+        # Static transform bridge for Gazebo LiDAR frame naming
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='lidar_frame_fix',
+            arguments=['0', '0', '0', '0', '0', '0', 'lidar_link', 'sar_drone/base_link/rplidar'],
             parameters=[{'use_sim_time': use_sim_time}],
             output='screen'
         ),
@@ -59,7 +69,7 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time,
                 'frame_id': 'base_link',
                 'odom_frame_id': 'odom',
-                'publish_tf': True,
+                'publish_tf': False,  # ← FALSE: Let EKF publish odom→base_link
                 'wait_for_transform': 0.5,
                 'approx_sync': True,
                 'queue_size': 30,
@@ -92,14 +102,14 @@ def generate_launch_description():
                     'use_sim_time': use_sim_time,
                     'frame_id': 'base_link',
                     'odom_frame_id': 'odom',
-                    'map_frame_id': 'map',
+                    'map_frame_id': 'map',  # ← EXPLICIT MAP FRAME
+                    'publish_tf': True,     # ← TRUE: Publish map→odom transform
+                    'wait_for_transform': 0.5,
                     'subscribe_rgbd': True,
                     'rgbd_cameras': 1,
                     'subscribe_scan': True,
-                    'subscribe_odom_info': False,
                     'approx_sync': True,
                     'queue_size': 30,
-                    'wait_for_transform': 0.5,
                     'Rtabmap/DetectionRate': '1.0',
                     'RGBD/NeighborLinkRefining': 'true',
                     'RGBD/ProximityBySpace': 'true',
@@ -115,25 +125,5 @@ def generate_launch_description():
             arguments=['--delete_db_on_start'],
             output='screen'
         ),
-
-
-	# Static transform bridge for Gazebo camera frame naming
-	Node(
-	    package='tf2_ros',
-	    executable='static_transform_publisher',
-	    name='camera_frame_fix',
-	    arguments=['0', '0', '0', '0', '0', '0', 'camera_link', 'sar_drone/base_link/rgbd'],
-	    parameters=[{'use_sim_time': use_sim_time}],
-	    output='screen'
-	),
-
-	# Static transform bridge for Gazebo LiDAR frame naming
-	Node(
-	    package='tf2_ros',
-	    executable='static_transform_publisher',
-	    name='lidar_frame_fix',
-	    arguments=['0', '0', '0', '0', '0', '0', 'lidar_link', 'sar_drone/base_link/rplidar'],
-	    parameters=[{'use_sim_time': use_sim_time}],
-	    output='screen'
-	),
     ])
+

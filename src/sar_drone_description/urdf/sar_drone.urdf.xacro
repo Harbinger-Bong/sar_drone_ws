@@ -90,14 +90,69 @@
     </sensor>
   </gazebo>
 
-  <!-- IMU -->
-  <gazebo reference="imu_link">
-    <sensor name="imu" type="imu">
-      <frame>imu_link</frame>
-      <topic>/imu/data</topic>
-      <update_rate>100</update_rate>
-    </sensor>
-  </gazebo>
+	<!-- IMU -->
+	<gazebo reference="imu_link">
+	  <sensor name="imu" type="imu">
+	    <frame>imu_link</frame>
+	    <topic>/imu/data</topic>
+	    <update_rate>100</update_rate>
+	    <imu>
+	      <angular_velocity>
+		<x>
+		  <noise type="gaussian">
+		    <mean>0.0</mean>
+		    <stddev>0.0002</stddev>
+		    <bias_mean>0.0</bias_mean>
+		    <bias_stddev>0.0001</bias_stddev>
+		  </noise>
+		</x>
+		<y>
+		  <noise type="gaussian">
+		    <mean>0.0</mean>
+		    <stddev>0.0002</stddev>
+		    <bias_mean>0.0</bias_mean>
+		    <bias_stddev>0.0001</bias_stddev>
+		  </noise>
+		</y>
+		<z>
+		  <noise type="gaussian">
+		    <mean>0.0</mean>
+		    <stddev>0.0002</stddev>
+		    <bias_mean>0.0</bias_mean>
+		    <bias_stddev>0.0001</bias_stddev>
+		  </noise>
+		</z>
+	      </angular_velocity>
+	      <linear_acceleration>
+		<x>
+		  <noise type="gaussian">
+		    <mean>0.0</mean>
+		    <stddev>0.017</stddev>
+		    <bias_mean>0.0</bias_mean>
+		    <bias_stddev>0.008</bias_stddev>
+		  </noise>
+		</x>
+		<y>
+		  <noise type="gaussian">
+		    <mean>0.0</mean>
+		    <stddev>0.017</stddev>
+		    <bias_mean>0.0</bias_mean>
+		    <bias_stddev>0.008</bias_stddev>
+		  </noise>
+		</y>
+		<z>
+		  <noise type="gaussian">
+		    <mean>0.0</mean>
+		    <stddev>0.017</stddev>
+		    <bias_mean>0.0</bias_mean>
+		    <bias_stddev>0.008</bias_stddev>
+		  </noise>
+		</z>
+	      </linear_acceleration>
+	    </imu>
+	  </sensor>
+	</gazebo>
+
 
 
   <!-- ================= SIMPLE VELOCITY CONTROLLER ================= -->

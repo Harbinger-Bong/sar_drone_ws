@@ -5,9 +5,6 @@ Converts /cmd_vel to appropriate drone commands for simulation or real hardware
 """
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import Twist, TransformStamped
-from nav_msgs.msg import Odometry
-from tf2_ros import TransformBroadcaster
 import math
 import subprocess
 import threading
@@ -147,7 +144,7 @@ class DroneVelocityController(Node):
             except Exception as e:
                 self.get_logger().error(f'Failed to set Gazebo pose: {e}', throttle_duration_sec=5.0)
     
-    def publish_transforms(self):
+    '''def publish_transforms(self):
         """Publish TF transforms for RViz visualization"""
         t = TransformStamped()
         t.header.stamp = self.get_clock().now().to_msg()
@@ -162,8 +159,6 @@ class DroneVelocityController(Node):
         t.transform.rotation.y = 0.0
         t.transform.rotation.z = math.sin(self.yaw / 2.0)
         t.transform.rotation.w = math.cos(self.yaw / 2.0)
-        
-        self.tf_broadcaster.sendTransform(t)
     
     def publish_odom(self):
         """Publish odometry for debugging"""
@@ -180,9 +175,7 @@ class DroneVelocityController(Node):
         odom.pose.pose.orientation.z = math.sin(self.yaw / 2.0)
         odom.pose.pose.orientation.w = math.cos(self.yaw / 2.0)
         
-        odom.twist.twist = self.current_cmd_vel
-        
-        self.odom_pub.publish(odom)
+        odom.twist.twist = self.current_cmd_vel'''
 
 def main(args=None):
     rclpy.init(args=args)
