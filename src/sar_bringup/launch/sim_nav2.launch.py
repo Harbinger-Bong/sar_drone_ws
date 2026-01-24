@@ -31,6 +31,18 @@ def generate_launch_description():
         description='Use simulation time'
     )
 
+    # ⭐ FIX: Explicitly declare the correct behavior tree file
+    default_bt_xml_filename = LaunchConfiguration('default_bt_xml_filename')
+    declare_bt_xml = DeclareLaunchArgument(
+        'default_bt_xml_filename',
+        default_value=os.path.join(
+            get_package_share_directory('nav2_bt_navigator'),
+            'behavior_trees',
+            'navigate_w_replanning_and_recovery.xml'
+        ),
+        description='Full path to the behavior tree xml file to use'
+    )
+
     # Startup logging
     startup_log = TimerAction(
         period=1.0,
@@ -182,7 +194,9 @@ def generate_launch_description():
                 launch_arguments={
                     'use_sim_time': use_sim_time,
                     'params_file': nav2_params,
-                    'autostart': 'true'
+                    'autostart': 'true',
+                    # ⭐ FIX: Explicitly override the behavior tree file
+                    'default_bt_xml_filename': default_bt_xml_filename
                 }.items()
             )
         ]
@@ -289,6 +303,7 @@ def generate_launch_description():
     return LaunchDescription([
         # Arguments
         declare_use_sim_time,
+        declare_bt_xml,  # ⭐ NEW: Declare BT XML argument
         
         # Startup
         startup_log,

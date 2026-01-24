@@ -1,7 +1,7 @@
 ekf_filter_node:
   ros__parameters:
     frequency: 30.0  # Reduced from 50.0 for stability
-    sensor_timeout: 0.5  # Increased from 0.2 for more tolerance
+    sensor_timeout: 0.1  # Increased from 0.2 for more tolerance
     two_d_mode: false
 
     publish_tf: true
@@ -52,17 +52,17 @@ ekf_filter_node:
     # Gazebo Ground Truth (SIMULATION ONLY)
     # Comment out for real hardware
     # =========================
-    # odom1: /odom
-    # odom1_config: [
-    #   true,  true,  true,     # x, y, z position (as backup/validation)
-    #   false, false, false,    # roll, pitch, yaw
-    #   false, false, false,    # velocities
-    #   false, false, false,    # angular velocities
-    #   false, false, false     # accelerations
-    # ]
-    # odom1_differential: false
-    # odom1_relative: false
-    # odom1_queue_size: 10
+    odom1: /odom
+    odom1_config: [
+       true,  true,  true,     # x, y, z position (as backup/validation)
+       false, false, false,    # roll, pitch, yaw
+       true,  true,  false,    # velocities
+       false, false, true,     # angular velocities
+       false, false, false     # accelerations
+     ]
+    odom1_differential: false
+    odom1_relative: false
+    odom1_queue_size: 10
 
     # =========================
     # Process Noise Covariance (from Isaac SLAM)
