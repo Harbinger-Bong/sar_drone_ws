@@ -43,7 +43,7 @@
 # Depth Point Cloud (Intel RealSense D435i)
 # For 3D obstacle detection in Nav2 costmaps
 # =========================
-- ros_topic_name: /camera/depth/points
+- ros_topic_name: /camera/depth_points
   gz_topic_name: /camera/points
   ros_type_name: sensor_msgs/msg/PointCloud2
   gz_type_name: gz.msgs.PointCloudPacked
