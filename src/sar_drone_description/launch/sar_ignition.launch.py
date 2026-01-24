@@ -11,6 +11,7 @@ from launch.substitutions import (
     Command
 )
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue  # ← ADD THIS IMPORT
 
 
 def generate_launch_description():
@@ -73,16 +74,17 @@ def generate_launch_description():
     # -----------------------------
     # Robot State Publisher
     # -----------------------------
+    # ← FIX: Wrap robot_description in ParameterValue
+    robot_description_content = Command(['xacro ', urdf_file])
+    robot_description = ParameterValue(robot_description_content, value_type=str)
+    
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         name='robot_state_publisher',
         parameters=[{
             'use_sim_time': use_sim_time,
-            'robot_description': Command([
-                'xacro ',
-                urdf_file
-            ])
+            'robot_description': robot_description  # ← NOW USES WRAPPED VERSION
         }],
         output='screen'
     )
@@ -144,12 +146,12 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        declare_use_sim_time,  # ← FIX 1: Declare it
+        declare_use_sim_time,
         world_arg,
         gz_sim,
         robot_state_publisher,
         spawn_entity,
-        bridge,                # ← FIX 2: Use correct name
+        bridge,
         image_bridge_rgb,
         image_bridge_depth
     ])

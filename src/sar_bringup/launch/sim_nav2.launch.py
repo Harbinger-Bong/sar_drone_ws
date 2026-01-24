@@ -110,13 +110,13 @@ def generate_launch_description():
         ]
     )
 
-    # 4. EKF Localization (single source of TF)
+    # 5. EKF Localization (single source of TF)
     ekf = TimerAction(
         period=18.0,  # Wait for RTAB-Map odometry
         actions=[
             LogInfo(msg="="*60),
             LogInfo(msg="Starting EKF localization filter..."),
-            LogInfo(msg="Fusing RTAB-Map odom + IMU data"),
+            LogInfo(msg="Fusing RTAB-Map odom + IMU data (with covariances)"),
             LogInfo(msg="="*60),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
@@ -151,7 +151,7 @@ def generate_launch_description():
         ]
     )
 
-    # 5. Nav2 Navigation Stack (DELAYED + TF CHECK)
+    # 6. Nav2 Navigation Stack (DELAYED + TF CHECK)
     nav2_navigation = TimerAction(
         period=35.0,  # ← INCREASED from 25s to 35s
         actions=[
@@ -206,7 +206,7 @@ def generate_launch_description():
         ]
     )
 
-    # 6. RViz with custom config
+    # 7. RViz with custom config
     rviz_config = os.path.join(
         sar_drone_pkg,
         'rviz',
@@ -230,7 +230,7 @@ def generate_launch_description():
         ]
     )
 
-    # 7. TF Monitor (checks TF tree health)
+    # 8. TF Monitor (checks TF tree health)
     tf_monitor = TimerAction(
         period=32.0,
         actions=[
@@ -262,6 +262,7 @@ def generate_launch_description():
             LogInfo(msg="  - Nodes: ros2 node list"),
             LogInfo(msg="  - TF: ros2 run tf2_tools view_frames"),
             LogInfo(msg="  - Nav2 State: ros2 lifecycle get /controller_server"),
+            LogInfo(msg="  - EKF Rate: ros2 topic hz /odometry/filtered"),
             LogInfo(msg=""),
             LogInfo(msg="="*60),
             # Run comprehensive health check
@@ -269,9 +270,10 @@ def generate_launch_description():
                 cmd=[
                     'bash', '-c',
                     'echo "\n[HEALTH CHECK]" && '
-                    'echo "Camera: $(ros2 topic hz /sar_drone/camera/image_raw --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
-                    'echo "LiDAR: $(ros2 topic hz /sar_drone/scan --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
-                    'echo "IMU: $(ros2 topic hz /sar_drone/imu/data --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
+                    'echo "Camera: $(ros2 topic hz /camera/image_raw --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
+                    'echo "LiDAR: $(ros2 topic hz /scan --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
+                    'echo "IMU: $(ros2 topic hz /imu/data --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
+                    'echo "IMU Corrected: $(ros2 topic hz /imu/data_corrected --window 10 2>&1 | grep -q "average rate" && echo "✓" || echo "✗")" && '
                     'echo "RTAB-Map: $(ros2 topic list | grep -q "/rtabmap/odom" && echo "✓" || echo "✗")" && '
                     'echo "EKF: $(ros2 topic list | grep -q "/odometry/filtered" && echo "✓" || echo "✗")" && '
                     'echo "Nav2: $(ros2 lifecycle get /controller_server 2>/dev/null | grep -q "active" && echo "✓ ACTIVE" || echo "✗ NOT ACTIVE")" && '
@@ -306,7 +308,7 @@ def generate_launch_description():
         
         # Navigation (DELAYED)
         nav2_navigation,
-        nav2_watchdog,  # ← NEW: Check Nav2 lifecycle state
+        nav2_watchdog,
         
         # Visualization
         rviz,
